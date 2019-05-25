@@ -11,13 +11,17 @@ public:
 	EDAMerkleBlock(list<Transaction> transactions, list<vector<unsigned long>> paths) {
 		this->transactions = transactions;
 		this->paths = paths;
-		this->cantTransactions = cantTransactions;
+		this->cantTransactions = transactions.size();
+		
 	}
+	list<Transaction> getTransactions() { return transactions; }
+	list<vector<unsigned long>> getPaths() { return paths; }
+
 
 private:
 	unsigned long int cantTransactions;
 	list<unsigned long> transactionIds;
 	list<Transaction> transactions;
 	list<vector<unsigned long>> paths;
-	unsigned long id;
+	//unsigned long id;
 };

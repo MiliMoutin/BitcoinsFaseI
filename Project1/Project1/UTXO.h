@@ -2,10 +2,8 @@
 
 class UTXO {
 public:	
-	UTXO(string publicId, unsigned long amount);
-	string getPublicId() { return this->publicId; }
+	UTXO(unsigned long amount) { this->amount = amount; }
 	unsigned long amount() { return this->amount; }
 private:
-	string publicId;
 	unsigned long amount;
 };

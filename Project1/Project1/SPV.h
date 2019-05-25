@@ -21,4 +21,8 @@ private:
 	list <MerkleRoot*> mtlist;
 	list <UTXO> UTXOs;
 	string id;
+
+	bool validNotification(HeaderBlock hd, EDAMerkleBlock md);
+	bool wrapper(MerkleRoot* mr, Transaction t, vector<unsigned long> p);
+	bool validNotificationRec(MerkleBlock* mb, Transaction t, vector<unsigned long> p, int pos);
 };

@@ -6,6 +6,7 @@ class Transaction {
 public:
 	Transaction();
 	string idReceiver() { return output.getIdReceiver(); }
+	unsigned long amountOutput() { return output.getAmount(); }
 
 private:
 	string id;
