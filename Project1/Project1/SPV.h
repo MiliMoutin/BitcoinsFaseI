@@ -1,7 +1,7 @@
 #pragma once
 #include "Node.h"
-#include "MerkleRoot.h"
-#include "EDAMerkleTree.h"
+#include "HeaderBlock.h"
+#include "MerkleBlock.h"
 #include "UTXO.h"
 
 
@@ -13,7 +13,7 @@ public:
 	virtual void getFilter();
 
 private:
-	list <MerkleRoot> headers;
-	list <EDAMerkleTree> mtlist;
+	list <HeaderBlock> headers;
+	list <MerkleBlock> mtlist;
 	list <UTXO> UTXOs;
 };

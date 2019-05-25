@@ -12,6 +12,7 @@ public:
 	}
 
 private:
+	string id;
 	vector<Output> outputs;
 	vector<Input> inputs;
 };
