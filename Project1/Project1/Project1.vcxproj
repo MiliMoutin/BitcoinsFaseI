@@ -117,6 +117,7 @@
   <ItemGroup>
     <ClInclude Include="Full.h" />
     <ClInclude Include="Block.h" />
+    <ClInclude Include="GenerateID.h" />
     <ClInclude Include="HeaderBlock.h" />
     <ClInclude Include="MerkleBlock.h" />
     <ClInclude Include="MerkleRoot.h" />

@@ -6,4 +6,7 @@ public:
 
 private:
 	unsigned long id;
+	unsigned long idUTXO;
+	unsigned long publicID;
+	unsigned long amount;
 };

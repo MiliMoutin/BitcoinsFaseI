@@ -1,4 +1,5 @@
 #pragma once
+#include "GenerateID.h"
 #include "MerkleRoot.h"
 #include "Transaction.h"
 #include "HeaderBlock.h"
