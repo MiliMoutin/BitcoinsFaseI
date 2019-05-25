@@ -1,12 +1,17 @@
 #pragma once
-
+#include "Input.h"
+#include "Output.h"
 class Transaction {
 public:
-	Transaction(unsigned long idBlock, unsigned long idUTXO, unsigned long publicID, unsigned long amount);
+	Transaction();
+	void pushImput(Input i) {
+		this->inputs.push_back(i);
+	}
+	void pushOutput(Output o) {
+		this->outputs.push_back(o);
+	}
 
 private:
-	unsigned long id;
-	unsigned long idUTXO;
-	unsigned long publicID;
-	unsigned long amount;
+	vector<Output> outputs;
+	vector<Input> inputs;
 };

@@ -119,9 +119,11 @@
     <ClInclude Include="Block.h" />
     <ClInclude Include="GenerateID.h" />
     <ClInclude Include="HeaderBlock.h" />
+    <ClInclude Include="Input.h" />
     <ClInclude Include="MerkleBlock.h" />
     <ClInclude Include="MerkleRoot.h" />
     <ClInclude Include="Node.h" />
+    <ClInclude Include="Output.h" />
     <ClInclude Include="SPV.h" />
     <ClInclude Include="Transaction.h" />
     <ClInclude Include="UTXO.h" />
