@@ -1,5 +1,6 @@
 #include "SPV.h"
 
+
 void SPV::attach(Node* n) {
 	this->neighbours.push_back(n);
 }
@@ -11,7 +12,7 @@ void SPV::notify(HeaderBlock h, EDAMerkleBlock md) {
 		this->headers.push_back(h);
 		//guardo las UTXOs 
 		for (Transaction t : md.getTransactions()) {
-			UTXO to_push(t.amountOutput());
+			UTXO to_push(t.amountOutput(), t.getUTXOId());
 			this->UTXOs.push_back(to_push);
 		}
 	}

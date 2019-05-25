@@ -135,7 +135,9 @@
     <ClCompile Include="Allegro.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Full.cpp" />
+    <ClCompile Include="Output.cpp" />
     <ClCompile Include="SPV.cpp" />
+    <ClCompile Include="Transaction.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
