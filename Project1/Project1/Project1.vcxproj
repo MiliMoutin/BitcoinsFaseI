@@ -115,6 +115,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Full.h" />
+    <ClInclude Include="Block.h" />
+    <ClInclude Include="HeaderBlock.h" />
+    <ClInclude Include="MerkleBlock.h" />
+    <ClInclude Include="MerkleRoot.h" />
+    <ClInclude Include="Node.h" />
+    <ClInclude Include="SPV.h" />
+    <ClInclude Include="Transaction.h" />
+    <ClInclude Include="UTXO.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
