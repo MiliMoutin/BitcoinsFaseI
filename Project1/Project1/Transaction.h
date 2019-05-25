@@ -5,15 +5,10 @@
 class Transaction {
 public:
 	Transaction();
-	void pushImput(Input i) {
-		this->inputs.push_back(i);
-	}
-	void pushOutput(Output o) {
-		this->outputs.push_back(o);
-	}
+	string idReceiver() { return output.getIdReceiver(); }
 
 private:
 	string id;
-	vector<Output> outputs;
-	vector<Input> inputs;
+	Output output;
+	Input input;
 };

@@ -115,6 +115,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="EDAMerkleBlock.h" />
     <ClInclude Include="Full.h" />
     <ClInclude Include="Block.h" />
     <ClInclude Include="GenerateID.h" />
@@ -122,6 +123,7 @@
     <ClInclude Include="Input.h" />
     <ClInclude Include="MerkleBlock.h" />
     <ClInclude Include="MerkleRoot.h" />
+    <ClInclude Include="MerkleStructure.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="Output.h" />
     <ClInclude Include="SPV.h" />
@@ -130,6 +132,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Full.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
