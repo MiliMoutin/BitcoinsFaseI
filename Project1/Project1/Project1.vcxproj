@@ -115,6 +115,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Allegro.h" />
     <ClInclude Include="EDAMerkleBlock.h" />
     <ClInclude Include="Full.h" />
     <ClInclude Include="Block.h" />
@@ -131,6 +132,7 @@
     <ClInclude Include="UTXO.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Allegro.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Full.cpp" />
   </ItemGroup>

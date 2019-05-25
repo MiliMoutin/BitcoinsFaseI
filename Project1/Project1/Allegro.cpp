@@ -1,7 +1,7 @@
 #include <iostream>
 #include<list>
 #include "Block.h"
-#include "Alllegro.h"
+#include "Allegro.h"
 
 using namespace std;
 
