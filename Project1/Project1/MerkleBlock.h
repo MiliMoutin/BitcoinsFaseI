@@ -2,15 +2,15 @@
 #include "Transaction.h"
 #include <vector>
 
-class MerkleBlock :public MerkleStructure {
+class MerkleBlock {
 public:
-	MerkleBlock(unsigned long id, Transaction t) { blockId = id; this->t = t; }
-	MerkleBlock(unsigned long id) { blockId = id; this->lastBlock = false; }
+	MerkleBlock(unsigned long id, Transaction t);
+	MerkleBlock(unsigned long id);
 	bool isLastBlock() { return lastBlock; }
-	bool setLeft(MerkleBlock* l) { this->left = left; }
+	bool setLeft(MerkleBlock* l) { return this->left = left; }
 	Transaction getTransaction() { if (lastBlock) { return this->t; } }
-	bool setRight(MerkleBlock* r) { this->right = right; }
-	unsigned long getBlockId() { this->blockId; }
+	bool setRight(MerkleBlock* r) { return this->right = right; }
+	unsigned long getBlockId() { return this->blockId; }
 	MerkleBlock* getLeft() { return this->left; }
 	MerkleBlock* getRight() { return this->right; }
 

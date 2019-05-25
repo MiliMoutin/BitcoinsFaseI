@@ -54,7 +54,7 @@ void Full::getTreeInfoRec(MerkleBlock* mb, string id, vector<unsigned long> path
 	path.push_back(mb->getBlockId());
 	MerkleBlock* l = mb->getLeft();
 	MerkleBlock* r = mb->getRight();
-	if (mb->isLastBlock() && mb->getTransaction().idReceiver==id) {
+	if (mb->isLastBlock() && mb->getTransaction().idReceiver()==id) {
 		//pusheo path a la lista de paths
 		paths->push_back(path);
 		transactions->push_back(mb->getTransaction());

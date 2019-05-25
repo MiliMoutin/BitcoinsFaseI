@@ -1,7 +1,6 @@
 #pragma once
 #include "Node.h"
 #include "EDAMerkleBlock.h"
-#include "MerkleStructure.h"
 #include "HeaderBlock.h"
 #include "MerkleBlock.h"
 #include "UTXO.h"
