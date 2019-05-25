@@ -11,7 +11,6 @@ public:
 	virtual bool attach(Node n);
 	virtual string getType();
 	virtual string getId();
-	virtual void getFilter();
 
 protected:
 	string type;

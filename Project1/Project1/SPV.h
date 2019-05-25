@@ -10,10 +10,11 @@ public:
 	virtual void attach();
 	virtual string getType();
 	virtual string getId();
-	virtual void getFilter();
+
 
 private:
 	list <HeaderBlock> headers;
 	list <MerkleBlock> mtlist;
 	list <UTXO> UTXOs;
+
 };
