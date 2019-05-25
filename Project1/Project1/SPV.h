@@ -9,9 +9,10 @@
 
 class SPV:	public Node {
 public:
-	virtual void attach();
-	virtual string getType();
-	virtual string getId();
+	SPV(string id) { this->id = id; }
+	virtual void attach(Node* n);
+	virtual string getType() { return "SPV"; }
+	virtual string getId() { return id; }
 	void notify(HeaderBlock hd, EDAMerkleBlock mb);
 
 private:
@@ -19,5 +20,5 @@ private:
 	list <HeaderBlock> headers;
 	list <MerkleRoot*> mtlist;
 	list <UTXO> UTXOs;
-
+	string id;
 };

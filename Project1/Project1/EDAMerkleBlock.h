@@ -8,7 +8,11 @@ using namespace std;
 
 class EDAMerkleBlock {
 public:
-	EDAMerkleBlock(list<Transaction> transactions, list<vector<unsigned long>> paths);
+	EDAMerkleBlock(list<Transaction> transactions, list<vector<unsigned long>> paths) {
+		this->transactions = transactions;
+		this->paths = paths;
+		this->cantTransactions = cantTransactions;
+	}
 
 private:
 	unsigned long int cantTransactions;
