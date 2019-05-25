@@ -1,5 +1,7 @@
 #pragma once
 #include "Node.h"
+#include "EDAMerkleBlock.h"
+#include "MerkleStructure.h"
 #include "HeaderBlock.h"
 #include "MerkleBlock.h"
 #include "UTXO.h"
@@ -10,10 +12,12 @@ public:
 	virtual void attach();
 	virtual string getType();
 	virtual string getId();
-	virtual void getFilter();
+	void notify(HeaderBlock hd, EDAMerkleBlock mb);
 
 private:
+	list <Node*> neighbours;
 	list <HeaderBlock> headers;
-	list <MerkleBlock> mtlist;
+	list <MerkleRoot*> mtlist;
 	list <UTXO> UTXOs;
+
 };
