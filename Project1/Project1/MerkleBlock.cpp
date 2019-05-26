@@ -1,12 +1,6 @@
-#include "MerkleBlock.h"
+#include "MerkleNode.h"
 
 
-MerkleBlock::MerkleBlock(unsigned long id, Transaction t):t() { 
-	this->blockId = id; 
-	this->t = t; 
-}
-
-
-MerkleBlock::MerkleBlock(unsigned long id):t() { 
+MerkleNode::MerkleNode(unsigned long id){ 
 	blockId = id; 
-	this->lastBlock = false; }
+ }

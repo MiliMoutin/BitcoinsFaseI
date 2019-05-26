@@ -8,6 +8,7 @@ public:
 	bool setFirstChildren(MerkleBlock* l, MerkleBlock* r) {
 		this->left = l; this->right = r;
 	}
+	MerkleRoot(){}
 	MerkleBlock* getLeft() { return this->left; }
 	MerkleBlock* getRight() { return this->right; }
 

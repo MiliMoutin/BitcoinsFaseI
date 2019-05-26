@@ -2,7 +2,7 @@
 #include "Node.h"
 #include "EDAMerkleBlock.h"
 #include "HeaderBlock.h"
-#include "MerkleBlock.h"
+#include "MerkleNode.h"
 #include "UTXO.h"
 
 
@@ -22,6 +22,6 @@ private:
 	string id;
 
 	bool validNotification(HeaderBlock hd, EDAMerkleBlock md);
-	bool wrapper(MerkleRoot* mr, Transaction t, vector<unsigned long> p);
-	bool validNotificationRec(MerkleBlock* mb, Transaction t, vector<unsigned long> p, int pos);
+	bool wrapper(MerkleRoot* mr, Transaction t, vector<unsigned long> p, EDAMerkleBlock emb);
+	bool validNotificationRec(MerkleNode* mb, Transaction t, vector<unsigned long> p, int pos, EDAMerkleBlock emb);
 };

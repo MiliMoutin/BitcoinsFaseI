@@ -22,6 +22,12 @@
     <ClCompile Include="MerkleBlock.cpp">
       <Filter>.cpps</Filter>
     </ClCompile>
+    <ClCompile Include="Block.cpp">
+      <Filter>.cpps</Filter>
+    </ClCompile>
+    <ClCompile Include="EDAMerkleNode.cpp">
+      <Filter>.cpps</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Allegro.h">
@@ -45,9 +51,6 @@
     <ClInclude Include="Input.h">
       <Filter>.h</Filter>
     </ClInclude>
-    <ClInclude Include="MerkleBlock.h">
-      <Filter>.h</Filter>
-    </ClInclude>
     <ClInclude Include="MerkleRoot.h">
       <Filter>.h</Filter>
     </ClInclude>
@@ -64,6 +67,9 @@
       <Filter>.h</Filter>
     </ClInclude>
     <ClInclude Include="UTXO.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="MerkleNode.h">
       <Filter>.h</Filter>
     </ClInclude>
   </ItemGroup>

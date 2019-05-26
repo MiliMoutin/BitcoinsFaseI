@@ -43,25 +43,29 @@ EDAMerkleBlock Full::getTreeInfo(Block b, string id) {
 	list<Transaction> transactions;
 
 		vector<unsigned long> pathl;
-		getTreeInfoRec(b.getRoot()->getLeft(), id, pathl, &paths, &transactions);
+		getTreeInfoRec(b, b.getRoot()->getLeft(), id, pathl, &paths, &transactions);
 		vector<unsigned long> pathr;
-		getTreeInfoRec(b.getRoot()->getRight(), id, pathr, &paths, &transactions);
+		getTreeInfoRec(b, b.getRoot()->getRight(), id, pathr, &paths, &transactions);
 
 	return EDAMerkleBlock(transactions, paths);
 }
 
-void Full::getTreeInfoRec(MerkleBlock* mb, string id, vector<unsigned long> path, list<vector<unsigned long>>* paths, list<Transaction>* transactions) {
+void Full::getTreeInfoRec(Block b, MerkleNode* mb, string id, vector<unsigned long> path, list<vector<unsigned long>>* paths, list<Transaction>* transactions) {
 	path.push_back(mb->getBlockId());
-	MerkleBlock* l = mb->getLeft();
-	MerkleBlock* r = mb->getRight();
-	if (mb->isLastBlock() && mb->getTransaction().idReceiver()==id) {
+	MerkleNode* l = mb->getLeft();
+	MerkleNode* r = mb->getRight();
+	
+	if (mb->isLastBlock()) {
 		//pusheo path a la lista de paths
-		paths->push_back(path);
-		transactions->push_back(mb->getTransaction());
+		Transaction t = b.getTransaction(mb->getBlockId());
+		if (t.idReceiver() == id) {
+			paths->push_back(path);
+			transactions->push_back(t);
+		}
 	}
 	else {
-		getTreeInfoRec(l, id, path, paths, transactions);
-		getTreeInfoRec(r, id, path, paths, transactions);
+		getTreeInfoRec(b, l, id, path, paths, transactions);
+		getTreeInfoRec(b, r, id, path, paths, transactions);
 	}
 	
 }

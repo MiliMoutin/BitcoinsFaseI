@@ -13,10 +13,10 @@ public:
 	string idReceiver() { return output.getIdReceiver(); }
 	unsigned long amountOutput() { return output.getAmount(); }
 	unsigned long getUTXOId() { return this->input.getUTXOId(); }
+	unsigned long getId(){ return this->id; }
 
 private:
 	Output output;
 	Input input;
-	string id;
-
+	unsigned long id;
 };

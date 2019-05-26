@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include "SPV.h"
+#include "MerkleNode.h"
 #include "MerkleRoot.h"
 #include "HeaderBlock.h"
 #include "Node.h"
@@ -21,9 +22,9 @@ private:
 	string id;
 	string type;
 	list<Block> blockchain;
-	vector<MerkleRoot> merkleroots;
+	vector<MerkleRoot*> merkleroots;
 
 	bool SearchForFilterTransactions(Block b, string id);
 	EDAMerkleBlock getTreeInfo(Block b, string id);//devuelve los paths a las transacciones necesarias
-	void getTreeInfoRec(MerkleBlock* mb, string id, vector<unsigned long> path, list<vector<unsigned long>>* paths, list<Transaction>* transactions);
+	void getTreeInfoRec(Block b, MerkleNode* mb, string id, vector<unsigned long> path, list<vector<unsigned long>>* paths, list<Transaction>* transactions);
 };
