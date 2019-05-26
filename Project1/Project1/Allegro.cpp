@@ -76,6 +76,14 @@ Allegro::Allegro(unsigned int w, unsigned int h)
 }
 
 
+Allegro::~Allegro()
+{
+	al_destroy_event_queue(event_queue);
+	al_destroy_font(font);
+	al_destroy_display(display);
+	al_destroy_bitmap(block_img);
+}
+
 al_event 
 Allegro::getNextEvent(void)
 {
@@ -161,7 +169,7 @@ bool ShowAlle(list<Block>& blockchain)
 	list<Block>::iterator itr = blockchain.begin();
 
 	if (blockchain.size() > 9)
-	{
+	{		//ACORDARSE DE DESTRUIRLO ANTES DE SALIR
 		al_draw_bitmap(r_arrow, DISPLAY_W, DISPLAY_H, ALLEGRO_ALIGN_RIGHT);
 	}
 
@@ -177,5 +185,6 @@ bool ShowAlle(list<Block>& blockchain)
 		}
 	}
 
+	al_flip_display();
 
 }
