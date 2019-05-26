@@ -154,15 +154,22 @@ Allegro::DrawBlock(Block& bloque, int x, int y, int w, int h)
 	return;
 }
 
-bool ShowAlle(list<Block>& blockchain)
+bool 
+Allegro::ShowAlle(list<Block>& blockchain)
 {
-	Allegro alle;
+	if (blockchain.size() == 0)
+	{
+		cout << "Blockchain empty." << endl;
+		al_draw_text(font, al_map_rgb(255, 0, 0), DISPLAY_W/2, DISPLAY_H/2, ALLEGRO_ALIGN_CENTER, "Blockchain empty.\n");
+		return false;
+	}
 	ALLEGRO_BITMAP* r_arrow = al_load_bitmap(ARROW_RIGHT_IMAGE);
+	/*
 	if (!alle.initAllegro_ok())
 	{
 		cout << "No se pudo inicializar Allegro" << endl;
 		return false;
-	}
+	}*/
 
 	int posx = 30;
 	int posy = 30;
@@ -176,15 +183,70 @@ bool ShowAlle(list<Block>& blockchain)
 	
 	for (; itr != blockchain.end(); ++itr)
 	{
-		for (; posy >= DISPLAY_H; posy += (IMAGE_H + 30))
+		for (; posy >= (DISPLAY_H-IMAGE_H); posy += (IMAGE_H + 30))
 		{
-			for (; posx >= DISPLAY_W; posx += (IMAGE_W + 30))
+			for (; posx >= (DISPLAY_W-IMAGE_W); posx += (IMAGE_W + 30))
 			{
-				alle.DrawBlock(*itr, posx, posy, IMAGE_W, IMAGE_H);
+				DrawBlock(*itr, posx, posy, IMAGE_W, IMAGE_H);
 			}
 		}
 	}
 
 	al_flip_display();
+	int ev;
+	do
+	{
+		ev = getNextEvent();
+		if (ev == ev_mouse)
+		{
+			mouse_dispatcher(blockchain.size());
+		}
+		
+	} while (ev != ev_quit);
+}
 
+void 
+Allegro::mouse_dispatcher(int size)
+{
+
+	if (pos.x <= DISPLAY_W && pos.y <= DISPLAY_H)
+	{
+		if (ITEM_1(pos.x, pos.y) && size >= 1)
+		{
+
+		}
+		else if (ITEM_2(pos.x, pos.y) && size >= 2)
+		{
+
+		}
+		else if (ITEM_3(pos.x, pos.y) && size >= 3)
+		{
+
+		}
+		else if (ITEM_4(pos.x, pos.y) && size >= 4)
+		{
+
+		}
+		else if (ITEM_5(pos.x, pos.y) && size >= 5)
+		{
+
+		}
+		else if (ITEM_6(pos.x, pos.y) && size >= 6)
+		{
+
+		}
+		else if (ITEM_7(pos.x, pos.y) && size >= 7)
+		{
+
+		}
+		else if (ITEM_8(pos.x, pos.y) && size >= 8)
+		{
+
+		}
+		else if (ITEM_9(pos.x, pos.y) && size >= 9)
+		{
+
+		}
+		//else if(CORNER_B_L)
+	}
 }
