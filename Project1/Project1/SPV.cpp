@@ -6,7 +6,6 @@ void SPV::attach(Node* n) {
 }
 
 void SPV::notify(HeaderBlock h, EDAMerkleBlock md) {
-	this->headers.push_back(h);
 	if (validNotification(h, md)) {
 		//guardo el header
 		this->headers.push_back(h);
@@ -14,6 +13,7 @@ void SPV::notify(HeaderBlock h, EDAMerkleBlock md) {
 		for (Transaction t : md.getTransactions()) {
 			UTXO to_push(t.amountOutput(), t.getUTXOId());
 			this->UTXOs.push_back(to_push);
+			this->roots.push_back(h.getRoot());
 		}
 	}
 

@@ -17,7 +17,7 @@ public:
 private:
 	list <Node*> neighbours;
 	list <HeaderBlock> headers;
-	list <MerkleRoot*> mtlist;
+	list <MerkleRoot*> roots;
 	list <UTXO> UTXOs;
 	string id;
 
