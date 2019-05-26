@@ -7,7 +7,7 @@
 
 class Block {
 public:
-	Block(vector<Transaction> transactions);
+	Block(vector<Transaction> transactions) { this->transactions = transactions; }
 	HeaderBlock getHeader() { return HeaderBlock(id, &root); }
 	unsigned long getId() { return this->id; }
 	MerkleRoot* getRoot() { return &root; }

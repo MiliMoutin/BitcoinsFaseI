@@ -1,7 +1,6 @@
 #pragma once
 #include "Node.h"
 #include "EDAMerkleBlock.h"
-#include "MerkleStructure.h"
 #include "HeaderBlock.h"
 #include "MerkleBlock.h"
 #include "UTXO.h"
@@ -18,7 +17,7 @@ public:
 private:
 	list <Node*> neighbours;
 	list <HeaderBlock> headers;
-	list <MerkleRoot*> mtlist;
+	list <MerkleRoot*> roots;
 	list <UTXO> UTXOs;
 	string id;
 

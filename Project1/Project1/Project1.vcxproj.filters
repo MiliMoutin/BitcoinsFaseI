@@ -1,78 +1,81 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Archivos de origen">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Archivos de encabezado">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Archivos de recursos">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
+    <ClCompile Include="Allegro.cpp">
+      <Filter>.cpps</Filter>
+    </ClCompile>
+    <ClCompile Include="Full.cpp">
+      <Filter>.cpps</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>.cpps</Filter>
+    </ClCompile>
+    <ClCompile Include="Output.cpp">
+      <Filter>.cpps</Filter>
+    </ClCompile>
+    <ClCompile Include="Transaction.cpp">
+      <Filter>.cpps</Filter>
+    </ClCompile>
+    <ClCompile Include="SPV.cpp">
+      <Filter>.cpps</Filter>
+    </ClCompile>
+    <ClCompile Include="MerkleBlock.cpp">
+      <Filter>.cpps</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="SPV.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Full.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Node.h">
-      <Filter>Archivos de encabezado</Filter>
+    <ClInclude Include="Allegro.h">
+      <Filter>.h</Filter>
     </ClInclude>
     <ClInclude Include="Block.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="UTXO.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="MerkleRoot.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Transaction.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="MerkleBlock.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="HeaderBlock.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="GenerateID.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Output.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Input.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="MerkleStructure.h">
-      <Filter>Archivos de encabezado</Filter>
+      <Filter>.h</Filter>
     </ClInclude>
     <ClInclude Include="EDAMerkleBlock.h">
-      <Filter>Archivos de encabezado</Filter>
+      <Filter>.h</Filter>
     </ClInclude>
-    <ClInclude Include="Allegro.h">
-      <Filter>Archivos de encabezado</Filter>
+    <ClInclude Include="Full.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="GenerateID.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderBlock.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="MerkleBlock.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="MerkleRoot.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="Node.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="Output.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="SPV.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="Transaction.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="UTXO.h">
+      <Filter>.h</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="Full.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="Allegro.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
+    <Filter Include=".cpps">
+      <UniqueIdentifier>{4a7c4a18-2647-461e-8a92-8e19fe123304}</UniqueIdentifier>
+    </Filter>
+    <Filter Include=".h">
+      <UniqueIdentifier>{ebc14def-631a-437d-8dfe-3bc663bced26}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
