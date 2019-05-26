@@ -17,6 +17,7 @@ public:
 			if (t.idReceiver() == id) { return true; }
 		}
 	}
+	unsigned long getCantTxs() { return cantTransactions; }
 	
 private:
 	MerkleRoot root;

@@ -9,6 +9,10 @@
 #define DISPLAY_W	1300
 #define TEXTFONT "allegrofiles\\textfont.ttf"
 #define TEXTSIZE 30
+#define BLOCK_IMAGE "block.png"
+#define ARROW_RIGHT_IMAGE "r_arrow.png"
+#define IMAGE_W 300
+#define IMAGE_H 300
 
 enum al_event {
 	ev_null, ev_quit,
@@ -17,7 +21,7 @@ enum al_event {
 	ev_mouse
 };
 
-enum align { center, right, left };
+//enum align { center, right, left };
 
 struct display_pos {
 	int x;
@@ -32,12 +36,12 @@ public:
 	~Allegro();
 	bool initAllegro_ok(void);
 
-	void DrawBlock(Block& bloque);
+	void DrawBlock(Block& bloque, int x, int y, int w, int h);
 
 	//void DrawTree(MerkleRoot& root);
 
 	enum al_event getNextEvent(void);
-	void printText(const char* text, int x, int y, enum align al, ALLEGRO_FONT * al_font = NULL);
+	//void printText(const char* text, int x, int y, enum align al, ALLEGRO_FONT * al_font = NULL);
 
 	unsigned int GetDisplayW();
 	unsigned int GetDisplayH();
@@ -49,6 +53,7 @@ private:
 	ALLEGRO_DISPLAY* display;
 	ALLEGRO_EVENT_QUEUE* event_queue;
 	ALLEGRO_FONT* font;
+	ALLEGRO_BITMAP* block_img;
 	bool init_ok;
 	unsigned int display_h;
 	unsigned int display_w;
