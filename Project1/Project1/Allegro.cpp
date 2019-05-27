@@ -65,6 +65,17 @@ Allegro::Allegro(unsigned int w, unsigned int h)
 		init_ok = false;
 		return;
 	}
+	right= al_load_bitmap(ARROW_RIGHT_IMAGE);
+	if (!right)
+	{
+		cout << "failed to load bitmap\n";
+		al_destroy_event_queue(event_queue);
+		al_destroy_font(font);
+		al_destroy_display(display);
+		al_destroy_bitmap(right);
+		init_ok = false;
+		return;
+	}
 
 	al_clear_to_color(al_map_rgb(255, 255, 255)); //Hace clear del backbuffer del diplay al color RGB 0,0,0 (negro)
 
@@ -175,16 +186,19 @@ Allegro::ShowAlle(list<Block>& blockchain)
 	}
 
 	
-	for (; itr != blockchain.end(); ++itr)									//HACER FUNCION CON ESTO Y advance() PARA MOUSE_DISPATCHER EN CASO size>9
+	
+	for (; posy <= (DISPLAY_H-IMAGE_H); posy += (IMAGE_H + 30))
 	{
-		for (; posy <= (DISPLAY_H-IMAGE_H); posy += (IMAGE_H + 30))
+		for (; posx <= (DISPLAY_W-IMAGE_W); posx += (IMAGE_W + 30))
 		{
-			for (; posx <= (DISPLAY_W-IMAGE_W); posx += (IMAGE_W + 30))
+			if (itr != blockchain.end())
 			{
 				DrawBlock(*itr, posx, posy, IMAGE_W, IMAGE_H);
+				++itr;
 			}
 		}
 	}
+	
 
 	al_flip_display();
 	int ev;
@@ -203,7 +217,7 @@ Allegro::ShowAlle(list<Block>& blockchain)
 }
 
 void 
-Allegro::mouse_dispatcher(int size)
+Allegro::mouse_dispatcher(int size, int page)
 {
 
 	if (pos.x <= DISPLAY_W && pos.y <= DISPLAY_H)
@@ -245,17 +259,47 @@ Allegro::mouse_dispatcher(int size)
 
 		}
 		else if (size > 9)
-		{/*
-			//if(B_L_CORNER)
+		{
+			if(B_L_CORNER(pos.x, pos.y, al_get_bitmap_width(right), al_get_bitmap_height(right)))
 			{
 				//NextPage()
 			}
-			//else if(B_R_CORNER)
+			else if(B_R_CORNER(pos.x, pos.y, al_get_bitmap_width(right), al_get_bitmap_height(right)))
 			{
 				//PrevPage()
-			}*/
+			}
 		}
 	}
+}
+
+void
+Allegro::NextPage(list<Block>& blockchain, int page)
+{
+	al_clear_to_color(al_map_rgb(255, 255, 255));
+	int posx = 30;
+	int posy = 30;
+	list<Block>::iterator itr = blockchain.begin();
+	advance(itr, 9);
+	for (; posy <= (DISPLAY_H - IMAGE_H); posy += (IMAGE_H + 30))
+	{
+		for (; posx <= (DISPLAY_W - IMAGE_W); posx += (IMAGE_W + 30))
+		{
+			if (itr != blockchain.end())
+			{
+				DrawBlock(*itr, posx, posy, IMAGE_W, IMAGE_H);
+				++itr;
+			}
+		}
+	}
+
+	al_draw_bitmap(left, 0, DISPLAY_H, 0);
+
+	if (blockchain.size() > (9 * page))
+	{
+		al_draw_bitmap(right, DISPLAY_W, DISPLAY_H, ALLEGRO_ALIGN_RIGHT);
+	}
+
+	mouse_dispatcher(blockchain.size()-(9*page), ++page);
 }
 /*
 crear numero de pagina?

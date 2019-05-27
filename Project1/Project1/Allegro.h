@@ -10,7 +10,8 @@
 #define TEXTFONT "allegrofiles\\textfont.ttf"
 #define TEXTSIZE 30
 #define BLOCK_IMAGE "block.png"
-#define ARROW_RIGHT_IMAGE "r_arrow.png"
+#define ARROW_RIGHT_IMAGE "right.png"
+#define ARROW_LEFT_IMAGE 
 #define IMAGE_W 300
 #define IMAGE_H 300
 #define SPACE_BTW 30
@@ -22,6 +23,9 @@
 #define FIRST_ROW(x) (((x)>=SPACE_BTW) && ((x) <= (SPACE_BTW+IMAGE_H)))
 #define SECOND_ROW(x) (((x) >= ((SPACE_BTW*2)+IMAGE_H)) && ((x) <= ((SPACE_BTW*2)+(IMAGE_H*2))))
 #define THIRD_ROW(x) (((x) >= ((SPACE_BTW*3)+(IMAGE_H*2))) && ((x) <= ((SPACE_BTW*3)+(IMAGE_H*3))))
+
+#define B_L_CORNER(x,y,dx,dy) (((x)>=(DISPLAY_W-(dx))) && ((x)<=DISPLAY_W)) && (((y)>=(DISPLAY_H-(dy))) && ((y)<=DISPLAY_H))
+#define B_R_CORNER(x,y,dx,dy) (((x)<=(dx)) && ((y)<=(dy)))
 
 #define ITEM_1(x,y) (FIRST_ROW(y) && FIRST_COL(x))
 #define ITEM_2(x,y) (FIRST_ROW(y) && SECOND_COL(x))
@@ -70,12 +74,15 @@ public:
 
 private:
 	void DrawBlock(Block& bloque, int x, int y, int w, int h);
-	void mouse_dispatcher(int size);
+	void mouse_dispatcher(int size, int page=1);
+	void NextPage(list<Block>& blockchain, int page=1);
 
 	ALLEGRO_DISPLAY* display;
 	ALLEGRO_EVENT_QUEUE* event_queue;
 	ALLEGRO_FONT* font;
 	ALLEGRO_BITMAP* block_img;
+	ALLEGRO_BITMAP* right;
+	ALLEGRO_BITMAP* left;
 	bool init_ok;
 	unsigned int display_h;
 	unsigned int display_w;
