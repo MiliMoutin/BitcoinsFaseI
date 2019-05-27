@@ -1,7 +1,8 @@
 #include "EDAMerkleBlock.h"
 
-EDAMerkleBlock::EDAMerkleBlock(list<Transaction> transactions, list<vector<unsigned long>> paths) {
+EDAMerkleBlock::EDAMerkleBlock(list<Transaction> transactions, list<vector<unsigned long>> paths, unsigned long id) {
 	this->transactions = transactions;
+	this->BlockID = id;
 	this->paths = paths;
 	this->cantTransactions = transactions.size();
 }

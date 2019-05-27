@@ -1,0 +1,51 @@
+﻿{
+  "BlockID": "86",
+  "MerkleRoot": "??",
+  "Txs Count": 4,
+  "Txs": [
+    {
+      "TxID": 786723,
+      "Input": {
+        "BlockID": 86,
+        "TxID": 786723
+      },
+      "Output": {
+        "publicKey": "nodo1",
+        "EDACoins": 8437
+      }
+    },
+    {
+      "TxID": 4763,
+      "Input": {
+        "BlockID": 86,
+        "TxID": 4763
+      },
+      "Output": {
+        "publicKey": "nodo2",
+        "EDACoins": 34432
+      }
+    },
+    {
+      "TxID": 87832,
+      "Input": {
+        "BlockID": 86,
+        "TxID": 87832
+      },
+      "Output": {
+        "publicKey": "nodo2",
+        "EDACoins": 763
+      }
+    },
+    {
+      "TxID": 82371,
+      "Input": {
+        "BlockID": 86,
+        "TxID": 82371
+      },
+      "Output": {
+        "publicKey": "nodo3",
+        "EDACoins": 763
+      }
+    }
+  ]
+}

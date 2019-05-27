@@ -15,7 +15,7 @@ void Full::setFilter(string id) {
 void Full::injectBlock(Block b) {
 	this->blockchain.push_back(b);
 	this->merkleroots.push_back(b.getRoot());
-
+	
 	//si tengo filtro voy y busco si hay alguno trasacción de ellos
 	if (!this->filters.empty()) {
 		for (string id : filters) {
@@ -31,7 +31,7 @@ bool Full::SearchForFilterTransactions(Block b, string id) {
 		EDAMerkleBlock to_send = getTreeInfo(b, id);
 		for (SPV* n : this->neighbours) {
 			if (n->getId() == id) {
-				n->notify(h, to_send);
+				n->notify(to_send);
 				return true;
 			}
 		}
@@ -47,23 +47,25 @@ EDAMerkleBlock Full::getTreeInfo(Block b, string id) {
 		vector<unsigned long> pathr;
 		getTreeInfoRec(b, b.getRoot()->getRight(), id, pathr, &paths, &transactions);
 
-	return EDAMerkleBlock(transactions, paths);
+	return EDAMerkleBlock(transactions, paths, b.getId());
 }
 
 void Full::getTreeInfoRec(Block b, MerkleNode* mb, string id, vector<unsigned long> path, list<vector<unsigned long>>* paths, list<Transaction>* transactions) {
+	//pusheo el block ID a mi lista de paths
 	path.push_back(mb->getBlockId());
-	MerkleNode* l = mb->getLeft();
-	MerkleNode* r = mb->getRight();
 	
+	//si mb es una hoja y es una de las transacciones de SPV que estoy buscando, pusheo el path encontrado y la transación
 	if (mb->isLastBlock()) {
-		//pusheo path a la lista de paths
 		Transaction t = b.getTransaction(mb->getBlockId());
 		if (t.idReceiver() == id) {
 			paths->push_back(path);
 			transactions->push_back(t);
 		}
 	}
+	//si mb no es una hoja, sigo buscando
 	else {
+		MerkleNode* l = mb->getLeft();
+		MerkleNode* r = mb->getRight();
 		getTreeInfoRec(b, l, id, path, paths, transactions);
 		getTreeInfoRec(b, r, id, path, paths, transactions);
 	}

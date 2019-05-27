@@ -7,20 +7,20 @@
 #include "Node.h"
 #include "Block.h"
 
-class Full : public Node {
+class Full :public Node{
 public:
 	Full(string id);
-	virtual void attach(SPV* n);
-	virtual string getType() { return this->type; }
+	virtual string getId() { return this->id; }
+	void attach(SPV* n);
+	virtual string getType() { return "Full"; }
 	void setFilter(string id);
+	HeaderBlock askForHeader() { return this->blockchain.back().getHeader(); }
 	void injectBlock(Block b);
 
 private:
 	//si llega un bloque y aparece alguno de los filters el node avisa
 	vector<string> filters;
 	list<SPV*> neighbours;
-	string id;
-	string type;
 	list<Block> blockchain;
 	vector<MerkleRoot*> merkleroots;
 

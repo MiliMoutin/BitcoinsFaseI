@@ -8,9 +8,8 @@ using namespace std;
 
 class Node {
 public:
-	virtual string getType();
-	virtual string getId();
-
+	//virtual string getType();
+	//virtual string getID(); porque me tira error?
 protected:
 	string type;
 	string id;

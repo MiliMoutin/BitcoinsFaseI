@@ -12,14 +12,15 @@ public:
 	virtual void attach(Node* n);
 	virtual string getType() { return "SPV"; }
 	virtual string getId() { return id; }
-	void notify(HeaderBlock hd, EDAMerkleBlock mb);
+	void askForHeader();
+	void notify(EDAMerkleBlock mb);
+	HeaderBlock getLastHeader() { return this->headers.back(); }
 
 private:
 	list <Node*> neighbours;
 	list <HeaderBlock> headers;
 	list <MerkleRoot*> roots;
 	list <UTXO> UTXOs;
-	string id;
 
 	bool validNotification(HeaderBlock hd, EDAMerkleBlock md);
 	bool wrapper(MerkleRoot* mr, Transaction t, vector<unsigned long> p, EDAMerkleBlock emb);
