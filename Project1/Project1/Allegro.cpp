@@ -164,12 +164,6 @@ Allegro::ShowAlle(list<Block>& blockchain)
 		return false;
 	}
 	ALLEGRO_BITMAP* r_arrow = al_load_bitmap(ARROW_RIGHT_IMAGE);
-	/*
-	if (!alle.initAllegro_ok())
-	{
-		cout << "No se pudo inicializar Allegro" << endl;
-		return false;
-	}*/
 
 	int posx = 30;
 	int posy = 30;
@@ -181,11 +175,11 @@ Allegro::ShowAlle(list<Block>& blockchain)
 	}
 
 	
-	for (; itr != blockchain.end(); ++itr)
+	for (; itr != blockchain.end(); ++itr)									//HACER FUNCION CON ESTO Y advance() PARA MOUSE_DISPATCHER EN CASO size>9
 	{
-		for (; posy >= (DISPLAY_H-IMAGE_H); posy += (IMAGE_H + 30))
+		for (; posy <= (DISPLAY_H-IMAGE_H); posy += (IMAGE_H + 30))
 		{
-			for (; posx >= (DISPLAY_W-IMAGE_W); posx += (IMAGE_W + 30))
+			for (; posx <= (DISPLAY_W-IMAGE_W); posx += (IMAGE_W + 30))
 			{
 				DrawBlock(*itr, posx, posy, IMAGE_W, IMAGE_H);
 			}
@@ -203,6 +197,9 @@ Allegro::ShowAlle(list<Block>& blockchain)
 		}
 		
 	} while (ev != ev_quit);
+
+	al_destroy_bitmap(r_arrow);
+	return true;
 }
 
 void 
@@ -213,7 +210,7 @@ Allegro::mouse_dispatcher(int size)
 	{
 		if (ITEM_1(pos.x, pos.y) && size >= 1)
 		{
-
+			//DrawTree()
 		}
 		else if (ITEM_2(pos.x, pos.y) && size >= 2)
 		{
@@ -247,6 +244,25 @@ Allegro::mouse_dispatcher(int size)
 		{
 
 		}
-		//else if(CORNER_B_L)
+		else if (size > 9)
+		{/*
+			//if(B_L_CORNER)
+			{
+				//NextPage()
+			}
+			//else if(B_R_CORNER)
+			{
+				//PrevPage()
+			}*/
+		}
 	}
 }
+/*
+crear numero de pagina?
+
+NEXT PAGE
+-clear
+-dibujo todos a partir del elemento 10 (uso advance con el iterador)
+-dibujo flechita izq
+-si hay mas, dibujo flechita der
+*/

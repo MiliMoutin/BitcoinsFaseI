@@ -12,6 +12,7 @@ public:
 	HeaderBlock getHeader() { return HeaderBlock(id, &root); }
 	unsigned long getId() { return this->id; }
 	MerkleRoot* getRoot() { return &root; }
+	unsigned long getCantTxs() { return cantTransactions; }
 	bool isIdPresent(string id);
 	Transaction getTransaction(unsigned long id);
 

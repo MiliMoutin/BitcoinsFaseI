@@ -1,19 +1,19 @@
 #pragma once
-#include "MerkleBlock.h"
+#include "MerkleNode.h"
 
 class MerkleRoot{
 public:
 	MerkleRoot(unsigned long id) { this->id = id; }
 	void setId(unsigned long id) { this->id = id; }
-	bool setFirstChildren(MerkleBlock* l, MerkleBlock* r) {
+	bool setFirstChildren(MerkleNode* l, MerkleNode* r) {
 		this->left = l; this->right = r;
 	}
 	MerkleRoot(){}
-	MerkleBlock* getLeft() { return this->left; }
-	MerkleBlock* getRight() { return this->right; }
+	MerkleNode* getLeft() { return this->left; }
+	MerkleNode* getRight() { return this->right; }
 
 private:
 	unsigned long id;
-	MerkleBlock* left;
-	MerkleBlock* right;
+	MerkleNode* left;
+	MerkleNode* right;
 };
