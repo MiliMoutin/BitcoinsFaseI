@@ -15,10 +15,13 @@ void SPV::attach(Full* s) {
 }
 
 void SPV::askForHeader() {
-	for (Full* f : this->neighboursFull) {
-		HeaderBlock header = f->askForHeader();
-		if (!headerPresent(header.getBlockId())) {
-			this->headers.push_back(header);
+	vector<Full*>::iterator iter;
+	for (const auto& neighbour : neighboursFull) {
+		if (!neighbour->emptyBlockchain()) {
+			HeaderBlock header = neighbour->askForHeader();
+			if (!headerPresent(header.getBlockId())) {
+				this->headers.push_back(header);
+			}
 		}
 	}
 }
@@ -33,18 +36,9 @@ bool SPV::headerPresent(unsigned long headerID) {
 
 }
 
-void SPV::notify(EDAMerkleBlock md) {
-	//busco a que header corresponde el bloque que llego
-	HeaderBlock h;
-	for (HeaderBlock hd : this->headers) {
-		if (md.getBlockID() == hd.getBlockId()) {
-			h = hd;
-		}
-
-	}
-	//espero 10 min
-	h = this->getLastHeader();
-	
+void SPV::notify(EDAMerkleBlock md, HeaderBlock h) {
+	//aca deberia buscar el header por otro lado
+		cout << "notificado";
 		if (validNotification(md,h)) {
 			//guardo las UTXOs 
 			for (Transaction t : md.getTransactions()) {
@@ -67,19 +61,29 @@ bool SPV::validNotification(EDAMerkleBlock edamb, HeaderBlock hb) {
 
 	for (iterpaths = paths.begin(), itertxs = transactions.begin(); iterpaths != paths.end(); iterpaths++, itertxs++) {
 		unsigned long txID = itertxs->getId();
+
 		//Itero un path para ver si puedo generar el MB
-		for (unsigned long id : iterpaths->getPath()){
-			unsigned char* auxchar;
-			string auxstr = to_string(txID) + to_string(id);
-			auxchar = (unsigned char *)auxstr.c_str();
-			txID = generateID(auxchar);
+		for (PathElement id : iterpaths->getPath()){
+			if (id.getLoF() == RIGHT) {
+				string auxstr = to_string(txID) + to_string(id.getId());
+				txID = generateIDString(auxstr);
+			}
+			if (id.getLoF() == LEFT) {
+				string auxstr = to_string(id.getId()) + to_string(txID);
+				txID = generateIDString(auxstr);
+			}
 
 		}
 		if (txID != hb.getRoot()->getID()) {
+
+			cout << "no Valida" << endl;
+			sleep_for(seconds(60));
 			return false;
 		}
-		
 	}
+	cout << endl;
+	cout << "Valida" << endl;
+	sleep_for(seconds(2));
 	return true;
 }
 

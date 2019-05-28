@@ -127,6 +127,7 @@
     <ClInclude Include="Node.h" />
     <ClInclude Include="Output.h" />
     <ClInclude Include="Path.h" />
+    <ClInclude Include="PathElement.h" />
     <ClInclude Include="SPV.h" />
     <ClInclude Include="Transaction.h" />
     <ClInclude Include="UTXO.h" />

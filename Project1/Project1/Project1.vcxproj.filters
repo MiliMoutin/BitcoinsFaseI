@@ -72,6 +72,9 @@
     <ClInclude Include="Path.h">
       <Filter>.h</Filter>
     </ClInclude>
+    <ClInclude Include="PathElement.h">
+      <Filter>.h</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

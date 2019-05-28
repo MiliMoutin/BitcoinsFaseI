@@ -16,7 +16,7 @@ public:
 	virtual string getType() { return "SPV"; }
 	virtual string getId() { return id; }
 	void askForHeader();
-	void notify(EDAMerkleBlock mb);
+	void notify(EDAMerkleBlock mb, HeaderBlock h);
 	HeaderBlock getLastHeader() { return this->headers.back(); }
 
 private:

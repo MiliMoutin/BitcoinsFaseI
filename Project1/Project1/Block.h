@@ -13,7 +13,9 @@ public:
 	Block(vector<Transaction> transactions, unsigned long id, MerkleRoot* mr = nullptr);
 
 	//devuelve un header con los datos del bloque
-	HeaderBlock getHeader() { return HeaderBlock(id, root); }
+	HeaderBlock getHeader() { 
+		return HeaderBlock(id, root);
+	}
 
 	void setRoot(MerkleRoot* mr) { this->root = mr; }
 

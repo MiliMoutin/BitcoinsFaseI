@@ -7,6 +7,9 @@
 #include "MerkleRoot.h"
 #include "HeaderBlock.h"
 #include "Block.h"
+#include "SPV.h"
+#define LEFT true
+#define RIGHT false
 
 class SPV;
 
@@ -17,6 +20,7 @@ public:
 	void attach(SPV* n);
 	virtual string getType() { return "Full"; }
 	void setFilter(string id);
+	bool emptyBlockchain() { return blockchain.empty(); }
 	HeaderBlock askForHeader() { return this->blockchain.back().getHeader(); }
 	void injectBlock(Block b);
 

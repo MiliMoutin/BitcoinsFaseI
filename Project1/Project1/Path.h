@@ -1,14 +1,16 @@
 #pragma once
 #include <iostream>
 #include <vector>
+#include "PathElement.h"
 
 using namespace std;
 
 class Path {
 public:
 	Path(){}
-	void addID(unsigned long id) { ids.push_back(id); }
-	vector<unsigned long> getPath() { return this->ids; }
+	//true es left, false es right
+	void addID(unsigned long id, bool lof) { ids.push_back(PathElement(id,lof)) ; }
+	vector<PathElement> getPath() { return this->ids; }
 private:
-	vector<unsigned long> ids;
+	vector<PathElement> ids;
 };

@@ -5,6 +5,7 @@ EDAMerkleBlock::EDAMerkleBlock(list<Transaction> transactions, list<Path> paths,
 	this->paths = paths;
 	this->transactionIds = ids;
 	this->BlockID = BlockID;
+	this->cantTransactions = transactions.size();
 
 }
 

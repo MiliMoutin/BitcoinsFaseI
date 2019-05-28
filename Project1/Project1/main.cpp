@@ -26,8 +26,8 @@ int main(void) {
 
 	ifstream blockchainpruebafile("BLOCK.json", ios::binary);
 
-	if (blockchainpruebafile.is_open())
-	
+	if (blockchainpruebafile.is_open()) {
+
 		blockchainpruebafile.seekg(0, blockchainpruebafile.end);
 		size2 = blockchainpruebafile.tellg();
 
@@ -46,16 +46,10 @@ int main(void) {
 		nlohmann::json b = nlohmann::json::parse(buf2);
 
 		Block blockToSend = createBlock(b);
-		cout << blockToSend.getCantTxs() << endl;
-		cout << blockToSend.getId() << endl;
 
 		SPV n2("nodo2");
 		Full gordo1("gordo1");
 		Full gordo2("gordo2");
-
-		cout << n2.getId() << endl;
-		cout << gordo1.getId() << endl;
-		cout << gordo2.getId() << endl;
 
 		n2.attach(&gordo1);
 		gordo1.attach(&n2);
@@ -63,8 +57,11 @@ int main(void) {
 		gordo2.attach(&n2);
 		gordo1.setFilter(n2.getId());
 
+
 		gordo1.injectBlock(blockToSend);
-		sleep_for(seconds(3));
+		
+
+	}
 	
 
 }
