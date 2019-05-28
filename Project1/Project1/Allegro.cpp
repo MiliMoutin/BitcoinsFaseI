@@ -1,4 +1,4 @@
-#include <iostream>
+/*#include <iostream>
 #include<list>
 #include <string>
 #include "Block.h"
@@ -300,7 +300,7 @@ Allegro::NextPage(list<Block>& blockchain, int page)
 	}
 
 	mouse_dispatcher(blockchain.size()-(9*page), ++page);
-}
+}*/
 /*
 crear numero de pagina?
 

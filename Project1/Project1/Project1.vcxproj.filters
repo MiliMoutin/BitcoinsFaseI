@@ -22,7 +22,7 @@
     <ClCompile Include="Block.cpp">
       <Filter>.cpps</Filter>
     </ClCompile>
-    <ClCompile Include="EDAMerkleNode.cpp">
+    <ClCompile Include="EDAMerkleBlock.cpp">
       <Filter>.cpps</Filter>
     </ClCompile>
   </ItemGroup>
@@ -67,6 +67,9 @@
       <Filter>.h</Filter>
     </ClInclude>
     <ClInclude Include="MerkleNode.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="Path.h">
       <Filter>.h</Filter>
     </ClInclude>
   </ItemGroup>

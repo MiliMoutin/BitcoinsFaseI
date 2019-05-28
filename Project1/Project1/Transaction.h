@@ -22,5 +22,4 @@ private:
 	Input input;
 	unsigned long id;
 
-	unsigned long IDGeneration();
 };

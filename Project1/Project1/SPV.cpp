@@ -58,20 +58,22 @@ void SPV::notify(EDAMerkleBlock md) {
 
 
 bool SPV::validNotification(EDAMerkleBlock edamb, HeaderBlock hb) {
-	list<vector<unsigned long>> paths = edamb.getPaths();
+
+	list<Path> paths = edamb.getPaths();
 	list<Transaction> transactions = edamb.getTransactions();
 
-	list<vector<unsigned long>>::iterator iterpaths;
+	list<Path>::iterator iterpaths;
 	list<Transaction>::iterator itertxs;
 
 	for (iterpaths = paths.begin(), itertxs = transactions.begin(); iterpaths != paths.end(); iterpaths++, itertxs++) {
 		unsigned long txID = itertxs->getId();
-		//iter los ids y genero el id final
-		for (unsigned long id : *iterpaths) {
+		//Itero un path para ver si puedo generar el MB
+		for (unsigned long id : iterpaths->getPath()){
 			unsigned char* auxchar;
 			string auxstr = to_string(txID) + to_string(id);
 			auxchar = (unsigned char *)auxstr.c_str();
 			txID = generateID(auxchar);
+
 		}
 		if (txID != hb.getRoot()->getID()) {
 			return false;

@@ -2,6 +2,7 @@
 #include <vector>
 #include "SPV.h"
 #include "GenerateID.h"
+#include "Path.h"
 #include "MerkleNode.h"
 #include "MerkleRoot.h"
 #include "HeaderBlock.h"
@@ -32,8 +33,8 @@ private:
 	MerkleNode* createTreeRec(int cantCicle, vector<Transaction> Txsvec);
 	MerkleRoot* createTree(Block b);
 	bool SearchForFilterTransactions(Block b, string id);
-	vector<unsigned long> getPath(MerkleRoot* mr, unsigned long id);
-	bool searchPathRec(MerkleNode* n, vector<unsigned long>& path, unsigned long id);
+	Path getPath(MerkleRoot* mr, unsigned long id);
+	bool searchPathRec(MerkleNode* n, Path& path, unsigned long id);
 	EDAMerkleBlock getTreeInfo(string id);//devuelve los paths a las transacciones necesarias
 	
 };
