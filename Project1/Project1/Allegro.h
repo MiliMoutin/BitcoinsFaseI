@@ -11,7 +11,7 @@
 #define TEXTSIZE 30
 #define BLOCK_IMAGE "block.png"
 #define ARROW_RIGHT_IMAGE "right.png"
-#define ARROW_LEFT_IMAGE 
+#define ARROW_LEFT_IMAGE "left.png"
 #define IMAGE_W 300
 #define IMAGE_H 300
 #define SPACE_BTW 30
@@ -74,8 +74,10 @@ public:
 
 private:
 	void DrawBlock(Block& bloque, int x, int y, int w, int h);
-	void mouse_dispatcher(int size, int page=1);
+	void DrawTree(Block& bloque);
+	void mouse_dispatcher(list<Block>& blockchain, int page=1);
 	void NextPage(list<Block>& blockchain, int page=1);
+	void PrevPage(list<Block>& blockchain, int page = 1);
 
 	ALLEGRO_DISPLAY* display;
 	ALLEGRO_EVENT_QUEUE* event_queue;

@@ -65,6 +65,7 @@ Allegro::Allegro(unsigned int w, unsigned int h)
 		init_ok = false;
 		return;
 	}
+
 	right= al_load_bitmap(ARROW_RIGHT_IMAGE);
 	if (!right)
 	{
@@ -73,6 +74,19 @@ Allegro::Allegro(unsigned int w, unsigned int h)
 		al_destroy_font(font);
 		al_destroy_display(display);
 		al_destroy_bitmap(right);
+		init_ok = false;
+		return;
+	}
+
+	left = al_load_bitmap(ARROW_LEFT_IMAGE);
+	if (!right)
+	{
+		cout << "failed to load bitmap\n";
+		al_destroy_event_queue(event_queue);
+		al_destroy_font(font);
+		al_destroy_display(display);
+		al_destroy_bitmap(right);
+		al_destroy_bitmap(left);
 		init_ok = false;
 		return;
 	}
@@ -93,6 +107,8 @@ Allegro::~Allegro()
 	al_destroy_font(font);
 	al_destroy_display(display);
 	al_destroy_bitmap(block_img);
+	al_destroy_bitmap(right);
+	al_destroy_bitmap(left);
 }
 
 al_event 
@@ -165,6 +181,7 @@ Allegro::DrawBlock(Block& bloque, int x, int y, int w, int h)
 	return;
 }
 
+
 bool 
 Allegro::ShowAlle(list<Block>& blockchain)
 {
@@ -174,15 +191,15 @@ Allegro::ShowAlle(list<Block>& blockchain)
 		al_draw_text(font, al_map_rgb(255, 0, 0), DISPLAY_W/2, DISPLAY_H/2, ALLEGRO_ALIGN_CENTER, "Blockchain empty.\n");
 		return false;
 	}
-	ALLEGRO_BITMAP* r_arrow = al_load_bitmap(ARROW_RIGHT_IMAGE);
 
+	NextPage(blockchain);
+	/*
 	int posx = 30;
 	int posy = 30;
 	list<Block>::iterator itr = blockchain.begin();
-
 	if (blockchain.size() > 9)
-	{		//ACORDARSE DE DESTRUIRLO ANTES DE SALIR
-		al_draw_bitmap(r_arrow, DISPLAY_W, DISPLAY_H, ALLEGRO_ALIGN_RIGHT);
+	{
+		al_draw_bitmap(right, DISPLAY_W, DISPLAY_H, ALLEGRO_ALIGN_RIGHT);
 	}
 
 	
@@ -207,69 +224,76 @@ Allegro::ShowAlle(list<Block>& blockchain)
 		ev = getNextEvent();
 		if (ev == ev_mouse)
 		{
-			mouse_dispatcher(blockchain.size());
+			mouse_dispatcher(blockchain, blockchain.size());
 		}
 		
 	} while (ev != ev_quit);
-
-	al_destroy_bitmap(r_arrow);
+	*/
 	return true;
 }
 
 void 
-Allegro::mouse_dispatcher(int size, int page)
+Allegro::mouse_dispatcher(list<Block>& blockchain, int page)
 {
-
+	int size = blockchain.size() - (9 * (page - 1));
+	list<Block>::iterator itr = blockchain.begin;
 	if (pos.x <= DISPLAY_W && pos.y <= DISPLAY_H)
 	{
-		if (ITEM_1(pos.x, pos.y) && size >= 1)
+		if (ITEM_1(pos.x, pos.y) && size >= (1 + (9 * (page - 1))))
 		{
-			//DrawTree()
+			advance(itr, 9 * (page - 1));
+			DrawTree(*itr);
 		}
-		else if (ITEM_2(pos.x, pos.y) && size >= 2)
+		else if (ITEM_2(pos.x, pos.y) && size >= (2 + (9 * (page - 1))))
 		{
-
+			advance(itr, 1 + (9 * (page - 1)));
+			DrawTree(*itr);
 		}
-		else if (ITEM_3(pos.x, pos.y) && size >= 3)
+		else if (ITEM_3(pos.x, pos.y) && size >= (3 + (9 * (page - 1))))
 		{
-
+			advance(itr, 2 + (9 * (page - 1)));
+			DrawTree(*itr);
 		}
-		else if (ITEM_4(pos.x, pos.y) && size >= 4)
+		else if (ITEM_4(pos.x, pos.y) && size >= (4 + (9 * (page - 1))))
 		{
-
+			advance(itr, 3 + (9 * (page - 1)));
+			DrawTree(*itr);
 		}
-		else if (ITEM_5(pos.x, pos.y) && size >= 5)
+		else if (ITEM_5(pos.x, pos.y) && size >= (5 + (9 * (page - 1))))
 		{
-
+			advance(itr, 4 + (9 * (page - 1)));
+			DrawTree(*itr);
 		}
-		else if (ITEM_6(pos.x, pos.y) && size >= 6)
+		else if (ITEM_6(pos.x, pos.y) && size >= (6 + (9 * (page - 1))))
 		{
-
+			advance(itr, 5 + (9 * (page - 1)));
+			DrawTree(*itr);
 		}
-		else if (ITEM_7(pos.x, pos.y) && size >= 7)
+		else if (ITEM_7(pos.x, pos.y) && size >= (7 + (9 * (page - 1))))
 		{
-
+			advance(itr, 6 + (9 * (page - 1)));
+			DrawTree(*itr);
 		}
-		else if (ITEM_8(pos.x, pos.y) && size >= 8)
+		else if (ITEM_8(pos.x, pos.y) && size >= (8 + (9 * (page - 1))))
 		{
-
+			advance(itr, 7 + (9 * (page - 1)));
+			DrawTree(*itr);
 		}
-		else if (ITEM_9(pos.x, pos.y) && size >= 9)
+		else if (ITEM_9(pos.x, pos.y) && size >= (9 + (9 * (page - 1))))
 		{
-
+			advance(itr, 8 + (9 * (page - 1)));
+			DrawTree(*itr);
 		}
-		else if (size > 9)
+		else if(B_L_CORNER(pos.x, pos.y, al_get_bitmap_width(right), al_get_bitmap_height(right)) && (size > (9 * page)))
 		{
-			if(B_L_CORNER(pos.x, pos.y, al_get_bitmap_width(right), al_get_bitmap_height(right)))
-			{
-				//NextPage()
-			}
-			else if(B_R_CORNER(pos.x, pos.y, al_get_bitmap_width(right), al_get_bitmap_height(right)))
-			{
-				//PrevPage()
-			}
+			NextPage(blockchain, ++page);
+		}
+		else if (B_R_CORNER(pos.x, pos.y, al_get_bitmap_width(right), al_get_bitmap_height(right)) && (page != 1))
+		{
+			PrevPage(blockchain, page);
 		}
 	}
+	return;
 }
 
 void
@@ -279,7 +303,17 @@ Allegro::NextPage(list<Block>& blockchain, int page)
 	int posx = 30;
 	int posy = 30;
 	list<Block>::iterator itr = blockchain.begin();
-	advance(itr, 9);
+
+	if (blockchain.size() > (9 * page))
+	{
+		al_draw_bitmap(right, DISPLAY_W, DISPLAY_H, ALLEGRO_ALIGN_RIGHT);
+	}
+	if (page != 1)
+	{
+		advance(itr, 9 * (page - 1));
+		al_draw_bitmap(left, 0, DISPLAY_H, ALLEGRO_ALIGN_LEFT);
+	}
+
 	for (; posy <= (DISPLAY_H - IMAGE_H); posy += (IMAGE_H + 30))
 	{
 		for (; posx <= (DISPLAY_W - IMAGE_W); posx += (IMAGE_W + 30))
@@ -292,21 +326,59 @@ Allegro::NextPage(list<Block>& blockchain, int page)
 		}
 	}
 
-	al_draw_bitmap(left, 0, DISPLAY_H, 0);
+	al_flip_display();
 
-	if (blockchain.size() > (9 * page))
+	int ev;
+	do
 	{
-		al_draw_bitmap(right, DISPLAY_W, DISPLAY_H, ALLEGRO_ALIGN_RIGHT);
-	}
+		ev = getNextEvent();
+		if (ev == ev_mouse)
+		{
+			mouse_dispatcher(blockchain, ++page);
+		}
 
-	mouse_dispatcher(blockchain.size()-(9*page), ++page);
+	} while (ev != ev_quit);
+	return;
+	
 }
-/*
-crear numero de pagina?
 
-NEXT PAGE
--clear
--dibujo todos a partir del elemento 10 (uso advance con el iterador)
--dibujo flechita izq
--si hay mas, dibujo flechita der
-*/
+void
+Allegro::PrevPage(list<Block>& blockchain, int page)
+{
+	NextPage(blockchain, --page);
+	return;
+}
+
+void
+Allegro::DrawTree(Block& bloque)
+{
+	int height = findTreeH(bloque.getRoot);
+	int cant = bloque.getCantTxs;
+	/*
+	DISPLAY_W/cant (-1 casteado a int) -->ancho de imagen
+	(DISPLAY_H-ARROW_H)/height (-1 casteado a int) -->largo de imagen
+				le dejo lugar a la flecha
+	-uso al_draw_scaled_bitmap
+
+	-dibujar arbol
+	-dibujar texto necesario  (???)
+	-dibujar flechita para volver
+
+	-descifrar como dibujar las flechita (???)
+	*/
+}
+
+
+int findTreeH(MerkleRoot root)
+{
+	int height = 0;
+	MerkleNode* node = root.getLeft();
+	height++;
+
+	while (!node->isLastBlock())
+	{
+		node = node->getLeft();
+		height++;
+	}
+	return height;
+}
