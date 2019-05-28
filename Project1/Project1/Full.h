@@ -34,11 +34,15 @@ private:
 
 	int index;
 
+	//crea arbol a partir de la llegada de un nuevo bloque
 	MerkleNode* createTreeRec(int cantCicle, vector<Transaction> Txsvec);
 	MerkleRoot* createTree(Block b);
+	//busca si dentro de un bloque hay transacciones de mi filtro
 	bool SearchForFilterTransactions(Block b, string id);
+	//funciones para armar el path
 	Path getPath(MerkleRoot* mr, unsigned long id);
 	bool searchPathRec(MerkleNode* n, Path& path, unsigned long id);
+	//armo el EDAMerkleBlock para mandarle a mi neighbour
 	EDAMerkleBlock getTreeInfo(string id);//devuelve los paths a las transacciones necesarias
 	
 };

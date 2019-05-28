@@ -77,10 +77,14 @@ bool SPV::validNotification(EDAMerkleBlock edamb, HeaderBlock hb) {
 		if (txID != hb.getRoot()->getID()) {
 
 			cout << "no Valida" << endl;
-			sleep_for(seconds(60));
+			sleep_for(seconds(2));
 			return false;
 		}
-	}
+
+		cout << endl;
+		cout << "Validacion parcial" << endl;
+ 	}
+
 	cout << endl;
 	cout << "Valida" << endl;
 	sleep_for(seconds(2));

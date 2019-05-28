@@ -93,6 +93,7 @@ bool Full::SearchForFilterTransactions(Block b, string id) {
 }
 
 EDAMerkleBlock Full::getTreeInfo(string id) {
+	
 	list<Path> paths;
 	list<Transaction> transactions;
 	list<unsigned long>ids;
