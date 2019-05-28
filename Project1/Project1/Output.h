@@ -9,7 +9,7 @@ using namespace std;
 class Output {
 public:
 	Output();
-	Output(unsigned long idReceiver, unsigned long amount);
+	Output(string idReceiver, unsigned long amount);
 	string getIdReceiver() { return idReceiver; }
 	unsigned long getAmount() { return amount; }
 private:

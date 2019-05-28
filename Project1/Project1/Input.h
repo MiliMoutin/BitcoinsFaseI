@@ -11,6 +11,7 @@ class Input {
 	Input(){ }
 	Input(unsigned long BlockID, unsigned long UTXOId) { this->BlockID = BlockID; this->UTXOId = UTXOId; }
 	unsigned long getUTXOId() { return this->UTXOId; }
+	unsigned long getBlockID() { return this->BlockID; }
 
 private:
 	unsigned long BlockID;

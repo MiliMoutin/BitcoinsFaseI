@@ -1,4 +1,4 @@
-#pragma once
+/*#pragma once
 
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
@@ -42,7 +42,9 @@ enum al_event {
 	ev_mouse,
 	/*ev_tile1, ev_tile2, ev_tile3, ev_tile4, ev_tile5, ev_tile6, ev_tile7, ev_tile8, ev_tile9,
 	ev_right, ev_left, ev_prev*/
+/*
 };
+
 
 //enum align { center, right, left };
 
@@ -90,3 +92,4 @@ private:
 	unsigned int display_w;
 	display_pos pos;
 };
+*/

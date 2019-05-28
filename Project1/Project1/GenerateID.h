@@ -11,3 +11,9 @@ static unsigned long generateID(unsigned char *str)
 		ID = c + (ID << 6) + (ID << 16) - ID;
 	return ID;
 }
+
+static unsigned long generateIDString(string str) {
+	unsigned char* cadena;
+	cadena = (unsigned char *)str.c_str();
+	return generateID(cadena);
+}

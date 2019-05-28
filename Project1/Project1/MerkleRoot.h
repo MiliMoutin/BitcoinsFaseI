@@ -3,14 +3,21 @@
 
 class MerkleRoot{
 public:
-	MerkleRoot(unsigned long id) { this->id = id; }
+	MerkleRoot(){}
+	MerkleRoot(unsigned long id) { this->id = id;  left= nullptr; right = nullptr; }
 	void setId(unsigned long id) { this->id = id; }
 	bool setFirstChildren(MerkleNode* l, MerkleNode* r) {
-		this->left = l; this->right = r;
+		if (l != nullptr || r != nullptr) {
+			return false;
+		}
+		else {
+			this->left = l; this->right = r;
+		}
+		return true;
 	}
-	MerkleRoot(){}
 	MerkleNode* getLeft() { return this->left; }
 	MerkleNode* getRight() { return this->right; }
+	unsigned long getID() { return this->id; }
 
 private:
 	unsigned long id;

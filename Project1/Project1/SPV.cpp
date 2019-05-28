@@ -1,73 +1,87 @@
 #include "SPV.h"
+#include <chrono>
+#include <thread>
 
+using namespace std::this_thread; 
+using namespace std::chrono; 
 
-void SPV::attach(Node* n) {
-	this->neighbours.push_back(n);
+void SPV::attach(SPV* s) {
+	this->neighboursSPV.push_back(s);
 }
 
-void SPV::notify(HeaderBlock h, EDAMerkleBlock md) {
-	if (validNotification(h, md)) {
-		//guardo el header
-		this->headers.push_back(h);
-		//guardo las UTXOs 
-		for (Transaction t : md.getTransactions()) {
-			UTXO to_push(t.amountOutput(), t.getUTXOId());
-			this->UTXOs.push_back(to_push);
-			this->roots.push_back(h.getRoot());
+
+void SPV::attach(Full* s) {
+	this->neighboursFull.push_back(s);
+}
+
+void SPV::askForHeader() {
+	for (Full* f : this->neighboursFull) {
+		HeaderBlock header = f->askForHeader();
+		if (!headerPresent(header.getBlockId())) {
+			this->headers.push_back(header);
 		}
 	}
-
 }
 
-
-bool SPV::validNotification(HeaderBlock h, EDAMerkleBlock md) {
-	list<Transaction> transactions = md.getTransactions();
-	list<vector<unsigned long>> paths = md.getPaths();
-
-	list<Transaction>::iterator it_t = transactions.begin();
-	list<vector<unsigned long>>::iterator it_p = paths.begin();
-	
-	for (; it_t != transactions.end() || it_p != paths.end(); it_t++, it_p) {
-		return wrapper(h.getRoot(), *it_t, *it_p, md);
-	}
-	
-}
-
-
-bool SPV::wrapper(MerkleRoot* mr, Transaction t, vector<unsigned long> p, EDAMerkleBlock emb){
-	MerkleNode* left = mr->getLeft();
-	MerkleNode* right = mr->getRight();
-	if (left!=nullptr && left->getBlockId()==p[0]) {
-		return validNotificationRec(left, t, p, 1, emb);
-	}
-	if (right!=nullptr && right->getBlockId() == p[0]) {
-		return validNotificationRec(right, t, p, 1,emb);
-	}
-	else return false;
-}
-
-
-bool SPV::validNotificationRec(MerkleNode* mb, Transaction t, vector<unsigned long> p, int pos, EDAMerkleBlock emb) {
-	
-	if (mb->isLastBlock()) {
-		if (t.getId()==mb->getBlockId()) {
+bool SPV::headerPresent(unsigned long headerID) {
+	for (HeaderBlock b : this->headers) {
+		if (b.getBlockId() == headerID) {
 			return true;
 		}
-		else {
+	}
+	return false;
+
+}
+
+void SPV::notify(EDAMerkleBlock md) {
+	//busco a que header corresponde el bloque que llego
+	HeaderBlock h;
+	for (HeaderBlock hd : this->headers) {
+		if (md.getBlockID() == hd.getBlockId()) {
+			h = hd;
+		}
+
+	}
+	//espero 10 min
+	h = this->getLastHeader();
+	
+		if (validNotification(md,h)) {
+			//guardo las UTXOs 
+			for (Transaction t : md.getTransactions()) {
+				UTXO to_push(t.amountOutput(), t.getUTXOId());
+				this->UTXOs.push_back(to_push);
+				this->roots.push_back(h.getRoot());
+			}
+		}
+
+	}
+
+
+bool SPV::validNotification(EDAMerkleBlock edamb, HeaderBlock hb) {
+	list<vector<unsigned long>> paths = edamb.getPaths();
+	list<Transaction> transactions = edamb.getTransactions();
+
+	list<vector<unsigned long>>::iterator iterpaths;
+	list<Transaction>::iterator itertxs;
+
+	for (iterpaths = paths.begin(), itertxs = transactions.begin(); iterpaths != paths.end(); iterpaths++, itertxs++) {
+		unsigned long txID = itertxs->getId();
+		//iter los ids y genero el id final
+		for (unsigned long id : *iterpaths) {
+			unsigned char* auxchar;
+			string auxstr = to_string(txID) + to_string(id);
+			auxchar = (unsigned char *)auxstr.c_str();
+			txID = generateID(auxchar);
+		}
+		if (txID != hb.getRoot()->getID()) {
 			return false;
 		}
+		
 	}
-	else {
-		MerkleNode* left = mb->getLeft();
-		MerkleNode* right = mb->getRight();
-		if (left!=nullptr && left->getBlockId() == p[pos]) {
-			return validNotificationRec(left, t, p, pos + 1, emb);
-		}
-		else if (right!=nullptr && right->getBlockId() == p[pos]) {
-			return validNotificationRec(right, t, p, pos + 1, emb);
-		}
-		else {
-		return false;
-		}
-	}
+	return true;
 }
+
+
+
+
+

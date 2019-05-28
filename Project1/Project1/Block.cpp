@@ -1,7 +1,9 @@
 #include "Block.h"
 
-Block::Block(vector<Transaction> transactions):root() {
+Block::Block(vector<Transaction> transactions, unsigned long id, MerkleRoot* mr) : cantTransactions(transactions.size()) {
 	this->transactions = transactions;
+	this->id = id;
+	this->root = mr;
 }
 
 bool Block::isIdPresent(string id) {
@@ -11,9 +13,10 @@ bool Block::isIdPresent(string id) {
 	}
 }
 
+//asumimos que la trasaccion existe
 Transaction Block::getTransaction(unsigned long id) {
 	for (Transaction t : transactions) {
-		if (t.getId == id) {
+		if (t.getId() == id) {
 			return t;
 		}
 	}

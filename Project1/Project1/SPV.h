@@ -2,26 +2,31 @@
 #include "Node.h"
 #include "EDAMerkleBlock.h"
 #include "HeaderBlock.h"
+#include "Full.h"
 #include "MerkleNode.h"
 #include "UTXO.h"
 
+class Full;
 
-class SPV:	public Node {
+class SPV{
 public:
 	SPV(string id) { this->id = id; }
-	virtual void attach(Node* n);
+	void attach(SPV* s);
+	void attach(Full* n);
 	virtual string getType() { return "SPV"; }
 	virtual string getId() { return id; }
-	void notify(HeaderBlock hd, EDAMerkleBlock mb);
+	void askForHeader();
+	void notify(EDAMerkleBlock mb);
+	HeaderBlock getLastHeader() { return this->headers.back(); }
 
 private:
-	list <Node*> neighbours;
+	list <SPV*> neighboursSPV;
+	list <Full*> neighboursFull;
 	list <HeaderBlock> headers;
 	list <MerkleRoot*> roots;
-	list <UTXO> UTXOs;
 	string id;
-
-	bool validNotification(HeaderBlock hd, EDAMerkleBlock md);
-	bool wrapper(MerkleRoot* mr, Transaction t, vector<unsigned long> p, EDAMerkleBlock emb);
-	bool validNotificationRec(MerkleNode* mb, Transaction t, vector<unsigned long> p, int pos, EDAMerkleBlock emb);
+	list <UTXO> UTXOs;
+	
+	bool validNotification(EDAMerkleBlock edamb, HeaderBlock h);
+	bool headerPresent(unsigned long headerId);
 };

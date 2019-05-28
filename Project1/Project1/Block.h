@@ -8,17 +8,34 @@
 
 class Block {
 public:
-	Block(vector<Transaction> transactions);
-	HeaderBlock getHeader() { return HeaderBlock(id, &root); }
+	Block(){}
+
+	Block(vector<Transaction> transactions, unsigned long id, MerkleRoot* mr = nullptr);
+
+	//devuelve un header con los datos del bloque
+	HeaderBlock getHeader() { return HeaderBlock(id, root); }
+
+	void setRoot(MerkleRoot* mr) { this->root = mr; }
+
 	unsigned long getId() { return this->id; }
-	MerkleRoot* getRoot() { return &root; }
-	unsigned long getCantTxs() { return cantTransactions; }
+
+	MerkleRoot* getRoot() { return root; }
+
+	vector<Transaction> getTxs() { return this->transactions; }
+
+	//devuelve true si existe una transaccion en el bloque con ese id
 	bool isIdPresent(string id);
+
+	void setTreeLength(int length) { treeLength = length; }
+
+	unsigned long getCantTxs() { return transactions.size(); }
+
 	Transaction getTransaction(unsigned long id);
 
 	
 private:
-	MerkleRoot root;
+	int treeLength;
+	MerkleRoot* root;
 	unsigned long id;
 	unsigned long cantTransactions;
 	vector<Transaction> transactions;

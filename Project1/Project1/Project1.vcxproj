@@ -136,7 +136,6 @@
     <ClCompile Include="EDAMerkleNode.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Full.cpp" />
-    <ClCompile Include="MerkleBlock.cpp" />
     <ClCompile Include="Output.cpp" />
     <ClCompile Include="SPV.cpp" />
     <ClCompile Include="Transaction.cpp" />

@@ -1,30 +1,39 @@
 #pragma once
 #include <vector>
 #include "SPV.h"
+#include "GenerateID.h"
 #include "MerkleNode.h"
 #include "MerkleRoot.h"
 #include "HeaderBlock.h"
-#include "Node.h"
 #include "Block.h"
 
-class Full : public Node {
+class SPV;
+
+class Full {
 public:
 	Full(string id);
-	virtual void attach(SPV* n);
-	virtual string getType() { return this->type; }
+	virtual string getId() { return this->id; }
+	void attach(SPV* n);
+	virtual string getType() { return "Full"; }
 	void setFilter(string id);
+	HeaderBlock askForHeader() { return this->blockchain.back().getHeader(); }
 	void injectBlock(Block b);
 
 private:
 	//si llega un bloque y aparece alguno de los filters el node avisa
 	vector<string> filters;
 	list<SPV*> neighbours;
-	string id;
-	string type;
 	list<Block> blockchain;
+	string id;
 	vector<MerkleRoot*> merkleroots;
 
+	int index;
+
+	MerkleNode* createTreeRec(int cantCicle, vector<Transaction> Txsvec);
+	MerkleRoot* createTree(Block b);
 	bool SearchForFilterTransactions(Block b, string id);
-	EDAMerkleBlock getTreeInfo(Block b, string id);//devuelve los paths a las transacciones necesarias
-	void getTreeInfoRec(Block b, MerkleNode* mb, string id, vector<unsigned long> path, list<vector<unsigned long>>* paths, list<Transaction>* transactions);
+	vector<unsigned long> getPath(MerkleRoot* mr, unsigned long id);
+	bool searchPathRec(MerkleNode* n, vector<unsigned long>& path, unsigned long id);
+	EDAMerkleBlock getTreeInfo(string id);//devuelve los paths a las transacciones necesarias
+	
 };
