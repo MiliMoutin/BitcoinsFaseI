@@ -19,9 +19,6 @@
     <ClCompile Include="SPV.cpp">
       <Filter>.cpps</Filter>
     </ClCompile>
-    <ClCompile Include="MerkleBlock.cpp">
-      <Filter>.cpps</Filter>
-    </ClCompile>
     <ClCompile Include="Block.cpp">
       <Filter>.cpps</Filter>
     </ClCompile>

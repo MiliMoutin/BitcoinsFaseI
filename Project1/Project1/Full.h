@@ -1,13 +1,15 @@
 #pragma once
 #include <vector>
 #include "SPV.h"
+#include "GenerateID.h"
 #include "MerkleNode.h"
 #include "MerkleRoot.h"
 #include "HeaderBlock.h"
-#include "Node.h"
 #include "Block.h"
 
-class Full :public Node{
+class SPV;
+
+class Full {
 public:
 	Full(string id);
 	virtual string getId() { return this->id; }
@@ -22,9 +24,16 @@ private:
 	vector<string> filters;
 	list<SPV*> neighbours;
 	list<Block> blockchain;
+	string id;
 	vector<MerkleRoot*> merkleroots;
 
+	int index;
+
+	MerkleNode* createTreeRec(int cantCicle, vector<Transaction> Txsvec);
+	MerkleRoot* createTree(Block b);
 	bool SearchForFilterTransactions(Block b, string id);
-	EDAMerkleBlock getTreeInfo(Block b, string id);//devuelve los paths a las transacciones necesarias
-	void getTreeInfoRec(Block b, MerkleNode* mb, string id, vector<unsigned long> path, list<vector<unsigned long>>* paths, list<Transaction>* transactions);
+	vector<unsigned long> getPath(MerkleRoot* mr, unsigned long id);
+	bool searchPathRec(MerkleNode* n, vector<unsigned long>& path, unsigned long id);
+	EDAMerkleBlock getTreeInfo(string id);//devuelve los paths a las transacciones necesarias
+	
 };

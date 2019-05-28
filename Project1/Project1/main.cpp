@@ -1,6 +1,7 @@
 #include <iostream>
 #include <nlohmann/json.hpp>
 #include "Block.h"
+#include "MerkleNode.h"
 #include "Full.h"
 #include <string>
 #include <exception>
@@ -14,8 +15,7 @@ using namespace std::chrono;
 
 using namespace std;
 
-MerkleNode* createMerkleTree(nlohmann::json j);
-Block createBlock(nlohmann::json merkletree, nlohmann::json block);
+Block createBlock(nlohmann::json block);
 
 int main(void) {
 
@@ -24,20 +24,10 @@ int main(void) {
 	char* buffer1;
 	char* buffer2;
 
-	ifstream merkletreefile("MT.json", ios::in | ios::binary);
 	ifstream blockchainpruebafile("BLOCK.json", ios::binary);
 
-	if (merkletreefile.is_open() && blockchainpruebafile.is_open())
-	{
-		merkletreefile.seekg(0, merkletreefile.end);
-		size1 = merkletreefile.tellg();
-
-		buffer1 = new char[size1];
-		merkletreefile.seekg(0, ios::beg);
-		merkletreefile.read(buffer1, size1);
-		merkletreefile.close();
-		buffer1[size1] = 0;
-
+	if (blockchainpruebafile.is_open())
+	
 		blockchainpruebafile.seekg(0, blockchainpruebafile.end);
 		size2 = blockchainpruebafile.tellg();
 
@@ -47,82 +37,58 @@ int main(void) {
 		blockchainpruebafile.close();
 		buffer2[size2] = 0;
 
-		nlohmann::json* merkletree;
 		nlohmann::json* block;
 
-		string buf1(buffer1);
 		string buf2(buffer2);
 
 		buf2 = buf2.substr(buf2.find_first_of("{"), buf2.find_last_of("}"));
-		buf1 = buf1.substr(buf1.find_first_of("{"), buf1.find_last_of("}"));
 
-		/*Full f1("GrandotaWachin");
-		Full f2("Gordo");
-		SPV f3("nodo2");*/
-
-		nlohmann::json mt = nlohmann::json::parse(buf1);
 		nlohmann::json b = nlohmann::json::parse(buf2);
 
-		Block blockToSend = createBlock(mt, b);
-		cout << "daleIngrid";
+		Block blockToSend = createBlock(b);
 		cout << blockToSend.getCantTxs() << endl;
 		cout << blockToSend.getId() << endl;
-		sleep_for(minutes(10));
 
-	}
+		SPV n2("nodo2");
+		Full gordo1("gordo1");
+		Full gordo2("gordo2");
+
+		cout << n2.getId() << endl;
+		cout << gordo1.getId() << endl;
+		cout << gordo2.getId() << endl;
+
+		n2.attach(&gordo1);
+		gordo1.attach(&n2);
+		n2.attach(&gordo2);
+		gordo2.attach(&n2);
+		gordo1.setFilter(n2.getId());
+
+		gordo1.injectBlock(blockToSend);
+		sleep_for(seconds(3));
+	
 
 }
 
-Block createBlock(nlohmann::json merkletree, nlohmann::json block) {
-	//busco las transacciones del bloque 
+Block createBlock(nlohmann::json block) {
 	try {
-		cout << "llego";
+		//busco las transacciones del bloque 
 		unsigned long size = 0;
 		vector<Transaction> transactions;
-		cout << block["Txs Count"] << endl << endl;
 		for (int i = 0; i < block["Txs Count"]; i++) {
 			Output output(block["Txs"][i]["Output"]["publicKey"], block["Txs"][i]["Output"]["EDACoins"]);
 			Input input(block["Txs"][i]["Input"]["BlockID"], block["Txs"][i]["Input"]["TxID"]);
 			Transaction t(input, output);
+			string aux = to_string(t.amountOutput()) + to_string(t.getUTXOId()) + t.idReceiver();
+			t.setId(generateIDString(aux));
 			transactions.push_back(t);
 		}
 
 		//busco y guardo el ID del bloque
-		cout << merkletree["ID"] << endl;
-		unsigned long id = merkletree["ID"];
+		unsigned long id = block["BlockID"];
 
-		//creo la root de Merkle tree y lo lleno usando la funcion create MerkleTree
-		MerkleRoot root(id);
-		cout << merkletree["nodes"][0] << endl;
-		cout << merkletree["nodes"][1] << endl;
-		root.setFirstChildren(createMerkleTree(merkletree["nodes"][0]), createMerkleTree(merkletree["nodes"][1]));
-
-		//creo el bloque
-		Block newblock(transactions, root, block["BlockID"]);
-
-		return newblock;
+		return Block(transactions, id);
 	}
-	catch (exception& e) {
+	catch (exception&e) {
 		cout << e.what();
 	}
 }
-
-MerkleNode* createMerkleTree(nlohmann::json j) {
-	//si es una hoja mando el node solo
-	if (j["nodes"].empty()) {
-		MerkleNode* node = new MerkleNode(j["ID"]);
-		return node;
-	}
-	//si no es una hoja vuelvo a llamar a la funcion para crear los hijos
-	else {
-		MerkleNode* node = new MerkleNode(j["ID"]);
-		if (j["nodes"].size() == 1) {
-			node->setLeft(createMerkleTree(j["nodes"][0]));
-		}
-		else {
-			node->setRight(createMerkleTree(j["nodes"][1]));
-		}
-		return node;
-	}
-}
-

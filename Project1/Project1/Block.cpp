@@ -1,8 +1,8 @@
 #include "Block.h"
 
-Block::Block(vector<Transaction> transactions, MerkleRoot mr, unsigned long id) : cantTransactions(transactions.size()) {
+Block::Block(vector<Transaction> transactions, unsigned long id, MerkleRoot* mr) : cantTransactions(transactions.size()) {
 	this->transactions = transactions;
-	this->id;
+	this->id = id;
 	this->root = mr;
 }
 

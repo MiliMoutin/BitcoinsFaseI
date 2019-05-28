@@ -8,18 +8,18 @@ using namespace std;
 
 class EDAMerkleBlock {
 public:
-	EDAMerkleBlock(list<Transaction> transactions, list<vector<unsigned long>> paths, unsigned long id);
+	EDAMerkleBlock(list<Transaction> transactions, list<vector<unsigned long>> paths, list<unsigned long> ids, unsigned long blockID);
 	list<Transaction> getTransactions() { return transactions; }
 	list<vector<unsigned long>> getPaths() { return paths; }
 	Transaction getTransaction(unsigned long id);
-	unsigned long getBlockId() { return this->BlockID; }
+	unsigned long getBlockID() { return this->BlockID; }
 
 
 private:
+	int cantTransactions;
 	unsigned long BlockID;
-	unsigned long int cantTransactions;
 	list<unsigned long> transactionIds;
 	list<Transaction> transactions;
 	list<vector<unsigned long>> paths;
-	//unsigned long id;
+	
 };

@@ -1,4 +1,4 @@
-#include <iostream>
+/*#include <iostream>
 #include<list>
 #include <string>
 #include "Block.h"
@@ -170,6 +170,7 @@ Allegro::ShowAlle(list<Block>& blockchain)
 		cout << "No se pudo inicializar Allegro" << endl;
 		return false;
 	}*/
+/*
 
 	int posx = 30;
 	int posy = 30;
@@ -250,3 +251,4 @@ Allegro::mouse_dispatcher(int size)
 		//else if(CORNER_B_L)
 	}
 }
+*/
