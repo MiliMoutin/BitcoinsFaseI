@@ -24,14 +24,18 @@ public:
 	HeaderBlock askForHeader() { return this->blockchain.back().getHeader(); }
 	void injectBlock(Block b);
 
+
 private:
 	//si llega un bloque y aparece alguno de los filters el node avisa
 	vector<string> filters;
 	list<SPV*> neighbours;
 	list<Block> blockchain;
+	
 	string id;
+	
 	vector<MerkleRoot*> merkleroots;
 
+	//Esto es algo feo pero que vamos a solucionar a futuro
 	int index;
 
 	//crea arbol a partir de la llegada de un nuevo bloque

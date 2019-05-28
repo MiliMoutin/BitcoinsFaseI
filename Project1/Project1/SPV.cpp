@@ -58,7 +58,7 @@ bool SPV::validNotification(EDAMerkleBlock edamb, HeaderBlock hb) {
 
 	list<Path>::iterator iterpaths;
 	list<Transaction>::iterator itertxs;
-
+	//itero paths y transacciones y voy validando que llegue al MerkleRoot
 	for (iterpaths = paths.begin(), itertxs = transactions.begin(); iterpaths != paths.end(); iterpaths++, itertxs++) {
 		unsigned long txID = itertxs->getId();
 
@@ -76,13 +76,13 @@ bool SPV::validNotification(EDAMerkleBlock edamb, HeaderBlock hb) {
 		}
 		if (txID != hb.getRoot()->getID()) {
 
-			cout << "no Valida" << endl;
+			cout << "no valida" << endl;
 			sleep_for(seconds(2));
 			return false;
 		}
 
 		cout << endl;
-		cout << "Validacion parcial" << endl;
+		cout << "validacion parcial" << endl;
  	}
 
 	cout << endl;
