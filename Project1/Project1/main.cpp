@@ -3,6 +3,7 @@
 #include "Block.h"
 #include "MerkleNode.h"
 #include "Full.h"
+#include "Allegro.h"
 #include <string>
 #include <exception>
 #include <fstream>
@@ -57,10 +58,14 @@ int main(void) {
 		gordo2.attach(&n2);
 		gordo1.setFilter(n2.getId());
 
-
-		gordo1.injectBlock(blockToSend);
+		for (int i = 0; i < 10; i++)
+		{
+			gordo1.injectBlock(blockToSend);
+		}
+		list<Block> bc = gordo1.getBchain();
+		Allegro alle;
+		alle.ShowAlle(bc);
 		
-
 	}
 	
 

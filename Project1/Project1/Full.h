@@ -24,6 +24,7 @@ public:
 	HeaderBlock askForHeader() { return this->blockchain.back().getHeader(); }
 	void injectBlock(Block b);
 
+	list<Block> getBchain() { return blockchain; }
 private:
 	//si llega un bloque y aparece alguno de los filters el node avisa
 	vector<string> filters;
