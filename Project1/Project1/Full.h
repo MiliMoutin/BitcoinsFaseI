@@ -26,6 +26,7 @@ public:
 	void injectBlock(Block b);
 	void destroy() { destroyBlockchain(); }
 
+	list<Block> getBchain() { return blockchain; }
 private:
 	//si llega un bloque y aparece alguno de los filters el node avisa
 	vector<string> filters;

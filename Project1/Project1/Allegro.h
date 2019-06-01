@@ -1,20 +1,21 @@
-/*#pragma once
+#pragma once
 
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_font.h> //manejo de fonts
 #include <allegro5/allegro_ttf.h> //Manejo de ttfs
 
-#define DISPLAY_H	1300
-#define DISPLAY_W	1300
-#define TEXTFONT "allegrofiles\\textfont.ttf"
+#define DISPLAY_H	500
+#define DISPLAY_W	500
+#define TEXTFONT "textfont.ttf"
 #define TEXTSIZE 30
-#define BLOCK_IMAGE "block.png"
-#define ARROW_RIGHT_IMAGE "right.png"
-#define ARROW_LEFT_IMAGE "left.png"
-#define IMAGE_W 300
-#define IMAGE_H 300
+#define BLOCK_IMAGE "bloque.png"
+#define ARROW_RIGHT_IMAGE "Right.png"
+#define ARROW_LEFT_IMAGE "Left.png"
 #define SPACE_BTW 30
+#define IMAGE_W ((DISPLAY_W/3)-SPACE_BTW)
+#define IMAGE_H ((DISPLAY_H/3)-SPACE_BTW)
+#define DIF 10
 
 #define FIRST_COL(x) (((x)>=SPACE_BTW) && ((x) <= (SPACE_BTW+IMAGE_W)))
 #define SECOND_COL(x) (((x) >= ((SPACE_BTW*2)+IMAGE_W)) && ((x) <= ((SPACE_BTW*2)+(IMAGE_W*2))))
@@ -42,9 +43,7 @@ enum al_event {
 	ev_mouse,
 	/*ev_tile1, ev_tile2, ev_tile3, ev_tile4, ev_tile5, ev_tile6, ev_tile7, ev_tile8, ev_tile9,
 	ev_right, ev_left, ev_prev*/
-/*
 };
-
 
 //enum align { center, right, left };
 
@@ -63,20 +62,18 @@ public:
 
 	
 	bool ShowAlle(list<Block>& blockchain);
-	//void DrawTree(MerkleRoot& root);
 
 	enum al_event getNextEvent(void);
-	//void printText(const char* text, int x, int y, enum align al, ALLEGRO_FONT * al_font = NULL);
 
 	unsigned int GetDisplayW();
 	unsigned int GetDisplayH();
 
-	//void drawImage(ALLEGRO_BITMAP* image, int x, int y, int width = 0, int height = 0);
 	display_pos GetMousePos();
 
 private:
 	void DrawBlock(Block& bloque, int x, int y, int w, int h);
 	void DrawTree(Block& bloque);
+	void DrawFloor(int cant, int img_w, int img_h, int block_dis, int border_dis=0, int floor=0, int aux = 1);
 	void mouse_dispatcher(list<Block>& blockchain, int page=1);
 	void NextPage(list<Block>& blockchain, int page=1);
 	void PrevPage(list<Block>& blockchain, int page = 1);
@@ -92,4 +89,3 @@ private:
 	unsigned int display_w;
 	display_pos pos;
 };
-*/

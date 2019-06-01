@@ -3,6 +3,7 @@
 #include "Block.h"
 #include "MerkleNode.h"
 #include "Full.h"
+#include "Allegro.h"
 #include <string>
 #include <exception>
 #include <fstream>
