@@ -8,9 +8,7 @@ using namespace std;
 
 class Node {
 public:
-	//virtual string getType();
-	//virtual string getID(); porque me tira error?
-protected:
-	string type;
-	string id;
+	virtual string getType() = 0;
+	virtual string getID() = 0;
+	virtual void attach(Node* n) = 0;
 };

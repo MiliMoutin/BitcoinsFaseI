@@ -5,12 +5,24 @@
 
 using namespace std;
 
-Transaction::Transaction(Input input, Output output) :output(), input(){
+Transaction::Transaction(vector<Input> input, vector<Output> output){
 	this->input = input;
 	this->output = output;
 
 }
 
-Transaction::Transaction() :output(), input(){
+Transaction::Transaction(){
 
 }
+
+bool Transaction::isIDPresent(string id) {
+	for (Output o : this->output) {
+		if (o.getIdReceiver() == id) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+}
+

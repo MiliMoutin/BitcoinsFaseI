@@ -26,6 +26,8 @@ int main(void) {
 
 	ifstream blockchainpruebafile("BLOCK.json", ios::binary);
 
+	cout << blockchainpruebafile.is_open();
+
 	if (blockchainpruebafile.is_open()) {
 
 		blockchainpruebafile.seekg(0, blockchainpruebafile.end);
@@ -35,19 +37,19 @@ int main(void) {
 		blockchainpruebafile.seekg(0, ios::beg);
 		blockchainpruebafile.read(buffer2, size2);
 		blockchainpruebafile.close();
-		buffer2[size2] = 0;
+		//buffer2[size2] = '\0';
 
 		nlohmann::json* block;
 
-		string buf2(buffer2);
-
+		string buf2(buffer2,size2);
+		cout << buf2;
 		buf2 = buf2.substr(buf2.find_first_of("{"), buf2.find_last_of("}"));
 
 		nlohmann::json b = nlohmann::json::parse(buf2);
 
 		Block blockToSend = createBlock(b);
 
-		SPV n2("nodo2");
+		SPV  n2("nodo2");
 		Full gordo1("gordo1");
 		Full gordo2("gordo2");
 
@@ -55,27 +57,40 @@ int main(void) {
 		gordo1.attach(&n2);
 		n2.attach(&gordo2);
 		gordo2.attach(&n2);
-		gordo1.setFilter(n2.getId());
+		gordo1.setFilter(n2.getID());
 
 
 		gordo1.injectBlock(blockToSend);
-		
+		gordo1.destroy();
+		gordo2.destroy();
 
 	}
 	
 
 }
 
+
 Block createBlock(nlohmann::json block) {
 	try {
 		//busco las transacciones del bloque 
 		unsigned long size = 0;
 		vector<Transaction> transactions;
-		for (int i = 0; i < block["Txs Count"]; i++) {
-			Output output(block["Txs"][i]["Output"]["publicKey"], block["Txs"][i]["Output"]["EDACoins"]);
-			Input input(block["Txs"][i]["Input"]["BlockID"], block["Txs"][i]["Input"]["TxID"]);
+		for (int i = 0; i < block["Txs"].size(); i++) {
+			string aux = "";
+			vector<Input> input;
+			vector<Output> output;
+			for (int j = 0; j < block["Txs"][i]["Output"].size(); j++) {
+				Output o(block["Txs"][i]["Output"][j]["publicKey"], block["Txs"][i]["Output"][j]["EDACoins"]);
+				output.push_back(o);
+				aux += to_string(o.getAmount())+ o.getIdReceiver();
+				
+			}
+			for (int j = 0; j < block["Txs"][i]["Output"].size(); j++) {
+				Input i(block["Txs"][i]["Input"][j]["BlockID"], block["Txs"][i]["Input"][j]["TxID"]);
+				input.push_back(i);
+				aux += to_string(i.getBlockID()) + to_string(i.getUTXOId());
+			}		
 			Transaction t(input, output);
-			string aux = to_string(t.amountOutput()) + to_string(t.getUTXOId()) + t.idReceiver();
 			t.setId(generateIDString(aux));
 			transactions.push_back(t);
 		}

@@ -9,7 +9,7 @@ Block::Block(vector<Transaction> transactions, unsigned long id, MerkleRoot* mr)
 bool Block::isIdPresent(string id) {
 	for (Transaction t : transactions)
 	{
-		if (t.idReceiver() == id) { return true; }
+		if (t.isIDPresent(id)) { return true; }
 	}
 }
 

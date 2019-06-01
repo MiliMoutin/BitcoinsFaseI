@@ -8,20 +8,19 @@
 
 class Full;
 
-class SPV{
+class SPV : public Node{
+
 public:
 	SPV(string id) { this->id = id; }
-	void attach(SPV* s);
-	void attach(Full* n);
 	virtual string getType() { return "SPV"; }
-	virtual string getId() { return id; }
+	virtual string getID() { return this->id; }
+	virtual void attach(Node* n);
 	void askForHeader();
 	void notify(EDAMerkleBlock mb, HeaderBlock h);
 	HeaderBlock getLastHeader() { return this->headers.back(); }
 
 private:
-	list <SPV*> neighboursSPV;
-	list <Full*> neighboursFull;
+	list <Node*> neighbours;
 	list <HeaderBlock> headers;
 	list <MerkleRoot*> roots;
 	string id;

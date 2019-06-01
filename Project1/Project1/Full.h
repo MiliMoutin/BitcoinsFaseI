@@ -13,40 +13,48 @@
 
 class SPV;
 
-class Full {
+class Full :public Node{
+
 public:
 	Full(string id);
-	virtual string getId() { return this->id; }
-	void attach(SPV* n);
 	virtual string getType() { return "Full"; }
+	virtual string getID() { return this->id; }
+	virtual void attach(Node* n);
 	void setFilter(string id);
 	bool emptyBlockchain() { return blockchain.empty(); }
 	HeaderBlock askForHeader() { return this->blockchain.back().getHeader(); }
 	void injectBlock(Block b);
-
+	void destroy() { destroyBlockchain(); }
 
 private:
 	//si llega un bloque y aparece alguno de los filters el node avisa
 	vector<string> filters;
-	list<SPV*> neighbours;
+	list<Node*> neighbours;
 	list<Block> blockchain;
-	
 	string id;
-	
 	vector<MerkleRoot*> merkleroots;
 
-	//Esto es algo feo pero que vamos a solucionar a futuro
-	int index;
+	void destroyBlockchain();
+	void destroyTree(MerkleNode* nd);
 
 	//crea arbol a partir de la llegada de un nuevo bloque
-	MerkleNode* createTreeRec(int cantCicle, vector<Transaction> Txsvec);
+	MerkleNode* createTreeRec(int cantCicle, vector<Transaction> Txsvec, int* index);
 	MerkleRoot* createTree(Block b);
+
 	//busca si dentro de un bloque hay transacciones de mi filtro
 	bool SearchForFilterTransactions(Block b, string id);
+
 	//funciones para armar el path
 	Path getPath(MerkleRoot* mr, unsigned long id);
-	bool searchPathRec(MerkleNode* n, Path& path, unsigned long id);
+	bool searchPathRec(MerkleNode* n, Path& path, unsigned long i);
+
 	//armo el EDAMerkleBlock para mandarle a mi neighbour
 	EDAMerkleBlock getTreeInfo(string id);//devuelve los paths a las transacciones necesarias
+
+	//funciones auxiliares para usar el arbol
+	//devuelve el vector de transacciones que voy a usar como hojas
+	vector<Transaction> createVectorForTree(vector<Transaction> initial, int* height);
+	//devuelve si un numero es cuadrado perfecto
+	bool isPot2(int cant, int* exponent);
 	
 };

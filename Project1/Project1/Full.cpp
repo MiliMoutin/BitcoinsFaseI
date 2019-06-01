@@ -12,7 +12,7 @@ Full::Full(string id) {
 	this->id = id;
 }
 
-void Full::attach(SPV* n) {
+void Full::attach(Node* n) {
 		this->neighbours.push_back(n);
 }
 
@@ -34,34 +34,40 @@ void Full::injectBlock(Block b) {
 }
 
 MerkleRoot* Full::createTree(Block b) {
-		//inicializo iterador
-		index = 0;
+		//inicializo el indice que me va a ayudar a iterar sobre las transacciones
+		int index = 0;
+		int cantCicle;
 		//Calculo cantidad de niveles que tiene el arbol
-		int cantCicle = (int)ceil(sqrt(b.getCantTxs()));
 
+		//creo el vector de transacciones que voy a usar
+		vector<Transaction> treeVector = createVectorForTree(b.getTxs(), &cantCicle);
 		//empiezo a armar el arbol
-		MerkleNode* left = createTreeRec(cantCicle - 1, b.getTxs());
-		MerkleNode* right = createTreeRec(cantCicle - 1, b.getTxs());
+		MerkleNode* left = createTreeRec(cantCicle - 1, treeVector, &index);
+		MerkleNode* right = createTreeRec(cantCicle - 1, treeVector, &index);
+
+		//genero el id del MerkleRoot
 		string id_to_make = to_string(left->getBlockId()) + to_string(right->getBlockId());
 		MerkleRoot* m = new MerkleRoot(generateIDString(id_to_make));
+
 		m->setFirstChildren(left, right);
 
 		return m;
+		sleep_for(seconds(20));
 }
 
-MerkleNode* Full::createTreeRec(int cantCicle, vector<Transaction> txsvector) {
-		//si la cantidad de ciclo es cero, creo las hojas
+MerkleNode* Full::createTreeRec(int cantCicle, vector<Transaction> txsvector, int* index) {
+		//si la cantidad de ciclos es cero, creo las hojas
 		if (cantCicle == 0) {
-			Transaction t=txsvector[index++];
+			Transaction t=txsvector[(*index)++];
 			MerkleNode* mn = new MerkleNode();
 			mn->setId(t.getId());
-			cout << mn->getBlockId() << endl;
+
 			return mn;
 		}
 		else {
 			//primera el left, segundo el right
-			MerkleNode* rta1 = createTreeRec(cantCicle -1, txsvector);
-			MerkleNode* rta2 = createTreeRec(cantCicle -1, txsvector);
+			MerkleNode* rta1 = createTreeRec(cantCicle -1, txsvector, index);
+			MerkleNode* rta2 = createTreeRec(cantCicle -1, txsvector, index);
 
 			unsigned long id1 = rta1->getBlockId();
 			unsigned long id2 = rta2->getBlockId();
@@ -70,7 +76,6 @@ MerkleNode* Full::createTreeRec(int cantCicle, vector<Transaction> txsvector) {
 			MerkleNode* rtafinal = new MerkleNode();
 			rtafinal->setId(id_generated);
 
-			cout << rtafinal->getBlockId() << endl;
 			rtafinal->setLeft(rta1);
 			rtafinal->setRight(rta2);
 
@@ -83,9 +88,12 @@ MerkleNode* Full::createTreeRec(int cantCicle, vector<Transaction> txsvector) {
 bool Full::SearchForFilterTransactions(Block b, string id) {
 	if (b.isIdPresent(id)){
 		EDAMerkleBlock to_send = getTreeInfo(id);
-		for (SPV* n : this->neighbours) {
-			if (n->getId() == id) {
-				n->notify(to_send, this->blockchain.back().getHeader());
+		for (Node* n : this->neighbours) {
+			if (n->getType() == "SPV") {
+				SPV* spv=(SPV*)n;
+				if (spv->getID() == id) {
+					spv->notify(to_send, this->blockchain.back().getHeader());
+				}
 			}
 		}
 	}
@@ -101,7 +109,7 @@ EDAMerkleBlock Full::getTreeInfo(string id) {
 	Block last_block = this->blockchain.back();
 
 	for (Transaction t : last_block.getTxs()) {
-		if (t.idReceiver() == id) {
+		if (t.isIDPresent(id)) {
 			MerkleRoot * mr = last_block.getRoot();
 			paths.push_back(getPath(mr, t.getId()));
 			transactions.push_back(t);
@@ -149,6 +157,41 @@ bool Full::searchPathRec(MerkleNode* mn, Path& path, unsigned long id) {
 			return rtaleft || rtaright;
 		}
 
+}
+
+//crea un vector de transaccion que tenga el tamaño de un cuadrado perfecto
+vector<Transaction> Full::createVectorForTree(vector<Transaction> initial, int* height) {
+	int txs = initial.size();
+	while (!isPot2(txs, height) || txs % 2 != 0) {
+		Transaction(generateIDString(to_string(initial.back().getId()) + to_string(txs)));
+		initial.push_back(initial.back());
+		txs++;
+	}
+	return initial;
+}
+
+//se fija si un numero es cuadrado perfecto
+bool Full::isPot2(int cant, int* exponent) {
+	for (int i = 0; pow(2,i)<= cant; i++) {
+		if (pow(2, i) == cant) {
+			*exponent = i;
+			return true;
+		}
+	}
+	return false;
+}
+
+void Full::destroyBlockchain() {
+	for (MerkleRoot* b : this->merkleroots) {
+		destroyTree(b->getLeft());
+		destroyTree(b->getRight());
+	}
+}
+
+void Full::destroyTree(MerkleNode* nd) {
+	destroyTree(nd->getLeft());
+	destroyTree(nd->getRight());
+	delete nd;
 }
 
 																																																					
