@@ -128,7 +128,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Allegro.h" />
+    <ClInclude Include="Controller.h" />
     <ClInclude Include="EDAMerkleBlock.h" />
+    <ClInclude Include="EventData.h" />
     <ClInclude Include="Full.h" />
     <ClInclude Include="Block.h" />
     <ClInclude Include="GenerateID.h" />
@@ -137,10 +139,12 @@
     <ClInclude Include="MerkleNode.h" />
     <ClInclude Include="MerkleRoot.h" />
     <ClInclude Include="Node.h" />
+    <ClInclude Include="Observer.h" />
     <ClInclude Include="Output.h" />
     <ClInclude Include="Path.h" />
     <ClInclude Include="PathElement.h" />
     <ClInclude Include="SPV.h" />
+    <ClInclude Include="Subject.h" />
     <ClInclude Include="Transaction.h" />
     <ClInclude Include="UTXO.h" />
   </ItemGroup>
@@ -148,10 +152,12 @@
     <ClCompile Include="Allegro.cpp" />
     <ClCompile Include="Block.cpp" />
     <ClCompile Include="EDAMerkleBlock.cpp" />
+    <ClCompile Include="EventData.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Full.cpp" />
     <ClCompile Include="Output.cpp" />
     <ClCompile Include="SPV.cpp" />
+    <ClCompile Include="Subject.cpp" />
     <ClCompile Include="Transaction.cpp" />
   </ItemGroup>
   <ItemGroup>

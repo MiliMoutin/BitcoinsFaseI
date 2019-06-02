@@ -25,6 +25,10 @@
     <ClCompile Include="EDAMerkleBlock.cpp">
       <Filter>.cpps</Filter>
     </ClCompile>
+    <ClCompile Include="EventData.cpp" />
+    <ClCompile Include="Subject.cpp">
+      <Filter>.cpps</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Allegro.h">
@@ -75,6 +79,16 @@
     <ClInclude Include="PathElement.h">
       <Filter>.h</Filter>
     </ClInclude>
+    <ClInclude Include="Controller.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="Observer.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="Subject.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="EventData.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

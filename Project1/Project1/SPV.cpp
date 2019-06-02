@@ -7,6 +7,7 @@ using namespace std::chrono;
 
 void SPV::attach(Node* s) {
 	this->neighbours.push_back(s);
+	notifyAllObservers();
 }
 
 

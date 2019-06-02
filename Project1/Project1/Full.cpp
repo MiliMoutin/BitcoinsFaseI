@@ -14,6 +14,8 @@ Full::Full(string id) {
 
 void Full::attach(Node* n) {
 		this->neighbours.push_back(n);
+		notifyAllObservers();
+		return;
 }
 
 void Full::setFilter(string id) {
@@ -31,6 +33,7 @@ void Full::injectBlock(Block b) {
 		}
 	}
 
+	notifyAllObservers();			//esto iria aca???????????
 }
 
 MerkleRoot* Full::createTree(Block b) {
@@ -193,8 +196,3 @@ void Full::destroyTree(MerkleNode* nd) {
 	destroyTree(nd->getRight());
 	delete nd;
 }
-
-																																																					
-
-
-
