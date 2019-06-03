@@ -12,7 +12,7 @@
 #define DISPLAY_H	500
 #define DISPLAY_W	500
 #define TEXTFONT "textfont.ttf"
-#define TEXTSIZE 30
+#define TEXTSIZE 10
 #define BLOCK_IMAGE "bloque.png"
 #define ARROW_RIGHT_IMAGE "Right.png"
 #define ARROW_LEFT_IMAGE "Left.png"

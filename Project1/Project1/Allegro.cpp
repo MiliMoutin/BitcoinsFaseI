@@ -193,13 +193,15 @@ Allegro::ShowGraph(Node* nodo, int cx, int cy)
 	DrawNode(nodo, cx, cy);
 	int size = nodo->getNeighbours().size();
 	
-	int auxx = (RADIO * 2) + 10, auxy = 0;
+	int auxx = (RADIO * 5) + 10, auxy = 0;		//esto tienen que ser defines y despues hago parametros =esto
 	//diametro*2
 	for (Node* n : nodo->getNeighbours())
 	{
 		ShowGraph(n, cx - auxx, cy - auxy);
-		auxx -= (TEXTSIZE * 3);
-		auxy += (TEXTSIZE * 3 * 2 + 10);
+		al_draw_line(cx, cy, cx - auxx, cy - auxy, al_map_rgb(0, 0, 0), 0);
+		al_flip_display();
+		auxx -= (RADIO*2)+10;
+		auxy += (RADIO*2 + 10);
 	}
 	
 
@@ -331,7 +333,7 @@ Allegro::DrawNode(Node* nodo, int cx, int cy)
 {
 	
 	al_draw_filled_circle(cx, cy, RADIO, al_map_rgb(0, 255, 0));
-	al_draw_text(font, al_map_rgb(255, 0, 0), cx, cy, ALLEGRO_ALIGN_CENTER, nodo->getType().c_str());
+	al_draw_text(font, al_map_rgb(255, 0, 0), cx, cy-TEXTSIZE, ALLEGRO_ALIGN_CENTER, nodo->getType().c_str());
 	al_flip_display();
 	return;
 }
