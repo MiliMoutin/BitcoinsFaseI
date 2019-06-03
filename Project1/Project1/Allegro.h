@@ -9,10 +9,10 @@
 #include "Observer.h"
 #include "Node.h"
 
-#define DISPLAY_H	500
-#define DISPLAY_W	500
+#define DISPLAY_H	700
+#define DISPLAY_W	700
 #define TEXTFONT "textfont.ttf"
-#define TEXTSIZE 10
+#define TEXTSIZE 15
 #define BLOCK_IMAGE "bloque.png"
 #define ARROW_RIGHT_IMAGE "Right.png"
 #define ARROW_LEFT_IMAGE "Left.png"
@@ -22,6 +22,8 @@
 #define DIF 10
 
 #define RADIO TEXTSIZE*2
+#define NODE_DIF_X ((RADIO*5)+10)
+#define NODE_DIF_Y 0
 
 #define FIRST_COL(x) (((x)>=SPACE_BTW) && ((x) <= (SPACE_BTW+IMAGE_W)))
 #define SECOND_COL(x) (((x) >= ((SPACE_BTW*2)+IMAGE_W)) && ((x) <= ((SPACE_BTW*2)+(IMAGE_W*2))))
@@ -31,8 +33,8 @@
 #define SECOND_ROW(x) (((x) >= ((SPACE_BTW*2)+IMAGE_H)) && ((x) <= ((SPACE_BTW*2)+(IMAGE_H*2))))
 #define THIRD_ROW(x) (((x) >= ((SPACE_BTW*3)+(IMAGE_H*2))) && ((x) <= ((SPACE_BTW*3)+(IMAGE_H*3))))
 
-#define B_L_CORNER(x,y,dx,dy) (((x)>=(DISPLAY_W-(dx))) && ((x)<=DISPLAY_W)) && (((y)>=(DISPLAY_H-(dy))) && ((y)<=DISPLAY_H))
-#define B_R_CORNER(x,y,dx,dy) (((x)<=(dx)) && ((y)<=(dy)))
+#define B_R_CORNER(x,y,dx,dy) (((x)>=(DISPLAY_W-(dx))) && ((x)<=DISPLAY_W)) && (((y)>=(DISPLAY_H-(dy))) && ((y)<=DISPLAY_H))
+#define B_L_CORNER(x,y,dx,dy) (((x)<=(dx)) && ((y)<=(dy)))
 
 #define ITEM_1(x,y) (FIRST_ROW(y) && FIRST_COL(x))
 #define ITEM_2(x,y) (FIRST_ROW(y) && SECOND_COL(x))
@@ -49,7 +51,9 @@ enum al_event {
 	ev_mouse, ev_tx
 };
 
-//enum align { center, right, left };
+enum al_status {
+	st_exit, st_nodes, st_bchain, st_tree
+};
 
 struct display_pos {
 	int x;
@@ -74,25 +78,27 @@ public:
 	void update(void* model);
 
 	enum al_event getNextEvent(void);
-
+	void dispatcher(al_event ev, Node* nodo);
+	al_status get_state() { return state; }
 private:
 	bool initAllegro_ok(void);
-	void ShowGraph(Node* nodo, int cx = DISPLAY_W / 2, int cy = DISPLAY_H / 2);
-	bool ShowBlockchain(list<Block>& blockchain);
+	void ShowGraph(Node* nodo, int cx = DISPLAY_W / 2, int cy = DISPLAY_H / 2, int auxx=NODE_DIF_X, int auxy=NODE_DIF_Y);
+	bool ShowBlockchain(Node* nod);
 
 
 	//unsigned int GetDisplayW();
 	//unsigned int GetDisplayH();
 	//display_pos GetMousePos();
 
-
-	void mouse_dispatcher(list<Block>& blockchain, int page = 1);
+	void mouse_dispatcher(Node* nodo, int page = 1);
 	void DrawNode(Node* nodo, int cx, int cy);
 	void DrawBlock(Block& bloque, int x, int y, int w, int h);
 	void DrawTree(Block& bloque);
 	void DrawFloor(int cant, int img_w, int img_h, int block_dis, int border_dis=0, int floor=0, int aux = 1);
-	void NextPage(list<Block>& blockchain, int page=1);
-	void PrevPage(list<Block>& blockchain, int page = 1);
+	void NextPage(Node* nodo, int page=1);
+	void PrevPage(Node* nodo, int page = 1);
+
+	//void alleTxs();
 
 	ALLEGRO_DISPLAY* display;
 	ALLEGRO_EVENT_QUEUE* event_queue;
@@ -105,4 +111,5 @@ private:
 	unsigned int display_w;
 	display_pos pos;
 	list<node_pos> nodes_list;
+	al_status state;
 };

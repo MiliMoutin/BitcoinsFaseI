@@ -38,18 +38,18 @@ int main(void) {
 		blockchainpruebafile.seekg(0, ios::beg);
 		blockchainpruebafile.read(buffer2, size2);
 		blockchainpruebafile.close();
-		//buffer2[size2] = '\0';
+		buffer2[size2] = '\0';
 
 		nlohmann::json* block;
 
 		string buf2(buffer2,size2);
 		cout << buf2;
 		buf2 = buf2.substr(buf2.find_first_of("{"), buf2.find_last_of("}"));
-		/*
+		
 		nlohmann::json b = nlohmann::json::parse(buf2);
 
 		Block blockToSend = createBlock(b);
-		*/
+		
 		SPV  n2("nodo2");
 		Full gordo1("gordo1");
 		Full gordo2("gordo2");
@@ -60,6 +60,7 @@ int main(void) {
 		gordo2.attach(&n2);
 		gordo1.setFilter(n2.getID());
 
+		gordo1.injectBlock(blockToSend);
 		Allegro alle;
 		cout << n2.getType() << endl;
 		al_event ev;
@@ -67,11 +68,12 @@ int main(void) {
 		do
 		{
 			ev = alle.getNextEvent();
+			alle.dispatcher(ev, &gordo1);
 			alle.update(&n2);
 
 		} while (ev != ev_quit);
 
-	//	gordo1.injectBlock(blockToSend);
+		
 		gordo1.destroy();
 		gordo2.destroy();
 		
@@ -80,7 +82,7 @@ int main(void) {
 		
 	}
 	
-
+	return 0;
 }
 
 
