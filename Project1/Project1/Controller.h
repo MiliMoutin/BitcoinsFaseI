@@ -1,9 +1,10 @@
 #pragma once
-#include "EventData.h"
+#include "Block.h"
+#include "Allegro.h"
 class Controller {
 public:
 	Controller() {};
-	void parseMouseEvent(EventData *mouseEvent);
-	void parseNetworkEvent(EventData *mouseEvent);
+	bool Tx(Block& orig, Block& dest, unsigned long int monto);
+	void dispatcher();
 	virtual ~Controller() {};
 };

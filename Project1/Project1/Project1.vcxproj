@@ -79,7 +79,7 @@
     <Allegro_AddonDialog>true</Allegro_AddonDialog>
     <Allegro_AddonMemfile>true</Allegro_AddonMemfile>
     <Allegro_AddonFont>true</Allegro_AddonFont>
-    <Allegro_AddonColor>false</Allegro_AddonColor>
+    <Allegro_AddonColor>true</Allegro_AddonColor>
     <Allegro_AddonVideo>true</Allegro_AddonVideo>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -130,7 +130,6 @@
     <ClInclude Include="Allegro.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="EDAMerkleBlock.h" />
-    <ClInclude Include="EventData.h" />
     <ClInclude Include="Full.h" />
     <ClInclude Include="Block.h" />
     <ClInclude Include="GenerateID.h" />
@@ -152,7 +151,6 @@
     <ClCompile Include="Allegro.cpp" />
     <ClCompile Include="Block.cpp" />
     <ClCompile Include="EDAMerkleBlock.cpp" />
-    <ClCompile Include="EventData.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Full.cpp" />
     <ClCompile Include="Output.cpp" />

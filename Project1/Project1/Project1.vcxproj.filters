@@ -25,7 +25,6 @@
     <ClCompile Include="EDAMerkleBlock.cpp">
       <Filter>.cpps</Filter>
     </ClCompile>
-    <ClCompile Include="EventData.cpp" />
     <ClCompile Include="Subject.cpp">
       <Filter>.cpps</Filter>
     </ClCompile>
@@ -88,7 +87,6 @@
     <ClInclude Include="Subject.h">
       <Filter>.h</Filter>
     </ClInclude>
-    <ClInclude Include="EventData.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

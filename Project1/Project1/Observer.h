@@ -3,6 +3,6 @@ class Observer {
 public:
 	Observer() {};
 	Observer(const Observer& orig) {};
-	virtual void update() = 0;
+	virtual void update(void* model) = 0;
 	virtual ~Observer() {};
 };

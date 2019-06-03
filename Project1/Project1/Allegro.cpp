@@ -1,8 +1,9 @@
 #include <iostream>
 #include<list>
 #include <string>
-#include "Block.h"
 #include "Allegro.h"
+#include "SPV.h"
+#include "Full.h"
 
 int findTreeH(MerkleRoot* root);
 
@@ -57,6 +58,7 @@ Allegro::Allegro(unsigned int w, unsigned int h)
 	}
 	al_init_image_addon();
 
+	al_init_primitives_addon();
 	block_img = al_load_bitmap(BLOCK_IMAGE);
 	if (!block_img)
 	{
@@ -94,7 +96,7 @@ Allegro::Allegro(unsigned int w, unsigned int h)
 	}
 
 	al_clear_to_color(al_map_rgb(255, 255, 255)); //Hace clear del backbuffer del diplay al color RGB 0,0,0 (negro)
-
+	al_flip_display();
 	//Registra el display a la cola de eventos, los eventos del display se iran guardando en la cola a medida que vayan sucediendo
 	al_register_event_source(event_queue, al_get_display_event_source(display)); //REGISTRAMOS EL DISPLAY
 	al_register_event_source(event_queue, al_get_mouse_event_source()); //REGISTRAMOS EL MOUSE
@@ -114,7 +116,16 @@ Allegro::~Allegro()
 	al_destroy_bitmap(left);
 }
 
-al_event 
+void
+Allegro::update(void* model)
+{
+	Node* nodo = (Node*)model;
+	ShowGraph(nodo);
+	return;
+}
+
+
+al_event
 Allegro::getNextEvent(void)
 {
 	ALLEGRO_EVENT ev;
@@ -133,6 +144,17 @@ Allegro::getNextEvent(void)
 		return ev_mouse;
 		break;
 	}
+	case ALLEGRO_EVENT_KEY_UP:
+	{
+		if (ev.keyboard.keycode == ALLEGRO_KEY_T)
+		{
+			return ev_tx;
+		}
+		else
+		{
+			return ev_null;
+		}
+	}
 	default:
 	{
 		return ev_null;
@@ -149,54 +171,50 @@ Allegro::initAllegro_ok()
 }
 
 
-unsigned int 
-Allegro::GetDisplayW()
-{
-	return display_w;
-}
-
-
-unsigned int 
-Allegro::GetDisplayH()
-{
-	return display_h;
-}
-
-
-display_pos 
-Allegro::GetMousePos()
-{
-	return pos;
-}
-
-
 void
-Allegro::DrawBlock(Block& bloque, int x, int y, int w, int h)
+Allegro::ShowGraph(Node* nodo, int cx, int cy)
 {
-	al_draw_scaled_bitmap(block_img, 0, 0, al_get_bitmap_width(block_img), al_get_bitmap_height(block_img), x, y, w, h, 0);
 
-	string id = to_string(bloque.getId());
-	string cantx = to_string(bloque.getCantTxs());
-	string aux1("ID: " + id);
-	string aux2("Txs: " + cantx);
-	al_draw_text(font, al_map_rgb(255, 0, 0), x, y + 10, 0, aux1.c_str());
-	al_draw_text(font, al_map_rgb(255, 0, 0), x, y + TEXTSIZE, 0, aux2.c_str());
+	node_pos pos;
+	string type = nodo->getType();
+	pos.id = nodo->getID();
+	pos.cx = cx;
+	pos.cy = cy;
+	
+	for (node_pos p : nodes_list)
+	{
+		if (pos.id == p.id)			//siya dibuje el nodo, no lo vuelvo a dibujar
+		{
+			return;
+		}
+	}
+
+	nodes_list.push_back(pos);
+	DrawNode(nodo, cx, cy);
+	int size = nodo->getNeighbours().size();
+	
+	int auxx = (RADIO * 2) + 10, auxy = 0;
+	//diametro*2
+	for (Node* n : nodo->getNeighbours())
+	{
+		ShowGraph(n, cx - auxx, cy - auxy);
+		auxx -= (TEXTSIZE * 3);
+		auxy += (TEXTSIZE * 3 * 2 + 10);
+	}
+	
+
 	return;
 }
 
 
-bool 
-Allegro::ShowAlle(list<Block>& blockchain)
+bool
+Allegro::ShowBlockchain(list<Block>& blockchain)
 {
-	if (!init_ok)
-	{
-		cout<<"Allegro failed" << endl;
-		return false;
-	}
+	
 	if (blockchain.size() == 0)
 	{
 		cout << "Blockchain empty." << endl;
-		al_draw_text(font, al_map_rgb(255, 0, 0), DISPLAY_W/2, DISPLAY_H/2, ALLEGRO_ALIGN_CENTER, "Blockchain empty.");
+		al_draw_text(font, al_map_rgb(255, 0, 0), DISPLAY_W / 2, DISPLAY_H / 2, ALLEGRO_ALIGN_CENTER, "Blockchain empty.");
 		al_flip_display();
 		al_rest(3.0);
 		return false;
@@ -212,8 +230,8 @@ Allegro::ShowAlle(list<Block>& blockchain)
 		al_draw_bitmap(right, DISPLAY_W, DISPLAY_H, ALLEGRO_ALIGN_RIGHT);
 	}
 
-	
-	
+
+
 	for (; posy <= (DISPLAY_H-IMAGE_H); posy += (IMAGE_H + 30))
 	{
 		for (; posx <= (DISPLAY_W-IMAGE_W); posx += (IMAGE_W + 30))
@@ -225,7 +243,7 @@ Allegro::ShowAlle(list<Block>& blockchain)
 			}
 		}
 	}
-	
+
 
 	al_flip_display();
 	int ev;
@@ -236,13 +254,14 @@ Allegro::ShowAlle(list<Block>& blockchain)
 		{
 			mouse_dispatcher(blockchain, blockchain.size());
 		}
-		
+
 	} while (ev != ev_quit);
 	*/
 	return true;
 }
 
-void 
+
+void
 Allegro::mouse_dispatcher(list<Block>& blockchain, int page)
 {
 	int size = (blockchain.size() - (9 * (page - 1)));
@@ -294,7 +313,7 @@ Allegro::mouse_dispatcher(list<Block>& blockchain, int page)
 			advance(itr, 8 + (9 * (page - 1)));
 			DrawTree(*itr);
 		}
-		else if(B_L_CORNER(pos.x, pos.y, al_get_bitmap_width(right), al_get_bitmap_height(right)) && (size > (9 * page)))
+		else if (B_L_CORNER(pos.x, pos.y, al_get_bitmap_width(right), al_get_bitmap_height(right)) && (size > (9 * page)))
 		{
 			NextPage(blockchain, ++page);
 		}
@@ -305,6 +324,116 @@ Allegro::mouse_dispatcher(list<Block>& blockchain, int page)
 	}
 	return;
 }
+
+
+void
+Allegro::DrawNode(Node* nodo, int cx, int cy)
+{
+	
+	al_draw_filled_circle(cx, cy, RADIO, al_map_rgb(0, 255, 0));
+	al_draw_text(font, al_map_rgb(255, 0, 0), cx, cy, ALLEGRO_ALIGN_CENTER, nodo->getType().c_str());
+	al_flip_display();
+	return;
+}
+
+
+/*
+unsigned int 
+Allegro::GetDisplayW()
+{
+	return display_w;
+}
+
+
+unsigned int 
+Allegro::GetDisplayH()
+{
+	return display_h;
+}
+
+
+display_pos 
+Allegro::GetMousePos()
+{
+	return pos;
+}
+*/
+
+
+void
+Allegro::DrawBlock(Block& bloque, int x, int y, int w, int h)
+{
+	al_draw_scaled_bitmap(block_img, 0, 0, al_get_bitmap_width(block_img), al_get_bitmap_height(block_img), x, y, w, h, 0);
+
+	string id = to_string(bloque.getId());
+	string cantx = to_string(bloque.getCantTxs());
+	string aux1("ID: " + id);
+	string aux2("Txs: " + cantx);
+	al_draw_text(font, al_map_rgb(255, 0, 0), x, y + 10, 0, aux1.c_str());
+	al_draw_text(font, al_map_rgb(255, 0, 0), x, y + TEXTSIZE, 0, aux2.c_str());
+	return;
+}
+
+
+void
+Allegro::DrawTree(Block& bloque)
+{
+	al_clear_to_color(al_map_rgb(255, 255, 255));
+	int height = findTreeH(bloque.getRoot());
+	int cant = bloque.getCantTxs();
+	int w = (int)((DISPLAY_W / cant) - DIF);
+	int h = (int)(((DISPLAY_H - al_get_bitmap_height(left)) / height) - DIF);
+
+	DrawFloor(cant, w, h, DIF);
+	al_flip_display();
+
+
+	/*
+	DISPLAY_W/cant (-1 casteado a int) -->ancho de imagen
+	(DISPLAY_H-ARROW_H)/height (-1 casteado a int) -->largo de imagen
+				le dejo lugar a la flecha
+	-uso al_draw_scaled_bitmap
+
+	-dibujar arbol
+	-dibujar texto necesario  (???)
+	-dibujar flechita para volver
+
+	-descifrar como dibujar las flechita (???)
+
+	DrawFloor(cant, w, h, DIF, 0)
+
+	DrawFloor(cant, w, h, DIF, 0)
+	*/
+}
+
+
+void
+Allegro::DrawFloor(int cant, int img_w, int img_h, int block_dis, int border_dis, int floor, int aux)
+{
+	if (cant == 1)
+	{
+		al_draw_scaled_bitmap(block_img, 0, 0, al_get_bitmap_width(block_img), al_get_bitmap_height(block_img),
+			DISPLAY_W / 2, 0, img_w, img_h, ALLEGRO_ALIGN_CENTER);
+		return;
+	}
+	else
+	{
+		int x = border_dis;
+		int y = (DISPLAY_H - al_get_bitmap_height(left) - al_get_bitmap_height(block_img)) - ((al_get_bitmap_height(block_img) + DIF)*floor);
+
+		for (int i = 0; i < cant; i++, (x += (al_get_bitmap_width(block_img) + block_dis)))
+		{
+			al_draw_scaled_bitmap(block_img, 0, 0, al_get_bitmap_width(block_img), al_get_bitmap_height(block_img),
+				x, y, img_w, img_h, 0);
+		}
+
+		DrawFloor(cant / 2, img_w, img_h, (block_dis * 2) + DIF, border_dis + DIF * aux, ++floor, aux * 2);
+		return;
+	}
+
+
+}
+
 
 void
 Allegro::NextPage(list<Block>& blockchain, int page)
@@ -348,6 +477,7 @@ Allegro::NextPage(list<Block>& blockchain, int page)
 		}
 
 	} while (ev != ev_quit);
+
 	return;
 	
 }
@@ -359,63 +489,6 @@ Allegro::PrevPage(list<Block>& blockchain, int page)
 	return;
 }
 
-void
-Allegro::DrawTree(Block& bloque)
-{
-	al_clear_to_color(al_map_rgb(255, 255, 255));
-	int height = findTreeH(bloque.getRoot());
-	int cant = bloque.getCantTxs();
-	int w = (int)((DISPLAY_W / cant) - DIF);
-	int h = (int)(((DISPLAY_H - al_get_bitmap_height(left)) / height) - DIF);
-
-	DrawFloor(cant, w, h, DIF);
-	al_flip_display();
-
-
-	/*
-	DISPLAY_W/cant (-1 casteado a int) -->ancho de imagen
-	(DISPLAY_H-ARROW_H)/height (-1 casteado a int) -->largo de imagen
-				le dejo lugar a la flecha
-	-uso al_draw_scaled_bitmap
-
-	-dibujar arbol
-	-dibujar texto necesario  (???)
-	-dibujar flechita para volver
-
-	-descifrar como dibujar las flechita (???)
-
-	DrawFloor(cant, w, h, DIF, 0)
-
-	DrawFloor(cant, w, h, DIF, 0)
-	*/
-}
-
-void
-Allegro::DrawFloor(int cant, int img_w, int img_h, int block_dis, int border_dis, int floor, int aux)
-{
-	if (cant == 1)
-	{
-		al_draw_scaled_bitmap(block_img, 0, 0, al_get_bitmap_width(block_img), al_get_bitmap_height(block_img),
-			DISPLAY_W/2, 0, img_w, img_h, ALLEGRO_ALIGN_CENTER);
-		return;
-	}
-	else
-	{
-		int x = border_dis;
-		int y = (DISPLAY_H - al_get_bitmap_height(left) - al_get_bitmap_height(block_img)) - ((al_get_bitmap_height(block_img) + DIF)*floor);
-
-		for (int i = 0; i < cant; i++, (x += (al_get_bitmap_width(block_img) + block_dis)))
-		{
-			al_draw_scaled_bitmap(block_img, 0, 0, al_get_bitmap_width(block_img), al_get_bitmap_height(block_img),
-				x, y, img_w, img_h, 0);
-		}
-
-		DrawFloor(cant / 2, img_w, img_h, (block_dis * 2) + DIF, border_dis+DIF*aux, ++floor, aux*2);
-		return;
-	}
-
-
-}
 
 
 int findTreeH(MerkleRoot* root)

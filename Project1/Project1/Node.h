@@ -14,4 +14,5 @@ public:
 	virtual string getType() = 0;
 	virtual string getID() = 0;
 	virtual void attach(Node* n) = 0;
+	virtual list<Node*> getNeighbours() = 0;
 };

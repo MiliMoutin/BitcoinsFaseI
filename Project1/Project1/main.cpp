@@ -45,11 +45,11 @@ int main(void) {
 		string buf2(buffer2,size2);
 		cout << buf2;
 		buf2 = buf2.substr(buf2.find_first_of("{"), buf2.find_last_of("}"));
-
+		/*
 		nlohmann::json b = nlohmann::json::parse(buf2);
 
 		Block blockToSend = createBlock(b);
-
+		*/
 		SPV  n2("nodo2");
 		Full gordo1("gordo1");
 		Full gordo2("gordo2");
@@ -60,11 +60,24 @@ int main(void) {
 		gordo2.attach(&n2);
 		gordo1.setFilter(n2.getID());
 
+		Allegro alle;
+		cout << n2.getType() << endl;
+		al_event ev;
 
-		gordo1.injectBlock(blockToSend);
+		do
+		{
+			ev = alle.getNextEvent();
+			alle.update(&n2);
+
+		} while (ev != ev_quit);
+
+	//	gordo1.injectBlock(blockToSend);
 		gordo1.destroy();
 		gordo2.destroy();
+		
+		
 
+		
 	}
 	
 

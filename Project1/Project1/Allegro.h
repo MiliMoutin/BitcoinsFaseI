@@ -4,6 +4,10 @@
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_font.h> //manejo de fonts
 #include <allegro5/allegro_ttf.h> //Manejo de ttfs
+#include <allegro5/allegro_primitives.h>
+#include "Block.h"
+#include "Observer.h"
+#include "Node.h"
 
 #define DISPLAY_H	500
 #define DISPLAY_W	500
@@ -16,6 +20,8 @@
 #define IMAGE_W ((DISPLAY_W/3)-SPACE_BTW)
 #define IMAGE_H ((DISPLAY_H/3)-SPACE_BTW)
 #define DIF 10
+
+#define RADIO TEXTSIZE*2
 
 #define FIRST_COL(x) (((x)>=SPACE_BTW) && ((x) <= (SPACE_BTW+IMAGE_W)))
 #define SECOND_COL(x) (((x) >= ((SPACE_BTW*2)+IMAGE_W)) && ((x) <= ((SPACE_BTW*2)+(IMAGE_W*2))))
@@ -40,9 +46,7 @@
 
 enum al_event {
 	ev_null, ev_quit,
-	ev_mouse,
-	/*ev_tile1, ev_tile2, ev_tile3, ev_tile4, ev_tile5, ev_tile6, ev_tile7, ev_tile8, ev_tile9,
-	ev_right, ev_left, ev_prev*/
+	ev_mouse, ev_tx
 };
 
 //enum align { center, right, left };
@@ -52,29 +56,41 @@ struct display_pos {
 	int y;
 };
 
-class Allegro
+struct node_pos
+{
+	string id;
+	int cx;
+	int cy;
+};
+
+class Allegro: public Observer
 {
 public:
 	//constructores
 	Allegro(unsigned int w = DISPLAY_W, unsigned int h = DISPLAY_H);
 	~Allegro();
-	bool initAllegro_ok(void);
 
-	
-	bool ShowAlle(list<Block>& blockchain);
+
+	void update(void* model);
 
 	enum al_event getNextEvent(void);
 
-	unsigned int GetDisplayW();
-	unsigned int GetDisplayH();
-
-	display_pos GetMousePos();
-
 private:
+	bool initAllegro_ok(void);
+	void ShowGraph(Node* nodo, int cx = DISPLAY_W / 2, int cy = DISPLAY_H / 2);
+	bool ShowBlockchain(list<Block>& blockchain);
+
+
+	//unsigned int GetDisplayW();
+	//unsigned int GetDisplayH();
+	//display_pos GetMousePos();
+
+
+	void mouse_dispatcher(list<Block>& blockchain, int page = 1);
+	void DrawNode(Node* nodo, int cx, int cy);
 	void DrawBlock(Block& bloque, int x, int y, int w, int h);
 	void DrawTree(Block& bloque);
 	void DrawFloor(int cant, int img_w, int img_h, int block_dis, int border_dis=0, int floor=0, int aux = 1);
-	void mouse_dispatcher(list<Block>& blockchain, int page=1);
 	void NextPage(list<Block>& blockchain, int page=1);
 	void PrevPage(list<Block>& blockchain, int page = 1);
 
@@ -88,4 +104,5 @@ private:
 	unsigned int display_h;
 	unsigned int display_w;
 	display_pos pos;
+	list<node_pos> nodes_list;
 };

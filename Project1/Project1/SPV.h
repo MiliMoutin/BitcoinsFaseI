@@ -12,13 +12,14 @@ class SPV : public Node{
 
 public:
 	SPV(string id) { this->id = id; }
-	virtual string getType() { return "SPV"; }
+	string getType() { return string("SPV"); }
 	virtual string getID() { return this->id; }
 	virtual void attach(Node* n);
 	void askForHeader();
 	void notify(EDAMerkleBlock mb, HeaderBlock h);
 	HeaderBlock getLastHeader() { return this->headers.back(); }
 
+	list<Node*> getNeighbours() { return neighbours; }
 private:
 	list <Node*> neighbours;
 	list <HeaderBlock> headers;
