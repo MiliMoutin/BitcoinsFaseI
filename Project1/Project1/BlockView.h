@@ -4,11 +4,12 @@
 
 using namespace std;
 
-class BlockView : public Observer
+class BlockView //: public Observer
 {
 public:
 	void drawBlock();
 private:
+
 	string id;
 	int cantTxs;
 };

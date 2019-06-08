@@ -128,7 +128,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Allegro.h" />
+    <ClInclude Include="BlockchainView.h" />
     <ClInclude Include="BlockView.h" />
+    <ClInclude Include="Cajita.h" />
+    <ClInclude Include="CajitaView.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="EDAMerkleBlock.h" />
     <ClInclude Include="Full.h" />
@@ -144,6 +147,7 @@
     <ClInclude Include="Output.h" />
     <ClInclude Include="Path.h" />
     <ClInclude Include="PathElement.h" />
+    <ClInclude Include="Simulation.h" />
     <ClInclude Include="SimulationView.h" />
     <ClInclude Include="SPV.h" />
     <ClInclude Include="Subject.h" />
@@ -159,6 +163,7 @@
     <ClCompile Include="Full.cpp" />
     <ClCompile Include="NodeView.cpp" />
     <ClCompile Include="Output.cpp" />
+    <ClCompile Include="SimulationView.cpp" />
     <ClCompile Include="SPV.cpp" />
     <ClCompile Include="Subject.cpp" />
     <ClCompile Include="Transaction.cpp" />

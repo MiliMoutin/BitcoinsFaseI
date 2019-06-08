@@ -34,6 +34,9 @@
     <ClCompile Include="NodeView.cpp">
       <Filter>.cpps</Filter>
     </ClCompile>
+    <ClCompile Include="SimulationView.cpp">
+      <Filter>.cpps</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Allegro.h">
@@ -100,6 +103,18 @@
       <Filter>.h</Filter>
     </ClInclude>
     <ClInclude Include="BlockView.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="BlockchainView.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="Simulation.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="Cajita.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="CajitaView.h">
       <Filter>.h</Filter>
     </ClInclude>
   </ItemGroup>
