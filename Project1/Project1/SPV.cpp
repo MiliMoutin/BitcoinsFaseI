@@ -87,7 +87,7 @@ bool SPV::validNotification(EDAMerkleBlock edamb, HeaderBlock hb) {
 		}
  	}
 	cout << "valida" << endl;
-	sleep_for(seconds(30));
+	//sleep_for(seconds(30));
 	return true;
 }
 

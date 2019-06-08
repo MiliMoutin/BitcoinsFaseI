@@ -63,6 +63,7 @@ struct display_pos {
 struct node_pos
 {
 	string id;
+	string n;
 	int cx;
 	int cy;
 };

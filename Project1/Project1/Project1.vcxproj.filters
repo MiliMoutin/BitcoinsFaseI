@@ -28,6 +28,12 @@
     <ClCompile Include="Subject.cpp">
       <Filter>.cpps</Filter>
     </ClCompile>
+    <ClCompile Include="Controller.cpp">
+      <Filter>.cpps</Filter>
+    </ClCompile>
+    <ClCompile Include="NodeView.cpp">
+      <Filter>.cpps</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Allegro.h">
@@ -85,6 +91,15 @@
       <Filter>.h</Filter>
     </ClInclude>
     <ClInclude Include="Subject.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="NodeView.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="SimulationView.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="BlockView.h">
       <Filter>.h</Filter>
     </ClInclude>
   </ItemGroup>

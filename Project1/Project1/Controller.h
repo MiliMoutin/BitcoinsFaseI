@@ -3,8 +3,10 @@
 #include "Allegro.h"
 class Controller {
 public:
-	Controller() {};
+	Controller(Allegro& orig) { alle = orig; return; };
 	bool Tx(Block& orig, Block& dest, unsigned long int monto);
-	void dispatcher();
+	void dispatcher(al_event ev, Node* nodo);
 	virtual ~Controller() {};
+private:
+	Allegro alle;
 };
