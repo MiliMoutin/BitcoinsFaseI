@@ -5,7 +5,6 @@
 #include "CajitaView.h"
 
 #define N_DISPLAY_W 700
-
 #define N_DISPLAY_H 700
 #define GRAPH_RADIUS ((N_DISPLAY_W/2)-30)
 
@@ -14,6 +13,11 @@
 
 #define DISPLAY_W N_DISPLAY_W
 #define DISPLAY_H (N_DISPLAY_H + C_DISPLAY_H)
+
+
+#define TEXTFONT "textfont.ttf"
+#define TEXTSIZE 15
+
 class SimulationView : public Observer
 {
 public:
