@@ -17,8 +17,8 @@ public:
 	virtual void attach(Node* n);
 	void askForHeader();
 	void notify(EDAMerkleBlock mb, HeaderBlock h);
+	bool isNeighbour(string id);
 	HeaderBlock getLastHeader() { return this->headers.back(); }
-
 	list<Node*> getNeighbours() { return neighbours; }
 private:
 	list <Node*> neighbours;

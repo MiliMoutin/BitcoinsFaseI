@@ -18,6 +18,18 @@ void Full::attach(Node* n) {
 		return;
 }
 
+bool Full::isNeighbour(string id) {
+	if (this->neighbours.empty()) {
+		return false;
+	}
+	for (Node *n : this->neighbours) {
+		if (n->getID() == id) {
+			return true;
+		}
+		return false;
+	}
+}
+
 void Full::setFilter(string id) {
 	this->filters.push_back(id);
 }

@@ -141,6 +141,7 @@
     <ClInclude Include="Input.h" />
     <ClInclude Include="MerkleNode.h" />
     <ClInclude Include="MerkleRoot.h" />
+    <ClInclude Include="Miners.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="NodeView.h" />
     <ClInclude Include="Observer.h" />
@@ -162,8 +163,10 @@
     <ClCompile Include="EDAMerkleBlock.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Full.cpp" />
+    <ClCompile Include="Miner.cpp" />
     <ClCompile Include="NodeView.cpp" />
     <ClCompile Include="Output.cpp" />
+    <ClCompile Include="Simulation.cpp" />
     <ClCompile Include="SimulationView.cpp" />
     <ClCompile Include="SPV.cpp" />
     <ClCompile Include="Subject.cpp" />

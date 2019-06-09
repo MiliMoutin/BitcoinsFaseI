@@ -16,8 +16,9 @@ class SPV;
 class Full :public Node{
 
 public:
+	Full(){}
 	Full(string id);
-	string getType() { return string("Full"); }
+	string getType() { return "Full"; }
 	virtual string getID() { return this->id; }
 	virtual void attach(Node* n);
 	void setFilter(string id);
@@ -25,10 +26,11 @@ public:
 	HeaderBlock askForHeader() { return this->blockchain.back().getHeader(); }
 	void injectBlock(Block b);
 	void destroy() { destroyBlockchain(); }
+	bool isNeighbour(string id);
 
 	list<Block> getBchain() { return blockchain; }
 	list<Node*> getNeighbours() { return neighbours; }
-private:
+protected:
 	//si llega un bloque y aparece alguno de los filters el node avisa
 	vector<string> filters;
 	list<Node*> neighbours;
