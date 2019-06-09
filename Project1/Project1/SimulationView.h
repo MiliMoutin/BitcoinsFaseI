@@ -4,10 +4,20 @@
 #include "Simulation.h"
 #include "CajitaView.h"
 
+#define N_DISPLAY_W 700
 
+#define N_DISPLAY_H 700
+#define GRAPH_RADIUS ((N_DISPLAY_W/2)-30)
+
+#define C_DISPLAY_W N_DISPLAY_W
+#define C_DISPLAY_H 200
+
+#define DISPLAY_W N_DISPLAY_W
+#define DISPLAY_H (N_DISPLAY_H + C_DISPLAY_H)
 class SimulationView : public Observer
 {
 public:
+	SimulationView();
 	void update(void* model);
 protected:
 	ALLEGRO_FONT* font;

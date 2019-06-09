@@ -157,6 +157,7 @@
   <ItemGroup>
     <ClCompile Include="Allegro.cpp" />
     <ClCompile Include="Block.cpp" />
+    <ClCompile Include="CajitaView.cpp" />
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="EDAMerkleBlock.cpp" />
     <ClCompile Include="main.cpp" />

@@ -2,6 +2,43 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 
+SimulationView::SimulationView()
+{
+	int w = DISPLAY_W;
+	int h = DISPLAY_H;
+
+	if (!al_init())
+	{ //Primera funcion a llamar antes de empezar a usar allegro.
+		cout << "failed to initialize allegro!\n";
+		return;
+	}
+
+	
+	al_init_font_addon(); // initialize the font addon
+	al_init_ttf_addon();// initialize the ttf (True Type Font) addon
+
+	font = al_load_ttf_font(TEXTFONT, TEXTSIZE, 0); //HAY CREAR UN FONT PARA CADA TAMAÑO DE LETRA :( 
+	if (!font)
+	{
+		cout << "Could not load text font.\n";
+		return;
+	}
+
+	display = al_create_display(w, h); // Intenta crear display de fallar devuelve NULL
+
+	if (!display)
+	{
+		cout << "failed to create display!\n";
+		al_destroy_font(font);
+		return;
+	}
+
+	al_init_primitives_addon();
+
+	al_clear_to_color(al_map_rgb(255, 255, 255)); //Hace clear del backbuffer del diplay al color RGB
+}
+
+
 void
 SimulationView::update(void* model)
 {
@@ -27,8 +64,7 @@ SimulationView::drawSim(Node* node_array)
 	{
 		nodes[i].drawNode(node_array[i]);
 	}
-
-	//drawCajita o cajita.update
+	
 }
 
 void

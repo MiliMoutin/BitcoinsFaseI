@@ -37,6 +37,9 @@
     <ClCompile Include="SimulationView.cpp">
       <Filter>.cpps</Filter>
     </ClCompile>
+    <ClCompile Include="CajitaView.cpp">
+      <Filter>.cpps</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Allegro.h">
