@@ -8,9 +8,10 @@ class Simulation :public Subject
 {
 public:
 	Node* get_nodes() { return nodos; }
+	Cajita* get_cajita() { return cajita; }
 private:
 	Node* nodos;
-	Cajita cajita;
+	Cajita* cajita;
 
 
 };

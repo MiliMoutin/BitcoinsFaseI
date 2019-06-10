@@ -28,9 +28,6 @@
     <ClCompile Include="Subject.cpp">
       <Filter>.cpps</Filter>
     </ClCompile>
-    <ClCompile Include="Controller.cpp">
-      <Filter>.cpps</Filter>
-    </ClCompile>
     <ClCompile Include="NodeView.cpp">
       <Filter>.cpps</Filter>
     </ClCompile>
@@ -41,6 +38,12 @@
       <Filter>.cpps</Filter>
     </ClCompile>
     <ClCompile Include="BlockchainView.cpp">
+      <Filter>.cpps</Filter>
+    </ClCompile>
+    <ClCompile Include="SimController.cpp">
+      <Filter>.cpps</Filter>
+    </ClCompile>
+    <ClCompile Include="TreeView.cpp">
       <Filter>.cpps</Filter>
     </ClCompile>
   </ItemGroup>
@@ -93,9 +96,6 @@
     <ClInclude Include="PathElement.h">
       <Filter>.h</Filter>
     </ClInclude>
-    <ClInclude Include="Controller.h">
-      <Filter>.h</Filter>
-    </ClInclude>
     <ClInclude Include="Observer.h">
       <Filter>.h</Filter>
     </ClInclude>
@@ -106,9 +106,6 @@
       <Filter>.h</Filter>
     </ClInclude>
     <ClInclude Include="SimulationView.h">
-      <Filter>.h</Filter>
-    </ClInclude>
-    <ClInclude Include="BlockView.h">
       <Filter>.h</Filter>
     </ClInclude>
     <ClInclude Include="BlockchainView.h">
@@ -124,6 +121,12 @@
       <Filter>.h</Filter>
     </ClInclude>
     <ClInclude Include="Blockchain.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="SimController.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="TreeView.h">
       <Filter>.h</Filter>
     </ClInclude>
   </ItemGroup>

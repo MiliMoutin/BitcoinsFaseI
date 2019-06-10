@@ -16,20 +16,20 @@ SimulationView::SimulationView()
 	
 	al_init_font_addon(); // initialize the font addon
 	al_init_ttf_addon();// initialize the ttf (True Type Font) addon
-
+	/*
 	font = al_load_ttf_font(TEXTFONT, TEXTSIZE, 0); //HAY CREAR UN FONT PARA CADA TAMAÑO DE LETRA :( 
 	if (!font)
 	{
 		cout << "Could not load text font.\n";
 		return;
 	}
-
+	*/
 	display = al_create_display(w, h); // Intenta crear display de fallar devuelve NULL
 
 	if (!display)
 	{
 		cout << "failed to create display!\n";
-		al_destroy_font(font);
+		//al_destroy_font(font);
 		return;
 	}
 
@@ -40,7 +40,7 @@ SimulationView::SimulationView()
 
 SimulationView::~SimulationView()
 {
-	al_destroy_font(font);
+	//al_destroy_font(font);
 	al_destroy_display(display);
 }
 
@@ -48,32 +48,33 @@ void
 SimulationView::update(void* model)
 {
 	Simulation* sim = (Simulation*)model;
-	drawSim(sim->get_nodes());
+	drawSim(sim->get_nodes(), sim->get_cajita());
 	return;
 }
 
 
 void
-SimulationView::drawSim(Node* node_array)
+SimulationView::drawSim(Node* node_array, Cajita* caja)
 {
 	int dif = 360 / cant_nodes;
 	double rad_dif = (dif * 2 * M_PI) / 360;
 
 	for (int i = 0; i < cant_nodes; i++)
 	{
-		nodes[i].set_position(N_DISPLAY_W/2 + GRAPH_RADIUS*cos(rad_dif*(i)), N_DISPLAY_H/2 + GRAPH_RADIUS*sin(rad_dif*(i)));
+		node_array[i].set_position(N_DISPLAY_W/2 + GRAPH_RADIUS*cos(rad_dif*(i)), N_DISPLAY_H/2 + GRAPH_RADIUS*sin(rad_dif*(i)));
 	}
-	drawConnections();
+	drawConnections(node_array);
 
 	for (int i = 0; i < cant_nodes; i++)
 	{
-		nodes[i].drawNode(node_array[i]);
+		nodes[i].drawNode(&(node_array[i]));
 	}
 	
+	cajita.drawCajita(caja);
 }
 
 void
-SimulationView::drawConnections()
+SimulationView::drawConnections(Node* nodes)
 {
 	for (int i = 0; i < cant_nodes; i++)
 	{

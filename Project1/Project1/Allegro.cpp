@@ -1,4 +1,4 @@
-#include <iostream>
+/*#include <iostream>
 #include<list>
 #include <string>
 #include "Allegro.h"
@@ -285,7 +285,7 @@ Allegro::ShowBlockchain(Node* nod)
 		}
 
 	} while (ev != ev_quit);
-	*/
+	*//*
 	return true;
 }
 
@@ -441,7 +441,7 @@ Allegro::GetMousePos()
 	return pos;
 }
 */
-
+/*
 
 void
 Allegro::DrawBlock(Block& bloque, int x, int y, int w, int h)
@@ -493,7 +493,7 @@ Allegro::DrawTree(Block& bloque)
 	DrawFloor(cant, w, h, DIF, 0)
 
 	DrawFloor(cant, w, h, DIF, 0)
-	*/
+	*//*
 }
 
 
@@ -612,4 +612,4 @@ list<Block> findBchain(Node* nodo)
 	{
 		return findBchain(nodo->getNeighbours().front());
 	}
-}
+}*/

@@ -1,5 +1,20 @@
 #include "CajitaView.h"
-#include "Cajita.h"
+
+
+CajitaView::CajitaView()
+{
+	font = al_load_ttf_font(TEXTFONT, TEXTSIZE, 0);
+	if (!font)
+	{
+		cout << "Could not load text font.\n";
+		return;
+	}
+}
+
+CajitaView::~CajitaView()
+{
+	al_destroy_font(font);
+}
 
 
 void

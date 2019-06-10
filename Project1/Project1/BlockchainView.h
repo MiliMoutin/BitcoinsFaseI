@@ -1,7 +1,6 @@
 #pragma once
-#include "BlockView.h"
+#include "Observer.h"
 #include "Block.h"
-#include "allegro5/allegro.h"
 #include <list>
 
 #define DISPLAY_H	700

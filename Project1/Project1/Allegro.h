@@ -1,5 +1,5 @@
 #pragma once
-
+/*
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_font.h> //manejo de fonts
@@ -113,4 +113,4 @@ private:
 	display_pos pos;
 	list<node_pos> nodes_list;
 	al_status state;
-};
+};*/
