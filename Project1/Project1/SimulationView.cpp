@@ -38,6 +38,11 @@ SimulationView::SimulationView()
 	al_clear_to_color(al_map_rgb(255, 255, 255)); //Hace clear del backbuffer del diplay al color RGB
 }
 
+SimulationView::~SimulationView()
+{
+	al_destroy_font(font);
+	al_destroy_display(display);
+}
 
 void
 SimulationView::update(void* model)

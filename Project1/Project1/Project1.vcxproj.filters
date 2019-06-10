@@ -40,6 +40,9 @@
     <ClCompile Include="CajitaView.cpp">
       <Filter>.cpps</Filter>
     </ClCompile>
+    <ClCompile Include="BlockchainView.cpp">
+      <Filter>.cpps</Filter>
+    </ClCompile>
     <ClCompile Include="Simulation.cpp">
       <Filter>.cpps</Filter>
     </ClCompile>
@@ -124,9 +127,6 @@
       <Filter>.h</Filter>
     </ClInclude>
     <ClInclude Include="CajitaView.h">
-      <Filter>.h</Filter>
-    </ClInclude>
-    <ClInclude Include="Miners.h">
       <Filter>.h</Filter>
     </ClInclude>
   </ItemGroup>

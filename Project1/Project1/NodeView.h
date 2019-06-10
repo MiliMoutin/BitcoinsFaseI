@@ -3,8 +3,6 @@
 #include "SimulationView.h"
 #include "Node.h"
 
-#define TEXTFONT "textfont.ttf"
-#define TEXTSIZE 15
 #define RADIO TEXTSIZE*2
 
 struct node_pos
