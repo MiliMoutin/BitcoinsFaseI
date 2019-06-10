@@ -46,6 +46,12 @@
     <ClCompile Include="TreeView.cpp">
       <Filter>.cpps</Filter>
     </ClCompile>
+    <ClCompile Include="Simulation.cpp">
+      <Filter>.cpps</Filter>
+    </ClCompile>
+    <ClCompile Include="Miner.cpp">
+      <Filter>.cpps</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Allegro.h">
