@@ -23,7 +23,7 @@ public:
 	Simulation(unsigned int fulln, unsigned int spv, unsigned int miners);
 	bool creationSuccessful() { return this->correctParameters; }
 	Node* get_nodes() { return nodos; }
-
+	Cajita get_cajita(){ return cajita; }
 private:
 	Node* nodos;
 	Cajita cajita;

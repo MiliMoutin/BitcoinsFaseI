@@ -28,6 +28,5 @@ public:
 	node_pos get_position() { return position; }
 private:
 	bool visited;
-	
 	node_pos position;
 };
