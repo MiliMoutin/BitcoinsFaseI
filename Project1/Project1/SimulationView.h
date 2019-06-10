@@ -22,7 +22,8 @@ class SimulationView : public Observer
 {
 public:
 	SimulationView();
-	void update(void* model);
+	~SimulationView();
+	virtual void update(void* model);
 protected:
 	ALLEGRO_FONT* font;
 private:
