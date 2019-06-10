@@ -5,8 +5,9 @@
 #include "Transaction.h"
 #include "HeaderBlock.h"
 #include "MerkleNode.h"
+#include "Subject.h"
 
-class Block {
+class Block :public Subject{
 public:
 	Block(){}
 

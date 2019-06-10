@@ -36,6 +36,7 @@ SimulationView::SimulationView()
 	al_init_primitives_addon();
 
 	al_clear_to_color(al_map_rgb(255, 255, 255)); //Hace clear del backbuffer del diplay al color RGB
+	al_flip_display();
 }
 
 SimulationView::~SimulationView()
@@ -48,7 +49,7 @@ void
 SimulationView::update(void* model)
 {
 	Simulation* sim = (Simulation*)model;
-	drawSim(sim->get_nodes(), sim->get_cajita());
+	drawSim(sim->get_nodes(), &(sim->get_cajita()));
 	return;
 }
 

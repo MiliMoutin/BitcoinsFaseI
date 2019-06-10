@@ -13,9 +13,13 @@
 #define IMAGE_H ((DISPLAY_H/3)-SPACE_BTW)
 
 
-class TreeView
+#define DIF 10
+
+class TreeView :public Observer
 {
 public:
+	TreeView();
+	~TreeView();
 	void update(void* model);
 	void DrawTree(Block* bloque);
 	void DrawFloor(int cant, int img_w, int img_h, int block_dis, int border_dis = 0, int floor = 0, int aux = 1);
