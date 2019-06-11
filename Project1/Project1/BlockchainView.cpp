@@ -69,6 +69,7 @@ void
 BlockchainView::update(void*model)
 {
 	Full* b = (Full*)model;
+	al_clear_to_color(al_map_rgb(255, 255, 255));
 	drawBChain(b->getBchain());
 }
 
@@ -98,12 +99,12 @@ BlockchainView::NextPage(list<Block> blockchain, int page)
 
 	if (blockchain.size() > (9 * page))
 	{
-		al_draw_bitmap(right, DISPLAY_W, DISPLAY_H - al_get_bitmap_height(right), ALLEGRO_ALIGN_RIGHT);
+		al_draw_scaled_bitmap(right, 0, 0, al_get_bitmap_width(right), al_get_bitmap_height(right), DISPLAY_W, DISPLAY_H - ARROW_H, ARROW_W, ARROW_H, ALLEGRO_ALIGN_RIGHT);
 	}
 	if (page != 1)
 	{
 		advance(itr, 9 * (page - 1));
-		al_draw_bitmap(left, 0, DISPLAY_H, ALLEGRO_ALIGN_LEFT);
+		al_draw_scaled_bitmap(left, 0, 0, al_get_bitmap_width(left), al_get_bitmap_height(left), 0, DISPLAY_H, ARROW_W, ARROW_H, ALLEGRO_ALIGN_LEFT);
 	}
 
 	for (; posy <= (DISPLAY_H - IMAGE_H); posy += (IMAGE_H + 30))

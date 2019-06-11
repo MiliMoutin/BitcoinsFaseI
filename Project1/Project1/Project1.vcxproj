@@ -132,6 +132,7 @@
     <ClInclude Include="BlockchainCtrl.h" />
     <ClInclude Include="BlockchainView.h" />
     <ClInclude Include="Cajita.h" />
+    <ClInclude Include="CajitaCrl.h" />
     <ClInclude Include="CajitaView.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="EDAMerkleBlock.h" />
@@ -164,6 +165,7 @@
     <ClCompile Include="Block.cpp" />
     <ClCompile Include="BlockchainCtrl.cpp" />
     <ClCompile Include="BlockchainView.cpp" />
+    <ClCompile Include="CajitaCrl.cpp" />
     <ClCompile Include="CajitaView.cpp" />
     <ClCompile Include="EDAMerkleBlock.cpp" />
     <ClCompile Include="main.cpp" />
