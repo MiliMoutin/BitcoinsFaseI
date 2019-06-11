@@ -10,7 +10,6 @@
 class Full;
 
 class SPV : public Node {
-
 public:
 	SPV(string id) { this->id = id; }
 	string getType() { return string("SPV"); }
