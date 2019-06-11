@@ -13,22 +13,21 @@
 
 class SPV;
 
-class Full :public Node{
+class Full :public Node {
 
 public:
-	Full(){}
+	Full() {}
 	Full(string id);
 	string getType() { return "Full"; }
 	virtual string getID() { return this->id; }
 	virtual void attach(Node* n);
 	void setFilter(string id);
-	virtual void createTransaction(string idReceiver, double amount);
 	bool emptyBlockchain() { return blockchain.empty(); }
 	HeaderBlock askForHeader() { return this->blockchain.back().getHeader(); }
 	void injectBlock(Block b);
 	void destroy() { destroyBlockchain(); }
 	bool isNeighbour(string id);
-	void receiveTx(nlohmann::json tx);
+	virtual void receiveTx(nlohmann::json tx, Node* n);
 
 	list<Block> getBchain() { return blockchain; }
 	list<Node*> getNeighbours() { return neighbours; }
@@ -40,6 +39,7 @@ protected:
 	string id;
 	vector<MerkleRoot*> merkleroots;
 	list<UTXO> EDAcoins;
+	vector<Transaction> receivedTx;
 
 	void destroyBlockchain();
 	void destroyTree(MerkleNode* nd);
@@ -63,5 +63,11 @@ protected:
 	vector<Transaction> createVectorForTree(vector<Transaction> initial, int* height);
 	//devuelve si un numero es cuadrado perfecto
 	bool isPot2(int cant, int* exponent);
-	
+
+	Transaction transformJStoTx(nlohmann::json tx);
+
+	bool checkUTXOinBlockchain(unsigned long id);
+
+
+
 };

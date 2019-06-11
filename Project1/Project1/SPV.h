@@ -9,7 +9,7 @@
 
 class Full;
 
-class SPV : public Node{
+class SPV : public Node {
 
 public:
 	SPV(string id) { this->id = id; }
@@ -29,7 +29,7 @@ private:
 	list <MerkleRoot*> roots;
 	string id;
 	list <UTXO> UTXOs;
-	
+
 	bool validNotification(EDAMerkleBlock edamb, HeaderBlock h);
 	bool headerPresent(unsigned long headerId);
 	void CommunicateTx(Transaction tx);

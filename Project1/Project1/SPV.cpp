@@ -3,8 +3,8 @@
 #include <thread>
 #define BLOCKID 3761265367
 
-using namespace std::this_thread; 
-using namespace std::chrono; 
+using namespace std::this_thread;
+using namespace std::chrono;
 
 void SPV::attach(Node* s) {
 	this->neighbours.push_back(s);
@@ -124,6 +124,7 @@ bool SPV::createTx(string idReceiver, double amount) {
 				impColector.push_back(Input(BLOCKID, u.getUTXOId()));
 				outColector.push_back(Output(idReceiver, amountCollected));
 				/*Si la UXTO es más grande, entocnes me mando a mi mismo lo que sobra*/
+				impColector.push_back(Input(BLOCKID, u.getUTXOId()));
 				outColector.push_back(Output(this->id, amountCollected - u.getAmount()));
 			}
 			else {
@@ -150,17 +151,18 @@ bool SPV::canDoTx(double amount) {
 			found = true;
 		}
 	}
-	return false;
+	return found;
 }
 
 void SPV::CommunicateTx(Transaction t) {
 	//transformo mi tx a un json
 	nlohmann::json tx;
-	tx=t.tranformToJson();
+	tx = t.tranformToJson();
+	//se lo comunico a mis nodos Full vecinos
 	for (Node* n : this->neighbours) {
 		if (n->getType() == "Full" || n->getType() == "Miner") {
 			Full* node = (Full*)n;
-			node->receiveTx(tx);
+			node->receiveTx(tx, this);
 		}
 	}
 }
@@ -170,15 +172,3 @@ unsigned long SPV::getUTXOId(double amount, string idReceiver, unsigned long txi
 	base += to_string(amount) + idReceiver + to_string(txid);
 	return generateIDString(base);
 }
-
-
-
-
-
-
-
-
-
-
-
-

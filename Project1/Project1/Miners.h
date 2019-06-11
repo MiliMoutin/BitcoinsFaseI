@@ -8,6 +8,7 @@ public:
 	virtual void attach(Node* n);
 	virtual string getType() { return "Miner"; }
 	bool isNeighbour(string id);
+	virtual void receiveTx(nlohmann::json tx);
 
 protected:
 	string id;
@@ -16,4 +17,5 @@ protected:
 	list<Block> blockchain;
 	string id;
 	vector<MerkleRoot*> merkleroots;
+	vector<Transaction> toMine;
 };
