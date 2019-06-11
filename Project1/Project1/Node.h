@@ -7,6 +7,13 @@
 
 using namespace std;
 
+struct node_pos
+{
+	int px;
+	int py;
+};
+
+
 class Node :public Subject{
 public:
 	virtual bool isNeighbour(string id) = 0;
@@ -17,7 +24,9 @@ public:
 	void visit() { visited = true; }
 	bool wasVisited() { return visited; }
 	void reset() { visited = false; }
-
+	void set_position(int x, int y) { position.px = x; position.py = y; return; }
+	node_pos get_position() { return position; }
 private:
 	bool visited;
+	node_pos position;
 };

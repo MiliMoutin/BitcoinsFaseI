@@ -1,5 +1,5 @@
 #include "BlockchainView.h"
-#include "Blockchain.h"
+#include "Full.h"
 
 BlockchainView::BlockchainView()
 {
@@ -68,7 +68,7 @@ BlockchainView::~BlockchainView()
 void
 BlockchainView::update(void*model)
 {
-	Blockchain* b = (Blockchain*)model;
+	Full* b = (Full*)model;
 	drawBChain(b->getBchain());
 }
 

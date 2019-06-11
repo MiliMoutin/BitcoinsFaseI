@@ -129,8 +129,8 @@
   <ItemGroup>
     <ClInclude Include="Allegro.h" />
     <ClInclude Include="Blockchain.h" />
+    <ClInclude Include="BlockchainCtrl.h" />
     <ClInclude Include="BlockchainView.h" />
-    <ClInclude Include="BlockView.h" />
     <ClInclude Include="Cajita.h" />
     <ClInclude Include="CajitaView.h" />
     <ClInclude Include="Controller.h" />
@@ -149,30 +149,36 @@
     <ClInclude Include="Output.h" />
     <ClInclude Include="Path.h" />
     <ClInclude Include="PathElement.h" />
+    <ClInclude Include="SimCtrl.h" />
     <ClInclude Include="Simulation.h" />
     <ClInclude Include="SimulationView.h" />
     <ClInclude Include="SPV.h" />
     <ClInclude Include="Subject.h" />
     <ClInclude Include="Transaction.h" />
+    <ClInclude Include="TreeCtrl.h" />
+    <ClInclude Include="TreeView.h" />
     <ClInclude Include="UTXO.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Allegro.cpp" />
     <ClCompile Include="Block.cpp" />
+    <ClCompile Include="BlockchainCtrl.cpp" />
     <ClCompile Include="BlockchainView.cpp" />
     <ClCompile Include="CajitaView.cpp" />
-    <ClCompile Include="Controller.cpp" />
     <ClCompile Include="EDAMerkleBlock.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Full.cpp" />
     <ClCompile Include="Miner.cpp" />
     <ClCompile Include="NodeView.cpp" />
     <ClCompile Include="Output.cpp" />
+    <ClCompile Include="SimCtrl.cpp" />
     <ClCompile Include="Simulation.cpp" />
     <ClCompile Include="SimulationView.cpp" />
     <ClCompile Include="SPV.cpp" />
     <ClCompile Include="Subject.cpp" />
     <ClCompile Include="Transaction.cpp" />
+    <ClCompile Include="TreeCtrl.cpp" />
+    <ClCompile Include="TreeView.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

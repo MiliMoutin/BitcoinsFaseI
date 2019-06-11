@@ -4,7 +4,7 @@
 #include "MerkleNode.h"
 #include "Full.h"
 #include "Allegro.h"
-#include "Controller.h"
+#include "SimController.h"
 #include <string>
 #include <exception>
 #include <fstream>
@@ -62,7 +62,7 @@ int main(void) {
 		gordo1.setFilter(n2.getID());
 
 		gordo1.injectBlock(blockToSend);
-		Allegro alle;		//crear un objeto de view para cada nodo
+	/*	Allegro alle;		//crear un objeto de view para cada nodo
 							// hcaer la simulacion con su repsectivo objeto de view
 		//Controller control(alle);
 		cout << n2.getType() << endl;
@@ -75,7 +75,7 @@ int main(void) {
 			alle.update(&n2);
 
 		} while (ev != ev_quit);
-
+		*/
 		
 		gordo1.destroy();
 		gordo2.destroy();

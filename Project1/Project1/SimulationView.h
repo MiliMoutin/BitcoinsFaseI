@@ -24,14 +24,16 @@ public:
 	SimulationView();
 	~SimulationView();
 	virtual void update(void* model);
-protected:
-	ALLEGRO_FONT* font;
+	ALLEGRO_DISPLAY* get_display() { return display; }
+/*protected:
+	ALLEGRO_FONT* font;*/
 private:
-	void drawSim(Node* node_array);
-	void drawConnections();
+	void drawSim(Node* node_array, Cajita* caja);
+	void drawConnections(Node* node_array);
 	ALLEGRO_DISPLAY* display;
 	CajitaView cajita;
-	bool** ady_matrix;  //quien y como se crea??
+	bool** ady_matrix;  //quien y como se crea?? El update
+	//list<NodeView> nodes;
 	NodeView* nodes;
 	int cant_nodes;
 };

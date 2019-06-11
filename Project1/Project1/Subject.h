@@ -14,7 +14,7 @@ public:
 	void attach(Observer& o) { observers.push_back(&o); }
 	void deAttach() { observers.pop_back(); }
 	list<Observer*> getObs() { return observers; }
-protected:
+//protected:
 	void notifyAllObservers();
 private:
 	list<Observer*> observers;

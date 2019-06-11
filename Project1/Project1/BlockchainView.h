@@ -1,7 +1,6 @@
 #pragma once
-#include "BlockView.h"
+#include "Observer.h"
 #include "Block.h"
-#include "allegro5/allegro.h"
 #include <list>
 
 #define DISPLAY_H	700
@@ -20,6 +19,7 @@ public:
 	BlockchainView();
 	~BlockchainView();
 	void update(void* model);
+	ALLEGRO_DISPLAY* get_display() { return display; }
 private:
 	void drawBChain(list<Block> b_chain);
 	void NextPage(list<Block> blockchain, int page = 1);
