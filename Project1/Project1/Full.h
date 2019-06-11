@@ -39,7 +39,6 @@ protected:
 	list<Block> blockchain;
 	string id;
 	vector<MerkleRoot*> merkleroots;
-	list<UTXO> EDAcoins;
 	vector<Transaction> receivedTx;
 
 	void destroyBlockchain();

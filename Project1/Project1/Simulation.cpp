@@ -129,8 +129,8 @@ void Simulation::connectSPVs() {
 	//por cada nodo SPV elejo al azar nodos Fulls con los cuales conectarlo
 	for (int i = total ; i < this->tot; i++) {
 		for (int k = 0; k < TOTALCONNECTIONS; k++) {
-			n[i]->attach[j%total];
-			n[j%total]->attach[i];
+			n[i]->attach(n[j%total]);
+			n[j%total]->attach(n[i]);
 			adjacenceM[i][j%total] = adjacenceM[j%total][i] = true;
 			j++;
 		}
