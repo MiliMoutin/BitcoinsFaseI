@@ -154,6 +154,7 @@ bool SPV::canDoTx(double amount) {
 	return found;
 }
 
+
 void SPV::CommunicateTx(Transaction t) {
 	//transformo mi tx a un json
 	nlohmann::json tx;
