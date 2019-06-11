@@ -17,6 +17,7 @@ public:
 	void visit() { visited = true; }
 	bool wasVisited() { return visited; }
 	void reset() { visited = false; }
+
 private:
 	bool visited;
 };

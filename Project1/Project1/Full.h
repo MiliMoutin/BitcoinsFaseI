@@ -22,6 +22,7 @@ public:
 	virtual string getID() { return this->id; }
 	virtual void attach(Node* n);
 	void setFilter(string id);
+	virtual void createTransaction(string idReceiver, double amount);
 	bool emptyBlockchain() { return blockchain.empty(); }
 	HeaderBlock askForHeader() { return this->blockchain.back().getHeader(); }
 	void injectBlock(Block b);
@@ -37,6 +38,7 @@ protected:
 	list<Block> blockchain;
 	string id;
 	vector<MerkleRoot*> merkleroots;
+	list<UTXO> EDAcoins;
 
 	void destroyBlockchain();
 	void destroyTree(MerkleNode* nd);
@@ -50,7 +52,7 @@ protected:
 
 	//funciones para armar el path
 	Path getPath(MerkleRoot* mr, unsigned long id);
-	bool searchPathRec(MerkleNode* n, Path& path, unsigned long i);
+	bool searchPathRec(MerkleNode* n, Path& path, unsigned long i, bool& found);
 
 	//armo el EDAMerkleBlock para mandarle a mi neighbour
 	EDAMerkleBlock getTreeInfo(string id);//devuelve los paths a las transacciones necesarias

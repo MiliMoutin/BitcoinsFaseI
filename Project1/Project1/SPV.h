@@ -20,6 +20,7 @@ public:
 	bool isNeighbour(string id);
 	HeaderBlock getLastHeader() { return this->headers.back(); }
 	list<Node*> getNeighbours() { return neighbours; }
+	bool createTx(string idReceiver, double amount);
 private:
 	list <Node*> neighbours;
 	list <HeaderBlock> headers;

@@ -138,6 +138,7 @@ Path Full::getPath(MerkleRoot* mr, unsigned long id) {
 
 	Path* path = new Path();
 	MerkleNode* left = mr->getLeft();
+	bool* found = false;
 	MerkleNode* right = mr->getRight();
 	if (searchPathRec(left, *path, id)) {
 		path->addID(right->getBlockId(), RIGHT);
@@ -149,19 +150,20 @@ Path Full::getPath(MerkleRoot* mr, unsigned long id) {
 
 }
 
-bool Full::searchPathRec(MerkleNode* mn, Path& path, unsigned long id) {
-		if (mn->isLastBlock() && id == mn->getBlockId()) {
-		return true;
+bool Full::searchPathRec(MerkleNode* mn, Path& path, unsigned long id, bool& found) {
+		if (mn->isLastBlock() && id == mn->getBlockId() && !found) {
+			found = true;
+		   return true;
 		}
-		else if (mn->isLastBlock() && id != mn->getBlockId()) {
+		else if (mn->isLastBlock() && (id != mn->getBlockId()||found)) {
 		return false;
 		}
 		else {
 			MerkleNode* left = mn->getLeft() ;
-			MerkleNode* right =mn->getRight();
+			MerkleNode* right = mn->getRight();
 
-			bool rtaleft = searchPathRec(left, path, id);
-			bool rtaright = searchPathRec(right, path, id);
+			bool rtaleft = searchPathRec(left, path, id, found);
+			bool rtaright = searchPathRec(right, path, id, found);
 
 			if (rtaleft) {
 				path.addID(right->getBlockId(), RIGHT);
@@ -208,3 +210,5 @@ void Full::destroyTree(MerkleNode* nd) {
 	destroyTree(nd->getRight());
 	delete nd;
 }
+
+

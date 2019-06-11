@@ -10,7 +10,7 @@ using namespace std;
 
 class Transaction {
 public:
-	Transaction();
+	Transaction(){}
 	Transaction(unsigned long id) { this->id = id; }
 	Transaction(vector<Input> input, vector<Output> output);
 	void setId(unsigned long id) { this->id = id; }
@@ -22,5 +22,6 @@ private:
 	vector<Output> output;
 	vector<Input> input;
 	unsigned long id;
+	void generateTxID();
 
 };
