@@ -49,6 +49,15 @@ void
 SimulationView::update(void* model)
 {
 	Simulation* sim = (Simulation*)model;
+	cant_nodes = sim->get_total();
+	for (int i = 0; i < cant_nodes; i++)
+	{
+		for (int a = 0; a < cant_nodes; a++)
+		{
+			ady_matrix[i][a] = sim->get_adyM()[i][a];
+		}
+
+	}
 	drawSim(sim->get_nodes(), &(sim->get_cajita()));
 	return;
 }

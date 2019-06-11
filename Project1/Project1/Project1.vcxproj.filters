@@ -40,9 +40,6 @@
     <ClCompile Include="BlockchainView.cpp">
       <Filter>.cpps</Filter>
     </ClCompile>
-    <ClCompile Include="SimController.cpp">
-      <Filter>.cpps</Filter>
-    </ClCompile>
     <ClCompile Include="TreeView.cpp">
       <Filter>.cpps</Filter>
     </ClCompile>
@@ -50,6 +47,15 @@
       <Filter>.cpps</Filter>
     </ClCompile>
     <ClCompile Include="Miner.cpp">
+      <Filter>.cpps</Filter>
+    </ClCompile>
+    <ClCompile Include="SimCtrl.cpp">
+      <Filter>.cpps</Filter>
+    </ClCompile>
+    <ClCompile Include="TreeCtrl.cpp">
+      <Filter>.cpps</Filter>
+    </ClCompile>
+    <ClCompile Include="BlockchainCtrl.cpp">
       <Filter>.cpps</Filter>
     </ClCompile>
   </ItemGroup>
@@ -129,10 +135,20 @@
     <ClInclude Include="Blockchain.h">
       <Filter>.h</Filter>
     </ClInclude>
-    <ClInclude Include="SimController.h">
+    <ClInclude Include="TreeView.h">
       <Filter>.h</Filter>
     </ClInclude>
-    <ClInclude Include="TreeView.h">
+    <ClInclude Include="Miners.h" />
+    <ClInclude Include="SimCtrl.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="Controller.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="TreeCtrl.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="BlockchainCtrl.h">
       <Filter>.h</Filter>
     </ClInclude>
   </ItemGroup>

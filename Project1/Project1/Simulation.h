@@ -24,6 +24,8 @@ public:
 	bool creationSuccessful() { return this->correctParameters; }
 	Node* get_nodes() { return nodos; }
 	Cajita get_cajita(){ return cajita; }
+	int get_total() { return tot; }
+	bool** get_adyM() { return adjacenceM; }
 private:
 	Node* nodos;
 	Cajita cajita;

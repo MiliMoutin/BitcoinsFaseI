@@ -41,5 +41,6 @@ CajitaView::drawCajita(Cajita* caja)
 	al_draw_text(font, al_map_rgb(0, 255, 0), x*2+30, (C_DISPLAY_H / 2) - TEXTSIZE, ALLEGRO_ALIGN_LEFT, "Amount:");
 	al_draw_rectangle(x*2+30, C_DISPLAY_H / 2, x*3-30, C_DISPLAY_H / 2 + TEXTSIZE, al_map_rgb(0, 0, 0), 1);
 
+	//FALTA EL SEND
 	al_flip_display();
 }
