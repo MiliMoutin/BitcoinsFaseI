@@ -15,7 +15,6 @@ protected:
 	vector<string> filters;
 	list<Node*> neighbours;
 	list<Block> blockchain;
-	string id;
 	vector<MerkleRoot*> merkleroots;
 	vector<Transaction> toMine;
 };

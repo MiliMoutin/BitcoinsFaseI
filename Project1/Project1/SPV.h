@@ -10,7 +10,6 @@
 class Full;
 
 class SPV : public Node {
-
 public:
 	SPV(string id) { this->id = id; }
 	string getType() { return string("SPV"); }
@@ -21,7 +20,7 @@ public:
 	bool isNeighbour(string id);
 	HeaderBlock getLastHeader() { return this->headers.back(); }
 	list<Node*> getNeighbours() { return neighbours; }
-	bool createTx(string idReceiver, double amount);
+	void createTx(string idReceiver, double amount);
 
 private:
 	list <Node*> neighbours;

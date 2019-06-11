@@ -8,6 +8,7 @@
 #include "HeaderBlock.h"
 #include "Block.h"
 #include "SPV.h"
+
 #define LEFT true
 #define RIGHT false
 
@@ -38,7 +39,6 @@ protected:
 	list<Block> blockchain;
 	string id;
 	vector<MerkleRoot*> merkleroots;
-	list<UTXO> EDAcoins;
 	vector<Transaction> receivedTx;
 
 	void destroyBlockchain();

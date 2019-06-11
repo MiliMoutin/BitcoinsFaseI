@@ -13,8 +13,7 @@ public:
 	Output(string idReceiver, unsigned long amount);
 	string getIdReceiver() { return idReceiver; }
 	unsigned long getAmount() { return amount; }
-	nlohmann::json transformToJson() { nlohmann::json j; j["PublicKey"] = idReceiver; j["EDACoins"] = to_string(amount); }
-
+	nlohmann::json& transformToJson(); 
 private:
 	string idReceiver;
 	unsigned long amount;

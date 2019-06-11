@@ -101,7 +101,7 @@ bool SPV::validNotification(EDAMerkleBlock edamb, HeaderBlock hb) {
 	}
 }
 
-bool SPV::createTx(string idReceiver, double amount) {
+void SPV::createTx(string idReceiver, double amount) {
 	if (canDoTx(amount)) {
 		/*En collector voy a guardar las transacciones necesarias*/
 		list<UTXO> collector;
@@ -153,6 +153,7 @@ bool SPV::canDoTx(double amount) {
 	}
 	return found;
 }
+
 
 void SPV::CommunicateTx(Transaction t) {
 	//transformo mi tx a un json
