@@ -138,7 +138,6 @@
     <ClInclude Include="TreeView.h">
       <Filter>.h</Filter>
     </ClInclude>
-    <ClInclude Include="Miners.h" />
     <ClInclude Include="SimCtrl.h">
       <Filter>.h</Filter>
     </ClInclude>
@@ -149,6 +148,9 @@
       <Filter>.h</Filter>
     </ClInclude>
     <ClInclude Include="BlockchainCtrl.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="Miners.h">
       <Filter>.h</Filter>
     </ClInclude>
   </ItemGroup>

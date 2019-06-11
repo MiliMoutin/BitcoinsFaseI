@@ -138,12 +138,12 @@ Path Full::getPath(MerkleRoot* mr, unsigned long id) {
 
 	Path* path = new Path();
 	MerkleNode* left = mr->getLeft();
-	bool* found = false;
+	bool found = false;
 	MerkleNode* right = mr->getRight();
-	if (searchPathRec(left, *path, id)) {
+	if (searchPathRec(left, *path, id, found)) {
 		path->addID(right->getBlockId(), RIGHT);
 	}
-	else if (searchPathRec(right, *path, id)) {
+	else if (searchPathRec(right, *path, id, found)) {
 		path->addID(left->getBlockId(), LEFT);
 	}
 	return *path;

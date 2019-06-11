@@ -35,3 +35,14 @@ void Transaction::generateTxID() {
 	this->id = generateIDString(idbase);
 }
 
+nlohmann::json Transaction::tranformToJson() {
+	nlohmann::json tx;
+	tx["TxID"] = this->id;
+	for (int i = 0; i < input.size(); i++) {
+		tx["input"][i] = input[i].transformToJson();
+	}
+	for (int i = 0; i < output.size(); i++) {
+		tx["output"][i] = output[i].transformToJson();
+	}
+	return tx;
+}

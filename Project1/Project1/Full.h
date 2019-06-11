@@ -28,6 +28,7 @@ public:
 	void injectBlock(Block b);
 	void destroy() { destroyBlockchain(); }
 	bool isNeighbour(string id);
+	void receiveTx(nlohmann::json tx);
 
 	list<Block> getBchain() { return blockchain; }
 	list<Node*> getNeighbours() { return neighbours; }

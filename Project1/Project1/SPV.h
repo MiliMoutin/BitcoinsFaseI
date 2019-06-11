@@ -5,6 +5,7 @@
 #include "Full.h"
 #include "MerkleNode.h"
 #include "UTXO.h"
+#include <nlohmann/json.hpp>
 
 class Full;
 
@@ -21,6 +22,7 @@ public:
 	HeaderBlock getLastHeader() { return this->headers.back(); }
 	list<Node*> getNeighbours() { return neighbours; }
 	bool createTx(string idReceiver, double amount);
+
 private:
 	list <Node*> neighbours;
 	list <HeaderBlock> headers;
@@ -30,4 +32,7 @@ private:
 	
 	bool validNotification(EDAMerkleBlock edamb, HeaderBlock h);
 	bool headerPresent(unsigned long headerId);
+	void CommunicateTx(Transaction tx);
+	bool canDoTx(double amount);
+	unsigned long getUTXOId(double amount, string idReceiver, unsigned long txid);
 };

@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include "Input.h"
+#include <nlohmann/json.hpp>
 #include "Output.h"
 #include <string>
 #include <vector>
@@ -17,6 +18,8 @@ public:
 	unsigned long getId() { return this->id; }
 	bool isIDPresent(string id);
 	vector<Output> getOutputs() { return output; }
+	vector<Input> getInput() { return input; }
+	nlohmann::json tranformToJson();
 
 private:
 	vector<Output> output;
