@@ -158,6 +158,7 @@ bool SPV::canDoTx(double amount) {
 void SPV::CommunicateTx(Transaction t) {
 	//transformo mi tx a un json
 	nlohmann::json tx;
+
 	tx = t.tranformToJson();
 	//se lo comunico a mis nodos Full vecinos
 	for (Node* n : this->neighbours) {

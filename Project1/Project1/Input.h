@@ -6,6 +6,7 @@
 
 using namespace std;
 
+/*Transaction ID, BlockID, PublicKey, Signature*/
 
 class Input {
 	public:
