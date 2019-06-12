@@ -6,6 +6,7 @@
 
 using namespace std;
 
+/*public key amount*/
 
 class Output {
 public:

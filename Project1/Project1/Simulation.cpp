@@ -62,6 +62,13 @@ void Simulation::createNetwork() {
 	
 }
 
+void Simulation::createTx(string idEmission, string idReceiver, double amount) {
+	for (Node* n : n) {
+		SPV* spv = (SPV*)n;
+		spv->createTx(idReceiver, amount);
+	}
+}
+
 void Simulation::connectFulls() {
 	
 	srand(time(0));

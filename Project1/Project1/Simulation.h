@@ -26,6 +26,8 @@ public:
 	Cajita get_cajita(){ return cajita; }
 	int get_total() { return tot; }
 	bool** get_adyM() { return adjacenceM; }
+	void createTx(string idEmission, string idReceiver, double amount);
+
 private:
 	Node* nodos;
 	Cajita cajita;

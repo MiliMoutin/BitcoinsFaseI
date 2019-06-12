@@ -26,6 +26,7 @@ public:
 	void reset() { visited = false; }
 	void set_position(int x, int y) { position.px = x; position.py = y; return; }
 	node_pos get_position() { return position; }
+
 private:
 	bool visited;
 	node_pos position;
