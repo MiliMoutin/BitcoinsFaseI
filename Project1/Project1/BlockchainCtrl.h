@@ -8,6 +8,8 @@
 #define TEXTSIZE 15
 #define ARROW_RIGHT_IMAGE "Right.png"
 #define ARROW_LEFT_IMAGE "Left.png"
+#define ARROW_H 25
+#define ARROW_W 50
 #define SPACE_BTW 30
 #define IMAGE_W ((DISPLAY_W/3)-SPACE_BTW)
 #define IMAGE_H ((DISPLAY_H/3)-SPACE_BTW)
@@ -44,5 +46,5 @@ public:
 private:
 	ALLEGRO_EVENT_QUEUE* event_queue;
 	display_pos pos;
-
+	int page;
 };

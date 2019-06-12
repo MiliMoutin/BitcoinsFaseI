@@ -58,6 +58,7 @@ SimulationView::update(void* model)
 		}
 
 	}
+	al_clear_to_color(al_map_rgb(255, 255, 255));
 	drawSim(sim->get_nodes(), &(sim->get_cajita()));
 	return;
 }

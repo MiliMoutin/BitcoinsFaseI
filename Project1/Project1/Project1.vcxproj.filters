@@ -58,6 +58,9 @@
     <ClCompile Include="BlockchainCtrl.cpp">
       <Filter>.cpps</Filter>
     </ClCompile>
+    <ClCompile Include="CajitaCrl.cpp">
+      <Filter>.cpps</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Allegro.h">
@@ -138,6 +141,7 @@
     <ClInclude Include="TreeView.h">
       <Filter>.h</Filter>
     </ClInclude>
+    <ClInclude Include="Miners.h" />
     <ClInclude Include="SimCtrl.h">
       <Filter>.h</Filter>
     </ClInclude>
@@ -150,7 +154,7 @@
     <ClInclude Include="BlockchainCtrl.h">
       <Filter>.h</Filter>
     </ClInclude>
-    <ClInclude Include="Miners.h">
+    <ClInclude Include="CajitaCrl.h">
       <Filter>.h</Filter>
     </ClInclude>
   </ItemGroup>
