@@ -135,6 +135,7 @@
     <ClInclude Include="CajitaCrl.h" />
     <ClInclude Include="CajitaView.h" />
     <ClInclude Include="Controller.h" />
+    <ClInclude Include="Defines.h" />
     <ClInclude Include="EDAMerkleBlock.h" />
     <ClInclude Include="Full.h" />
     <ClInclude Include="Block.h" />

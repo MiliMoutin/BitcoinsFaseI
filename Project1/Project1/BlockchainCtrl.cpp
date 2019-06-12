@@ -116,7 +116,7 @@ BlockchainCtrl::dispatcher(void* model)
 			else if (B_L_CORNER(pos.x, pos.y, ARROW_W, ARROW_H) && (page != 1))
 			{
 				page--;
-				PrevPage(nodo, page);
+				//PrevPage(nodo, page);
 			}
 			break;
 		}

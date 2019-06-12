@@ -1,11 +1,19 @@
 #pragma once
-#include "Controller.h"
-#include "Full.h"
+#define N_DISPLAY_W 700
+#define N_DISPLAY_H 700
+#define GRAPH_RADIUS ((N_DISPLAY_W/2)-30)
+
+#define C_DISPLAY_W N_DISPLAY_W
+#define C_DISPLAY_H 200
 /*
+#define DISPLAY_W N_DISPLAY_W
+#define DISPLAY_H (N_DISPLAY_H + C_DISPLAY_H)
+*/
 #define DISPLAY_H	700
 #define DISPLAY_W	700
 #define TEXTFONT "textfont.ttf"
 #define TEXTSIZE 15
+#define BLOCK_IMAGE "bloque.png"
 #define ARROW_RIGHT_IMAGE "Right.png"
 #define ARROW_LEFT_IMAGE "Left.png"
 #define ARROW_H 25
@@ -14,6 +22,10 @@
 #define IMAGE_W ((DISPLAY_W/3)-SPACE_BTW)
 #define IMAGE_H ((DISPLAY_H/3)-SPACE_BTW)
 #define DIF 10
+
+#define RADIO TEXTSIZE*2
+#define NODE_DIF_X ((RADIO*5)+10)
+#define NODE_DIF_Y 0
 
 #define FIRST_COL(x) (((x)>=SPACE_BTW) && ((x) <= (SPACE_BTW+IMAGE_W)))
 #define SECOND_COL(x) (((x) >= ((SPACE_BTW*2)+IMAGE_W)) && ((x) <= ((SPACE_BTW*2)+(IMAGE_W*2))))
@@ -35,16 +47,3 @@
 #define ITEM_7(x,y) (THIRD_ROW(y) && FIRST_COL(x))
 #define ITEM_8(x,y) (THIRD_ROW(y) && SECOND_COL(x))
 #define ITEM_9(x,y) (THIRD_ROW(y) && THIRD_COL(x))
-*/
-class BlockchainCtrl :public Controller
-{
-public:
-	BlockchainCtrl(ALLEGRO_DISPLAY* display);
-	~BlockchainCtrl();
-	void dispatcher(void*model);
-	ALLEGRO_EVENT getEvent();
-private:
-	ALLEGRO_EVENT_QUEUE* event_queue;
-	display_pos pos;
-	int page;
-};

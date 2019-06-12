@@ -4,8 +4,8 @@
 
 SimulationView::SimulationView()
 {
-	int w = DISPLAY_W;
-	int h = DISPLAY_H;
+	int w = C_DISPLAY_W;
+	int h = N_DISPLAY_H+C_DISPLAY_H;
 
 	if (!al_init())
 	{ //Primera funcion a llamar antes de empezar a usar allegro.
