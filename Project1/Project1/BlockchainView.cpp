@@ -1,23 +1,10 @@
 #include "BlockchainView.h"
 #include "Full.h"
 
-BlockchainView::BlockchainView()
+BlockchainView::BlockchainView(Allegro& alle)
 {
-	if (!al_init())
-	{ //Primera funcion a llamar antes de empezar a usar allegro.
-		cout << "failed to initialize allegro!\n";
-		return;
-	}
 
-	al_init_font_addon(); // initialize the font addon
-	al_init_ttf_addon();// initialize the ttf (True Type Font) addon
-
-	font = al_load_ttf_font(TEXTFONT, TEXTSIZE, 0); //HAY CREAR UN FONT PARA CADA TAMAÑO DE LETRA :( 
-	if (!font)
-	{
-		cout << "Could not load text font.\n";
-		return;
-	}
+	font = alle.font;
 
 	display = al_create_display(DISPLAY_W, DISPLAY_H); // Intenta crear display de fallar devuelve NULL
 
@@ -27,30 +14,9 @@ BlockchainView::BlockchainView()
 		al_destroy_font(font);
 		return;
 	}
-	al_init_image_addon();
 
-	al_init_primitives_addon();
-
-	right = al_load_bitmap(ARROW_RIGHT_IMAGE);
-	if (!right)
-	{
-		cout << "failed to load bitmap\n";
-		al_destroy_font(font);
-		al_destroy_display(display);
-		al_destroy_bitmap(right);
-		return;
-	}
-
-	left = al_load_bitmap(ARROW_LEFT_IMAGE);
-	if (!right)
-	{
-		cout << "failed to load bitmap\n";
-		al_destroy_font(font);
-		al_destroy_display(display);
-		al_destroy_bitmap(right);
-		al_destroy_bitmap(left);
-		return;
-	}
+	right = alle.right;
+	left = alle.left;
 
 	al_clear_to_color(al_map_rgb(255, 255, 255)); //Hace clear del backbuffer del diplay al color RGB 0,0,0 (negro)
 	al_flip_display();
@@ -58,9 +24,6 @@ BlockchainView::BlockchainView()
 
 BlockchainView::~BlockchainView()
 {
-	al_destroy_bitmap(right);
-	al_destroy_bitmap(left);
-	al_destroy_font(font);
 	al_destroy_display(display);
 }
 

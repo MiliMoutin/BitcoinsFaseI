@@ -1,83 +1,60 @@
-/*#include <iostream>
+#include <iostream>
 #include<list>
 #include <string>
 #include "Allegro.h"
 #include "SPV.h"
 #include "Full.h"
-
+/*
 int findTreeH(MerkleRoot* root);
 list<Block> findBchain(Node* nodo);
-
+*/
 using namespace std;
 
-Allegro::Allegro(unsigned int w, unsigned int h)
+Allegro::Allegro()
 {
-	display_w = w;
-	display_h = h;
 	if (!al_init()) 
-	{ //Primera funcion a llamar antes de empezar a usar allegro.
+	{ 
 		cout<<"failed to initialize allegro!\n";
 		init_ok = false;
 		return;
 	}
 
 	if (!al_install_mouse()) 
-	{//initialize mouse.
+	{
 		cout<<"failed to initialize the mouse!\n";
 		init_ok = false;
 		return;
 	}
-
-	event_queue = al_create_event_queue();//create event queue.
+	/*
+	event_queue = al_create_event_queue();
 	if (!event_queue) 
 	{
 		cout<<"failed to create event_queue!\n";
 		init_ok = false;
 		return;
 	}
+	*/
+	al_init_font_addon();
+	al_init_ttf_addon();
 
-	al_init_font_addon(); // initialize the font addon
-	al_init_ttf_addon();// initialize the ttf (True Type Font) addon
-
-	font = al_load_ttf_font(TEXTFONT, TEXTSIZE, 0); //HAY CREAR UN FONT PARA CADA TAMAÑO DE LETRA :( 
+	font = al_load_ttf_font(TEXTFONT, TEXTSIZE, 0);
 	if (!font) 
 	{
 		cout<<"Could not load text font.\n";
-		al_destroy_event_queue(event_queue);
+		//al_destroy_event_queue(event_queue);
 		return;
 	}
 
-	display = al_create_display(w, h); // Intenta crear display de fallar devuelve NULL
-
-	if (!display) 
-	{
-		cout<<"failed to create display!\n";
-		al_destroy_event_queue(event_queue);
-		al_destroy_font(font);
-		init_ok = false;
-		return;
-	}
 	al_init_image_addon();
 
 	al_init_primitives_addon();
-	block_img = al_load_bitmap(BLOCK_IMAGE);
-	if (!block_img)
-	{
-		cout << "failed to load bitmap\n";
-		al_destroy_event_queue(event_queue);
-		al_destroy_font(font);
-		al_destroy_display(display);
-		init_ok = false;
-		return;
-	}
 
 	right= al_load_bitmap(ARROW_RIGHT_IMAGE);
 	if (!right)
 	{
 		cout << "failed to load bitmap\n";
-		al_destroy_event_queue(event_queue);
+		//al_destroy_event_queue(event_queue);
 		al_destroy_font(font);
-		al_destroy_display(display);
 		al_destroy_bitmap(right);
 		init_ok = false;
 		return;
@@ -87,37 +64,32 @@ Allegro::Allegro(unsigned int w, unsigned int h)
 	if (!right)
 	{
 		cout << "failed to load bitmap\n";
-		al_destroy_event_queue(event_queue);
+		//al_destroy_event_queue(event_queue);
 		al_destroy_font(font);
-		al_destroy_display(display);
 		al_destroy_bitmap(right);
 		al_destroy_bitmap(left);
 		init_ok = false;
 		return;
 	}
 
-	al_clear_to_color(al_map_rgb(255, 255, 255)); //Hace clear del backbuffer del diplay al color RGB 0,0,0 (negro)
+	al_clear_to_color(al_map_rgb(255, 255, 255));
 	al_flip_display();
-	//Registra el display a la cola de eventos, los eventos del display se iran guardando en la cola a medida que vayan sucediendo
-	al_register_event_source(event_queue, al_get_display_event_source(display)); //REGISTRAMOS EL DISPLAY
-	al_register_event_source(event_queue, al_get_mouse_event_source()); //REGISTRAMOS EL MOUSE
+	//al_register_event_source(event_queue, al_get_mouse_event_source()); //REGISTRAMOS EL MOUSE
 	init_ok = true;
-	state = st_nodes;
-	cout << "in allegro" << endl;
 	return;
 }
 
 
 Allegro::~Allegro()
 {
-	al_destroy_event_queue(event_queue);
+	//al_destroy_event_queue(event_queue);
 	al_destroy_font(font);
-	al_destroy_display(display);
-	al_destroy_bitmap(block_img);
 	al_destroy_bitmap(right);
 	al_destroy_bitmap(left);
 }
 
+
+/*
 void
 Allegro::update(void* model)
 {

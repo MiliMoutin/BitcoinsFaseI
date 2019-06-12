@@ -3,6 +3,7 @@
 #include "NodeView.h"
 #include "Simulation.h"
 #include "CajitaView.h"
+#include "Allegro.h"
 /*
 #define N_DISPLAY_W 700
 #define N_DISPLAY_H 700
@@ -21,19 +22,18 @@
 class SimulationView : public Observer
 {
 public:
-	SimulationView();
+	SimulationView(Allegro& alle);
 	~SimulationView();
 	virtual void update(void* model);
 	ALLEGRO_DISPLAY* get_display() { return display; }
-/*protected:
-	ALLEGRO_FONT* font;*/
+
+	NodeView* get_node_views() { return nodes; }
 private:
 	void drawSim(Node* node_array, Cajita* caja);
 	void drawConnections(Node* node_array);
 	ALLEGRO_DISPLAY* display;
 	CajitaView cajita;
 	bool** ady_matrix;  //quien y como se crea?? El update
-	//list<NodeView> nodes;
 	NodeView* nodes;
 	int cant_nodes;
 };

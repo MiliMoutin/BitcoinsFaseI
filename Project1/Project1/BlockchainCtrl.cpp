@@ -2,36 +2,13 @@
 
 BlockchainCtrl::BlockchainCtrl(ALLEGRO_DISPLAY* display)
 {
-	if (!al_install_mouse())
-	{//initialize mouse.
-		cout << "failed to initialize the mouse!\n";
-		return;
-	}
-
-	event_queue = al_create_event_queue();//create event queue.
-	if (!event_queue)
-	{
-		cout << "failed to create event_queue!\n";
-		return;
-	}
-
 	al_register_event_source(event_queue, al_get_display_event_source(display)); //REGISTRAMOS EL DISPLAY
-	al_register_event_source(event_queue, al_get_mouse_event_source()); //REGISTRAMOS EL MOUSE
 }
 
 BlockchainCtrl::~BlockchainCtrl()
 {
-	al_destroy_event_queue(event_queue);
 }
 
-ALLEGRO_EVENT
-BlockchainCtrl::getEvent()
-{
-	ALLEGRO_EVENT ev;
-	al_get_next_event(event_queue, &ev);
-	return ev;
-
-}
 
 void
 BlockchainCtrl::dispatcher(void* model)

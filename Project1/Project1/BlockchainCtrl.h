@@ -1,6 +1,7 @@
 #pragma once
 #include "Controller.h"
 #include "Full.h"
+#include "AllegroCtrl.h"
 /*
 #define DISPLAY_H	700
 #define DISPLAY_W	700
@@ -36,15 +37,15 @@
 #define ITEM_8(x,y) (THIRD_ROW(y) && SECOND_COL(x))
 #define ITEM_9(x,y) (THIRD_ROW(y) && THIRD_COL(x))
 */
-class BlockchainCtrl :public Controller
+class BlockchainCtrl :public AllegroCtrl
 {
 public:
 	BlockchainCtrl(ALLEGRO_DISPLAY* display);
 	~BlockchainCtrl();
 	void dispatcher(void*model);
-	ALLEGRO_EVENT getEvent();
+/*	ALLEGRO_EVENT getEvent();
 private:
 	ALLEGRO_EVENT_QUEUE* event_queue;
 	display_pos pos;
-	int page;
+	int page;*/
 };

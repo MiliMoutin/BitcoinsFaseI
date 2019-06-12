@@ -128,6 +128,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Allegro.h" />
+    <ClInclude Include="AllegroCtrl.h" />
     <ClInclude Include="Blockchain.h" />
     <ClInclude Include="BlockchainCtrl.h" />
     <ClInclude Include="BlockchainView.h" />
@@ -163,6 +164,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Allegro.cpp" />
+    <ClCompile Include="AllegroCtrl.cpp" />
     <ClCompile Include="Block.cpp" />
     <ClCompile Include="BlockchainCtrl.cpp" />
     <ClCompile Include="BlockchainView.cpp" />

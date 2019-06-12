@@ -1,19 +1,9 @@
 #include "CajitaView.h"
 
 
-CajitaView::CajitaView()
+CajitaView::CajitaView(Allegro& alle)
 {
-	font = al_load_ttf_font(TEXTFONT, TEXTSIZE, 0);
-	if (!font)
-	{
-		cout << "Could not load text font.\n";
-		return;
-	}
-}
-
-CajitaView::~CajitaView()
-{
-	al_destroy_font(font);
+	font = alle.font;
 }
 
 

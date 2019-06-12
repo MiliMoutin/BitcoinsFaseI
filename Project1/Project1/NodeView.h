@@ -1,6 +1,7 @@
 #pragma once
 #include "Observer.h"
 #include "Node.h"
+#include "Allegro.h"
 
 
 #define TEXTFONT "textfont.ttf"
@@ -11,8 +12,9 @@
 class NodeView : public Observer
 {
 public:
-	NodeView();
-	~NodeView();
+	NodeView(Allegro& alle);
+	//NodeView(){}
+	~NodeView(){}
 	void update(void* model);
 	void drawNode(Node* nodo);
 	//void set_position(int x, int y) { position.px = x; position.py = y; return; }

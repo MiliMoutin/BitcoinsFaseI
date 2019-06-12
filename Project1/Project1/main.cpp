@@ -4,7 +4,7 @@
 #include "MerkleNode.h"
 #include "Full.h"
 #include "Allegro.h"
-#include "SimController.h"
+//#include "SimController.h"
 #include <string>
 #include <exception>
 #include <fstream>

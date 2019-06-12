@@ -2,6 +2,7 @@
 #include <iostream>
 #include "Controller.h"
 #include "Simulation.h"
+#include "AllegroCtrl.h"
 
 using namespace std;
 
@@ -14,14 +15,15 @@ using namespace std;
 #define TO
 #define AMOUNT
 
-class SimCtrl :public Controller 
+class SimCtrl :public AllegroCtrl 
 {
 public:
 	SimCtrl(ALLEGRO_DISPLAY* display);
 	~SimCtrl();
 	void dispatcher(void*model);
-	ALLEGRO_EVENT getEvent();
+	/*ALLEGRO_EVENT getEvent();
+	
 private:
 	ALLEGRO_EVENT_QUEUE* event_queue;
-	display_pos pos;
+	display_pos pos;*/
 };

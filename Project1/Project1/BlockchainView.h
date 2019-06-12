@@ -2,6 +2,7 @@
 #include "Observer.h"
 #include "Block.h"
 #include <list>
+#include "Allegro.h"
 /*
 #define DISPLAY_H	700
 #define DISPLAY_W	700
@@ -18,7 +19,7 @@
 class BlockchainView : public Observer
 {
 public:
-	BlockchainView();
+	BlockchainView(Allegro& alle);
 	~BlockchainView();
 	void update(void* model);
 	ALLEGRO_DISPLAY* get_display() { return display; }
