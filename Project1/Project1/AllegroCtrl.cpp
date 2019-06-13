@@ -1,16 +1,13 @@
-#include "CajitaCrl.h"
+#include "AllegroCtrl.h"
+#include <iostream>
 
-CajitaCtrl::CajitaCtrl()
+using namespace std;
+
+AllegroCtrl::AllegroCtrl()
 {
 	if (!al_install_mouse())
 	{//initialize mouse.
 		cout << "failed to initialize the mouse!\n";
-		return;
-	}
-
-	if (!al_install_keyboard())
-	{
-		cout << "failed to initialize the keyboard\n";
 		return;
 	}
 
@@ -21,32 +18,25 @@ CajitaCtrl::CajitaCtrl()
 		return;
 	}
 
-
-	al_register_event_source(event_queue, al_get_mouse_event_source()); //REGISTRAMOS EL MOUSE
+	if (!al_install_keyboard())
+	{
+		cout << "failed to initialize the keyboard\n";
+		return;
+	}
 	al_register_event_source(event_queue, al_get_keyboard_event_source());
+	al_register_event_source(event_queue, al_get_mouse_event_source()); //REGISTRAMOS EL MOUSE
 }
 
-CajitaCtrl::~CajitaCtrl()
+AllegroCtrl::~AllegroCtrl()
 {
 	al_destroy_event_queue(event_queue);
 }
 
+
 ALLEGRO_EVENT
-CajitaCtrl::getEvent()
+AllegroCtrl::getEvent()
 {
 	ALLEGRO_EVENT ev;
 	al_get_next_event(event_queue, &ev);
 	return ev;
-
-}
-
-void
-CajitaCtrl::dispatcher(void* model)
-{
-	Cajita* c = (Cajita*)model;
-	ALLEGRO_EVENT ev = getEvent();
-	switch (ev.type)
-	{
-
-	}
 }

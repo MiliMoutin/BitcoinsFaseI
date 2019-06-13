@@ -58,7 +58,7 @@
     <ClCompile Include="BlockchainCtrl.cpp">
       <Filter>.cpps</Filter>
     </ClCompile>
-    <ClCompile Include="CajitaCrl.cpp">
+    <ClCompile Include="AllegroCtrl.cpp">
       <Filter>.cpps</Filter>
     </ClCompile>
   </ItemGroup>
@@ -154,7 +154,10 @@
     <ClInclude Include="BlockchainCtrl.h">
       <Filter>.h</Filter>
     </ClInclude>
-    <ClInclude Include="CajitaCrl.h">
+    <ClInclude Include="Defines.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="AllegroCtrl.h">
       <Filter>.h</Filter>
     </ClInclude>
   </ItemGroup>

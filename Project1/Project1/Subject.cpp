@@ -14,10 +14,15 @@ Subject::Subject(const Subject& orig)
 
 Subject::~Subject()
 {
+	/*
 	list<Observer*>::iterator itr = observers.begin();
 	for (; itr != observers.end(); ++itr)
 	{
 		observers.erase(itr);
+	}*/
+	while (!observers.empty())
+	{
+		observers.pop_front();
 	}
 	return;
 }
