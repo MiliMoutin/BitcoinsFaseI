@@ -18,7 +18,7 @@ TreeCtrl::dispatcher(void* model)
 	{
 	case ALLEGRO_EVENT_DISPLAY_CLOSE:
 	{
-		return;
+		return;			//Unico evento: cierro display
 	}
 	default:
 	{

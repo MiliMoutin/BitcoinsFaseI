@@ -4,6 +4,8 @@
 #include "MerkleNode.h"
 #include "Full.h"
 #include "Allegro.h"
+#include "Simulation.h"
+#include "SimulationView.h"
 //#include "SimController.h"
 #include <string>
 #include <exception>
@@ -21,9 +23,9 @@ Block createBlock(nlohmann::json block);
 
 int main(void) {
 
-	int size1;
+	//int size1;
 	int size2;
-	char* buffer1;
+	//char* buffer1;
 	char* buffer2;
 
 	ifstream blockchainpruebafile("BLOCK.json", ios::binary);
@@ -76,7 +78,19 @@ int main(void) {
 
 		} while (ev != ev_quit);
 		*/
-		
+
+		Allegro alle;
+		Simulation sim(4, 1, 2);
+		if (!sim.creationSuccessful())
+		{
+			cout << "FAil" << endl;
+		}
+		else
+		{
+			SimulationView sv(alle);
+			sim.attach(sv);
+			sim.notifyAllObservers();
+		}
 		gordo1.destroy();
 		gordo2.destroy();
 		

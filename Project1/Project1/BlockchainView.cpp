@@ -17,7 +17,7 @@ BlockchainView::BlockchainView(Allegro& alle)
 
 	right = alle.right;
 	left = alle.left;
-
+	page = alle.page;
 	al_clear_to_color(al_map_rgb(255, 255, 255)); //Hace clear del backbuffer del diplay al color RGB 0,0,0 (negro)
 	al_flip_display();
 }
@@ -47,12 +47,12 @@ BlockchainView::drawBChain(list<Block> blockchain)
 		return;
 	}
 
-	NextPage(blockchain);
+	DrawPage(blockchain);
 }
 
 
 void 
-BlockchainView::NextPage(list<Block> blockchain, int page)
+BlockchainView::DrawPage(list<Block> blockchain)
 {
 	al_clear_to_color(al_map_rgb(255, 255, 255));
 	int posx = 30;
@@ -88,14 +88,14 @@ BlockchainView::NextPage(list<Block> blockchain, int page)
 	return;
 
 }
-
+/*
 void
 BlockchainView::PrevPage(list<Block> blockchain, int page)
 {
 	NextPage(blockchain, --page);
 	return;
 }
-
+*/
 void
 BlockchainView::DrawBlock(Block& bloque, int x, int y, int w, int h)
 {

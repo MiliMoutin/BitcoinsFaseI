@@ -1,5 +1,5 @@
 #pragma once
-#include "Controller.h"
+//#include "Controller.h"
 #include "Full.h"
 #include "AllegroCtrl.h"
 /*
@@ -43,9 +43,4 @@ public:
 	BlockchainCtrl(ALLEGRO_DISPLAY* display);
 	~BlockchainCtrl();
 	void dispatcher(void*model);
-/*	ALLEGRO_EVENT getEvent();
-private:
-	ALLEGRO_EVENT_QUEUE* event_queue;
-	display_pos pos;
-	int page;*/
 };

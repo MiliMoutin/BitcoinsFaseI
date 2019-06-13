@@ -5,6 +5,8 @@
 #include <allegro5/allegro_font.h> //manejo de fonts
 #include <allegro5/allegro_ttf.h> //Manejo de ttfs
 #include <allegro5/allegro_primitives.h>
+#include <allegro5/allegro_audio.h>
+#include <allegro5/allegro_acodec.h>
 
 #define N_DISPLAY_W 700
 #define N_DISPLAY_H 700
@@ -52,11 +54,11 @@
 #define ITEM_8(x,y) (THIRD_ROW(y) && SECOND_COL(x))
 #define ITEM_9(x,y) (THIRD_ROW(y) && THIRD_COL(x))
 
+
 struct display_pos {
 	int x;
 	int y;
 };
-
 
 class Allegro
 {
@@ -67,6 +69,8 @@ public:
 	ALLEGRO_FONT* font;
 	ALLEGRO_BITMAP* right;
 	ALLEGRO_BITMAP* left;
+	ALLEGRO_SAMPLE* cash_sound;
 	bool init_ok;
+	int page;
 	//display_pos pos;
 };

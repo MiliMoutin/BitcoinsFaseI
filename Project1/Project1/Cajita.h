@@ -6,13 +6,13 @@ using namespace std;
 class Cajita :public Subject
 {
 public:
-	void setFrom(string f) { from = f; }
-	void setTo(string t) { to = t; }
-	void setAmount(string am) { amount = am; }
+	void setFrom(string f) { from = f; notifyAllObservers(); }
+	void setTo(string t) { to = t; notifyAllObservers(); }
+	void setAmount(string am) { amount = am; notifyAllObservers(); }
 	string getFrom() { return from; }
 	string getTo() { return to; }
 	string getAmount() { return amount; }
-	void reset() { from = ""; to = ""; amount = ""; }
+	void reset() { from = ""; to = ""; amount = ""; notifyAllObservers(); }
 private:
 	string from;
 	string to;

@@ -1,14 +1,14 @@
-#pragma once
+#pragma once/*
 #define N_DISPLAY_W 700
 #define N_DISPLAY_H 700
 #define GRAPH_RADIUS ((N_DISPLAY_W/2)-30)
 
 #define C_DISPLAY_W N_DISPLAY_W
 #define C_DISPLAY_H 200
-/*
+
 #define DISPLAY_W N_DISPLAY_W
 #define DISPLAY_H (N_DISPLAY_H + C_DISPLAY_H)
-*/
+
 #define DISPLAY_H	700
 #define DISPLAY_W	700
 #define TEXTFONT "textfont.ttf"
@@ -48,3 +48,4 @@
 #define ITEM_8(x,y) (THIRD_ROW(y) && SECOND_COL(x))
 #define ITEM_9(x,y) (THIRD_ROW(y) && THIRD_COL(x))
 
+*/

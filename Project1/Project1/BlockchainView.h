@@ -25,13 +25,14 @@ public:
 	ALLEGRO_DISPLAY* get_display() { return display; }
 private:
 	void drawBChain(list<Block> b_chain);
-	void NextPage(list<Block> blockchain, int page = 1);
-	void PrevPage(list<Block> blockchain, int page);
+	void DrawPage(list<Block> blockchain);
+	//void PrevPage(list<Block> blockchain, int page);
 	void DrawBlock(Block& bloque, int x, int y, int w, int h);
 	ALLEGRO_DISPLAY* display;
 	ALLEGRO_FONT* font;
 	ALLEGRO_BITMAP* right;
 	ALLEGRO_BITMAP* left;
+	int page;
 	//list<BlockView*> b_chain;
 };
 

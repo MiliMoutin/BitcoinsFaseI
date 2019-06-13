@@ -2,7 +2,6 @@
 #include "Subject.h"
 #include "Node.h"
 #include "Full.h"
-#include "Node.h"
 #include "Cajita.h"
 #include "Miners.h"
 #include <map>
