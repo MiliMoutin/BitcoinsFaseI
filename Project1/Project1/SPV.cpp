@@ -101,43 +101,19 @@ bool SPV::validNotification(EDAMerkleBlock edamb, HeaderBlock hb) {
 	}
 }
 
-void SPV::createTx(string idReceiver, double amount) {
-	if (canDoTx(amount)) {
-		/*En collector voy a guardar las transacciones necesarias*/
-		list<UTXO> collector;
-		double amountCollected = 0;
-		list<UTXO>::iterator ptr;
-
-		/*Busco UTXO hasta que llegue al monto que quiero*/
-		for (ptr = UTXOs.begin(); ptr != UTXOs.end() && amountCollected < amount; ptr++) {
-			amountCollected += ptr->getAmount();
-			collector.push_back(*ptr);
-		}
-
-		/*Ahora creo la transacción*/
-		/*Primero creo lo vector de input y outputs*/
-		amountCollected = amount;
-		vector<Input> impColector;
-		vector<Output> outColector;
-		for (UTXO u : collector) {
-			if (u.getAmount() >= amountCollected) {
-				impColector.push_back(Input(BLOCKID, u.getUTXOId()));
-				outColector.push_back(Output(idReceiver, amountCollected));
-				/*Si la UXTO es más grande, entocnes me mando a mi mismo lo que sobra*/
-				impColector.push_back(Input(BLOCKID, u.getUTXOId()));
-				outColector.push_back(Output(this->id, amountCollected - u.getAmount()));
-			}
-			else {
-				impColector.push_back(Input(BLOCKID, u.getUTXOId()));
-				outColector.push_back(Output(idReceiver, u.getAmount()));
-				amountCollected - u.getAmount();
-			}
-		}
-
+void SPV::makeTx(string idReceiver, double amount) {
 		/*Comunico al tx a mis vecinos Full*/
-		CommunicateTx(Transaction(impColector, outColector));
+	if (Node::canDoTx(amount)) {
+		this->CommunicateTx(Node::to_send);
 	}
 
+}
+
+void SPV::CommunicateTx(Transaction t) {
+	for (Node* n : this->neighbours) {
+		Full* f = (Full*)n;
+		f->receiveTx(t.tranformToJson(), this);
+	}
 }
 
 
@@ -155,19 +131,6 @@ bool SPV::canDoTx(double amount) {
 }
 
 
-void SPV::CommunicateTx(Transaction t) {
-	//transformo mi tx a un json
-	nlohmann::json tx;
-
-	tx = t.tranformToJson();
-	//se lo comunico a mis nodos Full vecinos
-	for (Node* n : this->neighbours) {
-		if (n->getType() == "Full" || n->getType() == "Miner") {
-			Full* node = (Full*)n;
-			node->receiveTx(tx, this);
-		}
-	}
-}
 
 unsigned long SPV::getUTXOId(double amount, string idReceiver, unsigned long txid) {
 	string base = "";

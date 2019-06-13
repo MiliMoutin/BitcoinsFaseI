@@ -21,16 +21,20 @@ public:
 	/*Siempre despues de inicializar hay que preguntar si la creacion fue exitosa*/
 	Simulation(unsigned int fulln, unsigned int spv, unsigned int miners);
 	bool creationSuccessful() { return this->correctParameters; }
-	Node* get_nodes() { return nodos; }
+	Node* get_nodes() { return nodo; }
 	Cajita get_cajita(){ return cajita; }
 	int get_total() { return tot; }
 	bool** get_adyM() { return adjacenceM; }
 	void createTx(string idEmission, string idReceiver, double amount);
+	void printMatrix();
+	void destroySim();
+
 
 private:
-	Node* nodos;
+	Node* nodo;
 	Cajita cajita;
 	bool correctParameters;
+	Miner* Satochi;
 
 	int fulln;
 	int spvn;
@@ -42,8 +46,10 @@ private:
 	void createNetwork();
 	void connectFulls();
 	void connectSPVs();
-	bool connected(Node* n1, Node* n2);
 
+	bool allVisited();
+	void connectGraph(Node* n, int index);
 	queue<Node*> bfsList;
+	void startCoinCirculation();
 
 };

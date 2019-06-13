@@ -20,10 +20,10 @@ public:
 	bool isNeighbour(string id);
 	HeaderBlock getLastHeader() { return this->headers.back(); }
 	list<Node*> getNeighbours() { return neighbours; }
-	void createTx(string idReceiver, double amount);
+	void makeTx(string idReceiver, double amount);
 
 private:
-	list <Node*> neighbours;
+	list<Node*> neighbours;
 	list <HeaderBlock> headers;
 	list <MerkleRoot*> roots;
 	string id;

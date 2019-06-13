@@ -172,6 +172,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Full.cpp" />
     <ClCompile Include="Miner.cpp" />
+    <ClCompile Include="Node.cpp" />
     <ClCompile Include="NodeView.cpp" />
     <ClCompile Include="Output.cpp" />
     <ClCompile Include="SimCtrl.cpp" />

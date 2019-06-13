@@ -61,6 +61,9 @@
     <ClCompile Include="AllegroCtrl.cpp">
       <Filter>.cpps</Filter>
     </ClCompile>
+    <ClCompile Include="Node.cpp">
+      <Filter>.cpps</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Allegro.h">
@@ -141,7 +144,6 @@
     <ClInclude Include="TreeView.h">
       <Filter>.h</Filter>
     </ClInclude>
-    <ClInclude Include="Miners.h" />
     <ClInclude Include="SimCtrl.h">
       <Filter>.h</Filter>
     </ClInclude>
@@ -158,6 +160,9 @@
       <Filter>.h</Filter>
     </ClInclude>
     <ClInclude Include="AllegroCtrl.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="Miners.h">
       <Filter>.h</Filter>
     </ClInclude>
   </ItemGroup>

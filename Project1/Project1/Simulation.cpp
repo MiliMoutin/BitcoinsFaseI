@@ -12,16 +12,24 @@ Simulation::Simulation(unsigned int fulln, unsigned int spv, unsigned int miners
 		this->fulln = fulln;
 		this->spvn = spv;
 		this->minersn = miners;
-		this->tot = fulln + spvn + minersn;
+		this->tot = fulln + spvn + minersn+1;
 		//creo la matriz de adyacencia
 		adjacenceM = new bool*[tot];
-		for (int i = 0; i < tot; i++) {
+		for (int i = 0; i < tot+1; i++) {
 			adjacenceM[i] = new bool[tot];
-			for (int j = 0; j < tot; j++) {
+			for (int j = 0; j < tot+1; j++) {
 				adjacenceM[i][j] = false;
 			}
 		}
 		createNetwork();
+		startCoinCirculation();
+		printMatrix();
+	}
+}
+
+void Simulation::destroySim() {
+	for (int i = 0; i < tot; i++) {
+		delete n[i];
 	}
 }
 
@@ -42,21 +50,16 @@ void Simulation::createNetwork() {
 		SPV* node = new SPV(id + to_string(i + fulln + minersn));
 		n.push_back(node);
 	}
+	Miner* node = new Miner("Satoshi Nakamoto");
+	this->Satochi = node;
+	n[tot - 2] = node;
 
 	//conecto los nodos Full
 	connectFulls();
 
-	//me fijo si el grafo es conexo y si necesita algunas conexiones extra
-	for (int i = 0; i < fulln + minersn; i++) {
-		for (int j = 0; j < fulln + minersn; j++) {
-			//si no existe un camino posible entre dos nodos, los conecto
-			if (j != i && !connected(n[i], n[j])) {
-				n[i]->attach(n[j]);
-				n[j]->attach(n[i]);
-				adjacenceM[i][j] = adjacenceM[j][i] = true;
-			}
-		}
-	}
+	//me fijo si el grafo es conexo
+	connectGraph(n[0], 0);
+
 	//ahora conecto los nodos SPVs
 	connectSPVs();
 	
@@ -64,77 +67,86 @@ void Simulation::createNetwork() {
 
 void Simulation::createTx(string idEmission, string idReceiver, double amount) {
 	for (Node* n : n) {
-		SPV* spv = (SPV*)n;
-		spv->createTx(idReceiver, amount);
+		if (n->getID() == idEmission) {
+			n->makeTx(idReceiver, amount);
+		}
 	}
 }
 
 void Simulation::connectFulls() {
-	
 	srand(time(0));
+	int found;
+	string id = "node";
 
 	for (int i = 0; i < fulln + minersn; i++) {
-		int found;
 		//el ciclo solo se hace si la cantidad de vecinos es menor que dos
-		if ((found=n[i]->getNeighbours().size()) < 2) {
-			string id = "node";
+			found = n[i]->getNeighbours().size();
 			bool correct = false;
 			int r;
 			//busco dos nodos que aun no sean vecinos de nodo n[i]
-			while (!correct && found<2) {
-				r = rand() % (fulln + minersn);
-				correct = (r != i) && !(n[i]->isNeighbour(id + to_string(r)));
-				if (correct) {
+			while (found<2) {
+				while (!correct) {
+					r = rand() % (fulln + minersn);
+					correct = (r != i) && !(n[i]->isNeighbour(id + to_string(r)));
+				}
 					n[i]->attach(n[r]);
 					n[r]->attach(n[i]);
 					//actualizo la matriz de adyacencia;
 					adjacenceM[i][r] = adjacenceM[r][i]= true;
 					found++;
-				}
+				
 			}
 		}
-	}
-
+	printMatrix();
 }
 
-//devuelve si existe una camino posible entre dos nodos
-bool Simulation::connected(Node* n1, Node*n2) {
+
+
+void Simulation::connectGraph(Node* nodito, int index) {
 	//hago bfs a ver si llego al otro nodo
 	//primero pongo a todos los nodos como "no visitados"
-	for (Node* node : n) {
+	for (Node* node : this->n) {
 		node->reset();
+
 	}
 	//agrego el primero nodo a la cola
-	bfsList.push(n1);
-
+	bfsList.push(nodito);
+	//hago bfs
 	while (!bfsList.empty()) {
-		//agarro el primer node de la cola y visito todos sus vecinos y los pongo en la cola
 		bfsList.front()->visit();
+		cout << bfsList.front()->getID() << endl;
+		//agarro el primer node de la cola y visito todos sus vecinos y los pongo en la cola
 		for (Node* node : bfsList.front()->getNeighbours()) {
 			if (!node->wasVisited()) {
-				//si encuentro el nodo que buscaba
-				if (n2->getID() == node->getID()) {
-					//si encontre el nodo vacio la lista
-					while (!bfsList.empty()) {
-						bfsList.pop();
-					}
-					return true;
-				}
-
 				node->visit();
 				bfsList.push(node);
 			}
 		}
 		bfsList.pop();
 	}
-	return false;
+
+	//si la cantidad de nodos visitados es distinta a la cantidad de nodos, conecto dos partes no conexas
+	if(false==allVisited()){
+		//busco un nodo que no haya sido visitado y lo conecto con nodito
+		bool found = false;
+		for (int i = 0; i < this->n.size() && !found; i++) {
+			if (!this->n[i]->wasVisited()) {
+				nodito->attach(n[i]);
+				n[i]->attach(nodito);
+				adjacenceM[i][index] = adjacenceM[index][i] = true;
+				found = true;
+			}
+		}
+		//vuelvo a llamar a conected para ver si ahora el grafo es conexo
+		connectGraph(nodito, index);
+	}
 }
 
 void Simulation::connectSPVs() {
 	int j = 0;
 	int total = fulln + minersn;
-	//por cada nodo SPV elejo al azar nodos Fulls con los cuales conectarlo
-	for (int i = total ; i < this->tot; i++) {
+	//por cada nodo SPV elijo al azar nodos Fulls con los cuales conectarlo
+	for (int i = total ; i < this->tot-1; i++) {
 		for (int k = 0; k < TOTALCONNECTIONS; k++) {
 			n[i]->attach(n[j%total]);
 			n[j%total]->attach(n[i]);
@@ -142,6 +154,47 @@ void Simulation::connectSPVs() {
 			j++;
 		}
 	}
+}
+
+void Simulation::startCoinCirculation() {
+	//creamos la primera transacción y se la mandamos a todos los nodos
+
+	nlohmann::json genesis;
+	//deberiamos tener la signature de Satochi
+	Input genesisInput(0, 0, "firmaSatochi");
+	Output genesisOutPut(Satochi->getID(), 50);
+	vector<Input> gi;
+	vector<Output> go;
+	gi.push_back(genesisInput);
+	go.push_back(genesisOutPut);
+	Transaction genesisTransaction(gi, go);
+	genesis=genesisTransaction.tranformToJson();
+	for (int i = 0; i < fulln; i++) {
+		Full* f = (Full*)n[i];
+		f->receiveTx(genesis, this->Satochi);
+	}
+	for (int i = 0; i < minersn + fulln; i++) {
+		Miner* m = (Miner*)n[i];
+		m->receiveTx(genesis, this->Satochi);
+	}
+	
+}
+
+void Simulation::printMatrix() {
+	for (int i = 0; i < this->tot; i++) {
+		for (int j = 0; j < this->tot; j++){
+			cout << adjacenceM[i][j];
+		}
+	}
+}
+
+bool Simulation::allVisited() {
+	for (Node* node : n) {
+		if (node->wasVisited()==false) {
+			return false;
+		}
+	}
+	return true;
 }
 
 

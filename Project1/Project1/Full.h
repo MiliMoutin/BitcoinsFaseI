@@ -21,8 +21,9 @@ public:
 	Full(string id);
 	string getType() { return "Full"; }
 	virtual string getID() { return this->id; }
-	virtual void attach(Node* n);
+	void attach(Node* n);
 	void setFilter(string id);
+	virtual void makeTx(string publicId, double EDACoins);
 	bool emptyBlockchain() { return blockchain.empty(); }
 	HeaderBlock askForHeader() { return this->blockchain.back().getHeader(); }
 	void injectBlock(Block b);
@@ -35,7 +36,6 @@ public:
 protected:
 	//si llega un bloque y aparece alguno de los filters el node avisa
 	vector<string> filters;
-	list<Node*> neighbours;
 	list<Block> blockchain;
 	string id;
 	vector<MerkleRoot*> merkleroots;
@@ -65,6 +65,8 @@ protected:
 	bool isPot2(int cant, int* exponent);
 
 	Transaction transformJStoTx(nlohmann::json tx);
+
+	void communicateTx(nlohmann::json tx);
 
 	bool checkUTXOinBlockchain(unsigned long id);
 

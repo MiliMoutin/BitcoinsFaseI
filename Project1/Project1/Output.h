@@ -14,7 +14,7 @@ public:
 	Output(string idReceiver, unsigned long amount);
 	string getIdReceiver() { return idReceiver; }
 	unsigned long getAmount() { return amount; }
-	nlohmann::json& transformToJson(); 
+	nlohmann::json transformToJson(); 
 private:
 	string idReceiver;
 	unsigned long amount;
