@@ -56,8 +56,12 @@ MerkleRoot* Full::createTree(Block b) {
 	//inicializo el indice que me va a ayudar a iterar sobre las transacciones
 	int index = 0;
 	int cantCicle;
+	if (b.getCantTxs() == 1) {
+		MerkleRoot* mn = new MerkleRoot();
+		mn->setId(b.getId());
+		return mn;
+	}
 	//Calculo cantidad de niveles que tiene el arbol
-
 	//creo el vector de transacciones que voy a usar
 	vector<Transaction> treeVector = createVectorForTree(b.getTxs(), &cantCicle);
 	//empiezo a armar el arbol

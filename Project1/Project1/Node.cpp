@@ -22,7 +22,7 @@ void Node::makeTx(string publicId, double EDACoins) {
 			collector.push_back(*ptr);
 		}
 
-		///ACA FIRMAMOS
+		//ACA FIRMAMOS
 		string Signature = "";
 
 		/*Ahora creo la transacción*/

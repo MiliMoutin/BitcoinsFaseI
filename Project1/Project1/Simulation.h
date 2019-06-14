@@ -27,6 +27,7 @@ public:
 	int get_total() { return tot; }
 	bool** get_adyM() { return adjacenceM; }
 	void createTx(string idEmission, string idReceiver, double amount);
+	void prueba();
 	void printMatrix();
 	void destroySim();
 
@@ -52,5 +53,6 @@ private:
 	void connectGraph(Node* n, int index);
 	queue<Node*> bfsList;
 	void startCoinCirculation();
-
+	vector<Miner*> miners;
+	
 };

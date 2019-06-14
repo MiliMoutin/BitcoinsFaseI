@@ -21,6 +21,7 @@ public:
 	vector<Output> getOutputs() { return output; }
 	vector<Input> getInput() { return input; }
 	nlohmann::json tranformToJson();
+	bool operator==(Transaction t);
 
 private:
 	vector<Output> output;

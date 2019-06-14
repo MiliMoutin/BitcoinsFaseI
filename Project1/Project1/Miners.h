@@ -10,7 +10,7 @@ public:
 	virtual string getType() { return "Miner"; }
 	virtual void receiveTx(nlohmann::json tx, Node* n);
 	void makeTx(string publicId, double EDACoins);
-
+	void sendBlock();
 protected:
 	vector<Transaction> toMine;
 };

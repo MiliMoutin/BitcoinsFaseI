@@ -25,8 +25,8 @@ int main(void) {
 	if (EDACoin.creationSuccessful()) {
 		cout << "successfull creation" << endl;
 	}
-	EDACoin.printMatrix();
-	EDACoin.createTx("Satochi Nakamoto", "nodo1", 10);
+	EDACoin.createTx("Satoshi Nakamoto", "nodo1", 10);
+	EDACoin.prueba();
 	sleep_for(minutes(20));
 	return 0;
 }

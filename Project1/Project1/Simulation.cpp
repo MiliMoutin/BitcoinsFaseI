@@ -27,6 +27,10 @@ Simulation::Simulation(unsigned int fulln, unsigned int spv, unsigned int miners
 	}
 }
 
+void Simulation::prueba() {
+	this->miners[0]->sendBlock();
+}
+
 void Simulation::destroySim() {
 	for (int i = 0; i < tot; i++) {
 		delete n[i];
@@ -44,6 +48,7 @@ void Simulation::createNetwork() {
 	for (int i = 0; i < minersn; i++) {
 		Miner* node = new Miner(id+to_string(i));
 		n.push_back(node);
+		this->miners.push_back(node);
 	}
 
 	for (int i = 0; i < spvn; i++) {
@@ -161,7 +166,7 @@ void Simulation::startCoinCirculation() {
 
 	nlohmann::json genesis;
 	//deberiamos tener la signature de Satochi
-	Input genesisInput(0, 0, "firmaSatochi");
+	Input genesisInput("BlockID", "UTXODI", "firmaSatochi");
 	Output genesisOutPut(Satochi->getID(), 50);
 	vector<Input> gi;
 	vector<Output> go;

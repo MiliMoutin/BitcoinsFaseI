@@ -13,14 +13,22 @@ Transaction::Transaction(vector<Input> input, vector<Output> output){
 
 Transaction::Transaction(nlohmann::json j) {
 	int i = 0;
-	for (nlohmann::json ji : j["input"]) {
-		this->input.push_back(Input(j["input"][i]));
-		i++;
+	string d = j["TxID"];
+	cout << j << endl;
+	this->id = d;
+	for(int k=0; k<j["input"].size(); k++) {
+		Input i(j["input"][i]);
+		this->input.push_back(i);
 	}
 	i = 0;
-	for (nlohmann::json jo : j["output"]) {
-		this->output.push_back(Output(j["output"][i]));
+	for (int k = 0; k < j["input"].size(); k++) {
+		Output o(j["output"][k]);
+		this->output.push_back(o);
 	}
+}
+
+bool Transaction::operator==(Transaction t) {
+	return t.getId() == id;
 }
 
 bool Transaction::isIDPresent(string id) {

@@ -11,7 +11,7 @@ Input::Input(nlohmann::json j) {
 	this->BlockID = i;
 	string k = j["UTXOID"];
 	this->UTXOId = k;
-	string m = j["Signature"];
+	string m = j["signature"];
 	this->signature = m;
 }
 
