@@ -2,7 +2,7 @@
 
 void Miner::receiveTx(nlohmann::json tx, Node* n) {
 	Full::receiveTx(tx, n);
-	this->toMine.push_back(Full::transformJStoTx(tx));
+	this->toMine.push_back(Transaction(tx));
 }
 
 void Miner::makeTx(string publicId, double EDACoins) {

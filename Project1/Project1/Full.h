@@ -26,13 +26,15 @@ public:
 	virtual void makeTx(string publicId, double EDACoins);
 	bool emptyBlockchain() { return blockchain.empty(); }
 	HeaderBlock askForHeader() { return this->blockchain.back().getHeader(); }
-	void injectBlock(Block b);
+	void injectBlock(nlohmann::json b);
 	void destroy() { destroyBlockchain(); }
 	bool isNeighbour(string id);
 	virtual void receiveTx(nlohmann::json tx, Node* n);
 
 	list<Block> getBchain() { return blockchain; }
 	list<Node*> getNeighbours() { return neighbours; }
+	
+
 protected:
 	//si llega un bloque y aparece alguno de los filters el node avisa
 	vector<string> filters;
@@ -52,8 +54,8 @@ protected:
 	bool SearchForFilterTransactions(Block b, string id);
 
 	//funciones para armar el path
-	Path getPath(MerkleRoot* mr, unsigned long id);
-	bool searchPathRec(MerkleNode* n, Path& path, unsigned long i, bool& found);
+	Path getPath(MerkleRoot* mr, string id);
+	bool searchPathRec(MerkleNode* n, Path& path, string i, bool& found);
 
 	//armo el EDAMerkleBlock para mandarle a mi neighbour
 	EDAMerkleBlock getTreeInfo(string id);//devuelve los paths a las transacciones necesarias
@@ -64,11 +66,9 @@ protected:
 	//devuelve si un numero es cuadrado perfecto
 	bool isPot2(int cant, int* exponent);
 
-	Transaction transformJStoTx(nlohmann::json tx);
-
 	void communicateTx(nlohmann::json tx);
 
-	bool checkUTXOinBlockchain(unsigned long id);
+	bool checkUTXOinBlockchain(string id);
 
 
 

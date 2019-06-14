@@ -1,8 +1,19 @@
 #include "Output.h"
+#include <iostream>
+
+
+using namespace std;
 
 
 Output::Output() {
 
+}
+
+Output::Output(nlohmann::json j) {
+	string i = j["PublicKey"];
+	this->idReceiver = i;
+	i = j["EDACoins"];
+	this->amount =std::stod(i, NULL);
 }
 
 Output::Output(string idReceiver, unsigned long amount) {
@@ -16,3 +27,5 @@ nlohmann::json Output::transformToJson(){
 	j["EDACoins"] = to_string(amount); 
 	return j; 
 }
+
+

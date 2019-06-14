@@ -16,11 +16,13 @@ public:
 	virtual string getID() { return this->id; }
 	virtual void attach(Node* n);
 	void askForHeader();
-	void notify(EDAMerkleBlock mb, HeaderBlock h);
 	bool isNeighbour(string id);
 	HeaderBlock getLastHeader() { return this->headers.back(); }
 	list<Node*> getNeighbours() { return neighbours; }
 	void makeTx(string idReceiver, double amount);
+
+	void notify(nlohmann::json EDAmb, nlohmann::json Header);
+
 
 private:
 	list<Node*> neighbours;
@@ -30,7 +32,7 @@ private:
 	list <UTXO> UTXOs;
 
 	bool validNotification(EDAMerkleBlock edamb, HeaderBlock h);
-	bool headerPresent(unsigned long headerId);
+	bool headerPresent(string headerId);
 	void CommunicateTx(Transaction tx);
 	bool canDoTx(double amount);
 	unsigned long getUTXOId(double amount, string idReceiver, unsigned long txid);

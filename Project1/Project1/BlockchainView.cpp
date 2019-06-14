@@ -1,4 +1,4 @@
-#include "BlockchainView.h"
+/*#include "BlockchainView.h"
 #include "Full.h"
 
 BlockchainView::BlockchainView(Allegro& alle)
@@ -96,6 +96,7 @@ BlockchainView::PrevPage(list<Block> blockchain, int page)
 	return;
 }
 */
+/*
 void
 BlockchainView::DrawBlock(Block& bloque, int x, int y, int w, int h)
 {
@@ -109,3 +110,4 @@ BlockchainView::DrawBlock(Block& bloque, int x, int y, int w, int h)
 	al_draw_text(font, al_map_rgb(0, 0, 0), x, y + TEXTSIZE, 0, aux2.c_str());
 	return;
 }
+*/

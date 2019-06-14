@@ -4,17 +4,22 @@
 class MerkleRoot{
 public:
 	MerkleRoot(){}
-	MerkleRoot(unsigned long id) { this->id = id;  left= nullptr; right = nullptr; }
-	void setId(unsigned long id) { this->id = id; }
+	MerkleRoot(nlohmann::json jsonTree);
+	MerkleRoot(string id) { this->id = id;  left= nullptr; right = nullptr; }
+	void setId(string id) { this->id = id; }
 	void setFirstChildren(MerkleNode* l, MerkleNode* r) {
 			this->left = l; this->right = r;
 	}
 	MerkleNode* getLeft() { return this->left; }
 	MerkleNode* getRight() { return this->right; }
-	unsigned long getID() { return this->id; }
+	string getID() { return this->id; }
+	nlohmann::json TransformToJson();
+
 
 private:
-	unsigned long id;
+	string id;
 	MerkleNode* left;
 	MerkleNode* right;
+	nlohmann::json BuiltJsonTree(MerkleNode* n);
+	MerkleNode* BuiltTreefromJson(nlohmann::json j);
 };

@@ -38,7 +38,7 @@ void SPV::askForHeader() {
 	}
 }
 
-bool SPV::headerPresent(unsigned long headerID) {
+bool SPV::headerPresent(string headerID) {
 	for (HeaderBlock b : this->headers) {
 		if (b.getBlockId() == headerID) {
 			return true;
@@ -48,14 +48,17 @@ bool SPV::headerPresent(unsigned long headerID) {
 
 }
 
-void SPV::notify(EDAMerkleBlock md, HeaderBlock h) {
+void SPV::notify(nlohmann::json EDAmb, nlohmann::json head) {
+	EDAMerkleBlock md(EDAmb);
+	HeaderBlock h(head);
 	//aca deberia buscar el header por otro lado
 	if (validNotification(md, h)) {
 		//guardo las UTXOs 
 		for (Transaction t : md.getTransactions()) {
 			for (Output o : t.getOutputs()) {
 				if (o.getIdReceiver() == this->id) {
-					UTXO to_push(o.getAmount(), getUTXOId(o.getAmount(), o.getIdReceiver(), t.getId()));
+				//FALTA VER COMO HACER EL ID
+					UTXO to_push(o.getAmount());
 					this->UTXOs.push_back(to_push);
 				}
 			}
@@ -76,17 +79,16 @@ bool SPV::validNotification(EDAMerkleBlock edamb, HeaderBlock hb) {
 
 	//itero paths y transacciones y voy validando que llegue al MerkleRoot
 	for (iterpaths = paths.begin(), itertxs = transactions.begin(); iterpaths != paths.end(); iterpaths++, itertxs++) {
-		unsigned long txID = itertxs->getId();
-		cout << endl;
+		string txID = itertxs->getId();
 
 		//Itero un path para ver si puedo generar el MB
 		for (PathElement id : iterpaths->getPath()) {
 			if (id.getLoF() == RIGHT) {
-				string auxstr = to_string(txID) + to_string(id.getId());
+				string auxstr =txID +id.getId();
 				txID = generateIDString(auxstr);
 
 				if (id.getLoF() == LEFT) {
-					string auxstr = to_string(id.getId()) + to_string(txID);
+					string auxstr = id.getId() +txID;
 					txID = generateIDString(auxstr);
 
 				}

@@ -64,6 +64,15 @@
     <ClCompile Include="Node.cpp">
       <Filter>.cpps</Filter>
     </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>.cpps</Filter>
+    </ClCompile>
+    <ClCompile Include="MerkleNod.cpp">
+      <Filter>.cpps</Filter>
+    </ClCompile>
+    <ClCompile Include="MerkleRoot.cpp">
+      <Filter>.cpps</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Allegro.h">

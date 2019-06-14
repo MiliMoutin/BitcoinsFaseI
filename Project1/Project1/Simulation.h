@@ -3,6 +3,7 @@
 #include "Node.h"
 #include "Full.h"
 #include "Cajita.h"
+#include "nlohmann/json.hpp"
 #include "Miners.h"
 #include <map>
 #include <vector>

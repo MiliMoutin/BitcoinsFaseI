@@ -26,7 +26,7 @@ int main(void) {
 		cout << "successfull creation" << endl;
 	}
 	EDACoin.printMatrix();
-	EDACoin.destroySim();
+	EDACoin.createTx("Satochi Nakamoto", "nodo1", 10);
 	sleep_for(minutes(20));
 	return 0;
 }

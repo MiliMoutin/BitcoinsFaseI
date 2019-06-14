@@ -1,11 +1,13 @@
 #pragma once
 
+
 class UTXO {
 public:	
-	UTXO(unsigned long amount, unsigned long id) { this->amount = amount;  this->id = id; }
-	unsigned long getAmount() { return this->amount; }
-	unsigned long getUTXOId() { return this->id; }
+	UTXO(double amount) { this->amount = amount; }
+	UTXO(double amount, string id) { this->amount = amount;  this->id = id; }
+	double getAmount() { return this->amount; }
+	string getUTXOId() { return this->id; }
 private:
-	unsigned long amount;
-	unsigned long id;
+	double amount;
+	string id;
 };

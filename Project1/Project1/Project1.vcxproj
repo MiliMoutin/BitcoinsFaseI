@@ -169,8 +169,11 @@
     <ClCompile Include="BlockchainView.cpp" />
     <ClCompile Include="CajitaView.cpp" />
     <ClCompile Include="EDAMerkleBlock.cpp" />
+    <ClCompile Include="Input.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Full.cpp" />
+    <ClCompile Include="MerkleNod.cpp" />
+    <ClCompile Include="MerkleRoot.cpp" />
     <ClCompile Include="Miner.cpp" />
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="NodeView.cpp" />

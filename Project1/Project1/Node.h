@@ -4,6 +4,7 @@
 #include <string>
 #include <iterator> 
 #include "Transaction.h"
+#include "nlohmann/json.hpp"
 #include "Subject.h"
 #include "UTXO.h"
 
@@ -38,8 +39,8 @@ protected:
 	bool canDoTx(double amount);
 	list<UTXO> UTXOs;
 	list <Node*> neighbours;
-	string publicID;
 	Transaction to_send;
+	string publicID;
 	string privateID;
 	bool visited;
 	node_pos position;

@@ -42,7 +42,7 @@ void Simulation::createNetwork() {
 	}
 
 	for (int i = 0; i < minersn; i++) {
-		Miner* node = new Miner(id + to_string(i+fulln));
+		Miner* node = new Miner(id+to_string(i));
 		n.push_back(node);
 	}
 

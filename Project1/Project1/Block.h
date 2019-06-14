@@ -10,8 +10,10 @@
 class Block :public Subject{
 public:
 	Block(){}
+	
+	Block(nlohmann::json jsonBlock);
 
-	Block(vector<Transaction> transactions, unsigned long id, MerkleRoot* mr = nullptr);
+	Block(vector<Transaction> transactions,string id, MerkleRoot* mr = nullptr);
 
 	//devuelve un header con los datos del bloque
 	HeaderBlock getHeader() { 
@@ -20,7 +22,7 @@ public:
 
 	void setRoot(MerkleRoot* mr) { this->root = mr; }
 
-	unsigned long getId() { return this->id; }
+	string getId() { return this->id; }
 
 	MerkleRoot* getRoot() { return root; }
 
@@ -33,13 +35,15 @@ public:
 
 	unsigned long getCantTxs() { return transactions.size(); }
 
-	Transaction getTransaction(unsigned long id);
+	Transaction getTransaction(string id);
+	 
+	nlohmann::json TransformToJson();
 
 	
 private:
 	int treeLength;
 	MerkleRoot* root;
-	unsigned long id;
-	unsigned long cantTransactions;
+	string id;
+	int cantTransactions;
 	vector<Transaction> transactions;
 };

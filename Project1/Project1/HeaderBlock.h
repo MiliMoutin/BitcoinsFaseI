@@ -3,12 +3,23 @@
 
 class HeaderBlock {
 public: 
-	HeaderBlock(unsigned long id, MerkleRoot* root) { this->id = id; this->root = root; }
+	HeaderBlock(string id, MerkleRoot* root) { this->id = id; this->root = root; }
 	HeaderBlock() {}
+	HeaderBlock(nlohmann::json jh) {
+		string i= jh["BlockID"];
+		this->id = i;
+		this->root = new MerkleRoot(jh["MerkleRoot"]);
+	}
+	nlohmann::json TransformToJson() {
+		nlohmann::json j;
+		j["BlockID"] = this->id;
+		j["root"] = this->root->TransformToJson();
+		return j;
+	}
 	MerkleRoot* getRoot() { return root; }
-	unsigned long getBlockId() { return id; }
+	string getBlockId() { return id; }
 
 private: 
-	unsigned long id;
+	string id;
 	MerkleRoot* root;
 };

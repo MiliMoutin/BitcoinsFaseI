@@ -11,20 +11,16 @@ using namespace std;
 class Input {
 	public:
 	Input(){ }
-	Input(unsigned long BlockID, unsigned long UTXOId, string signature) { this->BlockID = BlockID; this->UTXOId = UTXOId; this->signature = signature; }
-	unsigned long getUTXOId() { return this->UTXOId; }
-	unsigned long getBlockID() { return this->BlockID; }
-	nlohmann::json transformToJson() { nlohmann::json j; 
-	j["BlockID"] = to_string(BlockID); 
-	j["UTXOID"] = to_string(UTXOId);  
-	j["signature"] =this->signature; 
-	return j;
-	}
+	Input(nlohmann::json j);
+	Input(string BlockID, string UTXOId, string signature);
+	string getBlockID() { return this->BlockID; }
+	string getUTXOId() { return this->UTXOId; }
+	nlohmann::json transformToJson();
 	string getSignature() { return this->signature; }
 
 private:
-	unsigned long BlockID;
-	unsigned long UTXOId;
+	string BlockID;
+	string UTXOId;
 	string signature;
 
 };

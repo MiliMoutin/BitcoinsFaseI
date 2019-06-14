@@ -11,7 +11,17 @@ Transaction::Transaction(vector<Input> input, vector<Output> output){
 }
 
 
-
+Transaction::Transaction(nlohmann::json j) {
+	int i = 0;
+	for (nlohmann::json ji : j["input"]) {
+		this->input.push_back(Input(j["input"][i]));
+		i++;
+	}
+	i = 0;
+	for (nlohmann::json jo : j["output"]) {
+		this->output.push_back(Output(j["output"][i]));
+	}
+}
 
 bool Transaction::isIDPresent(string id) {
 	for (Output o : this->output) {
@@ -27,7 +37,7 @@ bool Transaction::isIDPresent(string id) {
 void Transaction::generateTxID() {
 	string idbase = "";
 	for (Input im : input) {
-		idbase += to_string(im.getBlockID()) + to_string(im.getUTXOId());
+		idbase += im.getBlockID() +im.getUTXOId();
 	}
 	for (Output out : output) {
 		idbase += to_string(out.getAmount()) + out.getIdReceiver();

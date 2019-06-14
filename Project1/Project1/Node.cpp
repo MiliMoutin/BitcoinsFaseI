@@ -32,14 +32,14 @@ void Node::makeTx(string publicId, double EDACoins) {
 		vector<Output> outColector;
 		for (UTXO u : collector) {
 			if (u.getAmount() >= amountCollected) {
-				impColector.push_back(Input(123, u.getUTXOId(), Signature));
+				impColector.push_back(Input("blouesin", u.getUTXOId(), Signature));
 				outColector.push_back(Output(publicID, amountCollected));
 				/*Si la UXTO es más grande, entocnes me mando a mi mismo lo que sobra*/
-				impColector.push_back(Input(123, u.getUTXOId(), Signature));
+				impColector.push_back(Input("bloquesin", u.getUTXOId(), Signature));
 				outColector.push_back(Output(this->publicID, amountCollected - u.getAmount()));
 			}
 			else {
-				impColector.push_back(Input(123, u.getUTXOId(), Signature));
+				impColector.push_back(Input("bloquesin", u.getUTXOId(), Signature));
 				outColector.push_back(Output(publicID, u.getAmount()));
 				amountCollected - u.getAmount();
 			}

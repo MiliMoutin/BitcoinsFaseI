@@ -37,7 +37,8 @@ void Full::setFilter(string id) {
 	this->filters.push_back(id);
 }
 
-void Full::injectBlock(Block b) {
+void Full::injectBlock(nlohmann::json jsonBlock) {
+	Block b(jsonBlock);
 	MerkleRoot* mr = createTree(b);
 	b.setRoot(mr);
 	this->blockchain.push_back(b);
@@ -64,7 +65,7 @@ MerkleRoot* Full::createTree(Block b) {
 	MerkleNode* right = createTreeRec(cantCicle - 1, treeVector, &index);
 
 	//genero el id del MerkleRoot
-	string id_to_make = to_string(left->getBlockId()) + to_string(right->getBlockId());
+	string id_to_make = left->getBlockId() + right->getBlockId();
 	MerkleRoot* m = new MerkleRoot(generateIDString(id_to_make));
 
 	m->setFirstChildren(left, right);
@@ -87,9 +88,10 @@ MerkleNode* Full::createTreeRec(int cantCicle, vector<Transaction> txsvector, in
 		MerkleNode* rta1 = createTreeRec(cantCicle - 1, txsvector, index);
 		MerkleNode* rta2 = createTreeRec(cantCicle - 1, txsvector, index);
 
-		unsigned long id1 = rta1->getBlockId();
-		unsigned long id2 = rta2->getBlockId();
-		unsigned long id_generated = generateIDString(to_string(id1) + to_string(id2));
+		string id1 = rta1->getBlockId();
+		string id2 = rta2->getBlockId();
+		//ACA IRÍA EL ID HASHEADO
+		string id_generated = "ID";
 
 		MerkleNode* rtafinal = new MerkleNode();
 		rtafinal->setId(id_generated);
@@ -110,7 +112,7 @@ bool Full::SearchForFilterTransactions(Block b, string id) {
 			if (n->getType() == "SPV") {
 				SPV* spv = (SPV*)n;
 				if (spv->getPublicID() == id) {
-					spv->notify(to_send, this->blockchain.back().getHeader());
+					spv->notify(to_send.TransformToJson(), b.getHeader().TransformToJson());
 				}
 			}
 		}
@@ -122,7 +124,7 @@ EDAMerkleBlock Full::getTreeInfo(string id) {
 
 	list<Path> paths;
 	list<Transaction> transactions;
-	list<unsigned long>ids;
+	list<string>ids;
 
 	Block last_block = this->blockchain.back();
 
@@ -137,7 +139,7 @@ EDAMerkleBlock Full::getTreeInfo(string id) {
 	return EDAMerkleBlock(transactions, paths, ids, last_block.getId());
 }
 
-Path Full::getPath(MerkleRoot* mr, unsigned long id) {
+Path Full::getPath(MerkleRoot* mr, string id) {
 
 	Path* path = new Path();
 	MerkleNode* left = mr->getLeft();
@@ -150,10 +152,9 @@ Path Full::getPath(MerkleRoot* mr, unsigned long id) {
 		path->addID(left->getBlockId(), LEFT);
 	}
 	return *path;
-
 }
 
-bool Full::searchPathRec(MerkleNode* mn, Path& path, unsigned long id, bool& found) {
+bool Full::searchPathRec(MerkleNode* mn, Path& path, string id, bool& found) {
 	if (mn->isLastBlock() && id == mn->getBlockId() && !found) {
 		found = true;
 		return true;
@@ -183,7 +184,7 @@ bool Full::searchPathRec(MerkleNode* mn, Path& path, unsigned long id, bool& fou
 vector<Transaction> Full::createVectorForTree(vector<Transaction> initial, int* height) {
 	int txs = initial.size();
 	while (!isPot2(txs, height) || txs % 2 != 0) {
-		Transaction(generateIDString(to_string(initial.back().getId()) + to_string(txs)));
+		Transaction(generateIDString(initial.back().getId() + to_string(txs)));
 		initial.push_back(initial.back());
 		txs++;
 	}
@@ -196,8 +197,6 @@ void Full::makeTx(string publicId, double EDACoins) {
 			communicateTx(to_send.tranformToJson());
 		}
 }
-
-
 
 
 //se fija si un numero es cuadrado perfecto
@@ -231,7 +230,7 @@ void Full::destroyTree(MerkleNode* nd) {
 
 void Full::receiveTx(nlohmann::json tx, Node* who) {
 		bool received = false;
-		Transaction t = transformJStoTx(tx);
+		Transaction t(tx);
 		//me fijo si la transaccion ya fue previamente recibida
 		if (!receivedTx.empty()) {
 			for (Transaction transac : receivedTx) {
@@ -261,27 +260,7 @@ void Full::receiveTx(nlohmann::json tx, Node* who) {
 		}
 }
 
-
-Transaction Full::transformJStoTx(nlohmann::json tx) {
-	vector<Input> inp;
-	vector<Output> outp;
-	for (int i = 0; i < tx["input"].size(); i++) {
-		string bi = tx["input"][i]["BlockID"];
-		string signa = tx["input"][i]["signature"];
-		string utxoid = tx["input"][i]["UTXOID"];
-		string publick = tx["output"][i]["PublicKey"];
-		string edac = tx["output"][i]["EDACoins"];
-
-		Input in(strtoul(bi.c_str(), NULL, 0), strtoul(utxoid.c_str(), NULL, 0), signa);
-		Output out(publick, strtoul(edac.c_str(), NULL, 0));
-		inp.push_back(in);
-		outp.push_back(out);
-	}
-	return Transaction(inp, outp);
-
-}
-
-bool Full::checkUTXOinBlockchain(unsigned long id) {
+bool Full::checkUTXOinBlockchain(string id) {
 	if (!blockchain.empty()) {
 		for (Block b : blockchain) {
 			for (Transaction t : b.getTxs()) {
