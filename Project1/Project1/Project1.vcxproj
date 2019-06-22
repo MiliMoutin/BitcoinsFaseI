@@ -148,6 +148,7 @@
     <ClInclude Include="MerkleNode.h" />
     <ClInclude Include="MerkleRoot.h" />
     <ClInclude Include="Miners.h" />
+    <ClInclude Include="MinerView.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="NodeView.h" />
     <ClInclude Include="Observer.h" />
@@ -178,6 +179,7 @@
     <ClCompile Include="MerkleNod.cpp" />
     <ClCompile Include="MerkleRoot.cpp" />
     <ClCompile Include="Miner.cpp" />
+    <ClCompile Include="MinerView.cpp" />
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="NodeView.cpp" />
     <ClCompile Include="Output.cpp" />

@@ -73,6 +73,9 @@
     <ClCompile Include="MerkleRoot.cpp">
       <Filter>.cpps</Filter>
     </ClCompile>
+    <ClCompile Include="MinerView.cpp">
+      <Filter>.cpps</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Allegro.h">
@@ -172,6 +175,9 @@
       <Filter>.h</Filter>
     </ClInclude>
     <ClInclude Include="Miners.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="MinerView.h">
       <Filter>.h</Filter>
     </ClInclude>
   </ItemGroup>
