@@ -1,6 +1,7 @@
 #pragma once
 #include "nlohmann/json.hpp"
 
+
 class PathElement {
 public:
 	//true es left, false es right
