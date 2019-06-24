@@ -9,6 +9,11 @@ bool Node::operator==(Node* node) {
 	}
 }
 
+void Node::createPPKey() {
+
+
+}
+
 void Node::makeTx(string publicId, double EDACoins) {
 	if (canDoTx(EDACoins)) {
 		/*En collector voy a guardar las transacciones necesarias*/
@@ -24,7 +29,6 @@ void Node::makeTx(string publicId, double EDACoins) {
 
 		//ACA FIRMAMOS
 		string Signature = "";
-
 		/*Ahora creo la transacción*/
 		/*Primero creo lo vector de input y outputs*/
 		amountCollected = EDACoins;

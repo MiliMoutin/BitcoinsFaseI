@@ -19,7 +19,6 @@ struct node_pos
 
 class Node :public Subject{
 public:
-
 	virtual bool isNeighbour(string id) = 0;
 	virtual string getType() = 0;
 	virtual string getID() = 0;
@@ -34,9 +33,9 @@ public:
 	node_pos get_position() { return position; }
 	bool operator==(Node* n);
 
-
 protected:
 	bool canDoTx(double amount);
+	void createPPKey();
 	list<UTXO> UTXOs;
 	list <Node*> neighbours;
 	Transaction to_send;

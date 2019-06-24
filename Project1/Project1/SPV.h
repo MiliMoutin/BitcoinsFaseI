@@ -20,9 +20,7 @@ public:
 	HeaderBlock getLastHeader() { return this->headers.back(); }
 	list<Node*> getNeighbours() { return neighbours; }
 	void makeTx(string idReceiver, double amount);
-
 	void notify(nlohmann::json EDAmb, nlohmann::json Header);
-
 
 private:
 	list<Node*> neighbours;

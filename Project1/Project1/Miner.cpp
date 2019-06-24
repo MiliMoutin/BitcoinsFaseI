@@ -31,3 +31,4 @@ void Miner::sendBlock() {
 		f->injectBlock(jsonblock);
 	}
 }
+
