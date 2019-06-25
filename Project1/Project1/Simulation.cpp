@@ -56,9 +56,10 @@ void Simulation::createNetwork() {
 		SPV* node = new SPV(id + to_string(i + fulln + minersn));
 		n.push_back(node);
 	}
+
 	Miner* node = new Miner("Satoshi Nakamoto");
 	this->Satochi = node;
-	n[tot - 2] = node;
+	n.push_back(node);
 
 	//conecto los nodos Full
 	connectFulls();

@@ -53,10 +53,25 @@ bool Miner::mine() {
 	SHA256 hash;
 	unsigned int nonce;
 	string toHash = strToHash(nonce);
-	Node::crypp.hashSHA256(toHash);
+	string hashed=Node::crypp.hashSHA256(toHash);
 
-	//como ir a nivel bit para chequearlo???? es un unsigned int?
-	return true;
+	vector<byte> hashedByt;
+	//transformo hash en un arreglo de bytes
+	for (int i = 0; i < hashed.size(); i++) {
+		byte b;
+		std::stringstream aux;
+		aux << hashed[i] + hashed[i + 1];
+		aux >> std::hex >> b;
+		hashedByt.push_back(b);
+	}
+	//me fijo si se cumple el challenge, es decir lo primeros bits son 0.
+	unsigned int chall = challenge;
+	for(int hash=0; hash<hashedByt.size() && chall!=0; hash++){
+		for (int bit= 0; bit < 7 && chall!=0; bit++) {
+			//FALTA CHEQUEAR ESTO 
+		}
+	}
+
 }
 
 unsigned int Miner::newNonce() {
@@ -90,6 +105,8 @@ string Miner::strToHash(unsigned int& non) {
 	MerkleRoot* mr = Full::createTree(Block(this->toMine));
 	MakeStr(mr->getLeft(), strn);
 	MakeStr(mr->getRight(), strn);
+
+	strn += blockchain.back().getId();
 
 	return strn;
 }

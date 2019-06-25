@@ -32,7 +32,7 @@ public:
 	virtual list<Node*> getNeighbours() = 0;
 	virtual void makeTx(string publicId, double EDACoins);
 	Transaction& signTx(Transaction& t);
-	bool verifyTx(Transaction& t, string publicID);
+	bool verifyTx(Transaction& t);
 	void visit() { visited = true; }
 	string getPublicID() { return this->publicId; }
 	bool wasVisited() { return visited; }
