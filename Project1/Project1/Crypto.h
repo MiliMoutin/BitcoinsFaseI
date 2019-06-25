@@ -20,4 +20,5 @@ public:
 	bool verifySignature(ECDSA<ECP, SHA256>::PublicKey &pubKey, string &data, vector<byte> &signature);
 	string hexPrint(vector<byte> &dataToPrint);
 	string getPI(ECDSA<ECP, SHA256>::PublicKey &pubKey);
+	string hashSHA256(string& message);
 };

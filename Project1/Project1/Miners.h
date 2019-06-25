@@ -15,6 +15,7 @@ public:
 	void startMine();
 	void adjustMine();
 	bool mine();
+	string Challenge();
 	void sendBlock();
 
 protected:
@@ -23,6 +24,6 @@ protected:
 	vector<unsigned long> nounces;
 	unsigned int challenge;
 	unsigned int newNonce();
-	string strToHash();
+	string strToHash(unsigned int& nounce);
 	string& MakeStr(MerkleNode* mn, string& str);
 };

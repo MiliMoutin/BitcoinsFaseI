@@ -58,3 +58,10 @@ string Crypto::getPI(ECDSA<ECP, SHA256>::PublicKey &pubKey) {
 
 }
 
+string Crypto::hashSHA256(string& message) {
+	SHA256 hash;
+	string digest;
+	StringSource s(message, true, new HashFilter(hash, new HexEncoder(new StringSink(digest))));
+	return digest;
+}
+
