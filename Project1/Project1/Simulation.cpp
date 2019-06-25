@@ -25,6 +25,7 @@ Simulation::Simulation(unsigned int fulln, unsigned int spv, unsigned int miners
 		startCoinCirculation();
 		printMatrix();
 	}
+	//vec2arr_nodes();
 }
 
 void Simulation::prueba() {
@@ -166,6 +167,7 @@ void Simulation::startCoinCirculation() {
 
 	nlohmann::json genesis;
 	//deberiamos tener la signature de Satochi
+	/*
 	Input genesisInput("BlockID", "UTXODI", "firmaSatochi");
 	Output genesisOutPut(Satochi->getID(), 50);
 	vector<Input> gi;
@@ -182,7 +184,7 @@ void Simulation::startCoinCirculation() {
 		Miner* m = (Miner*)n[i];
 		m->receiveTx(genesis, this->Satochi);
 	}
-	
+	*/
 }
 
 void Simulation::printMatrix() {
@@ -204,7 +206,14 @@ bool Simulation::allVisited() {
 
 
 
-
+void Simulation::vec2arr_nodes()
+{
+	for (int i = 0; i < tot; i++)
+	{
+		nodo[i] = *(n[i]);
+	}
+	return;
+}
 
 
 

@@ -20,13 +20,18 @@ using namespace std;
 
 
 int main(void) {
+	Allegro alle;
 	Simulation EDACoin(5,5,3);
+	SimulationView vi(alle, EDACoin.get_total()-1);
+	EDACoin.attach(vi);
+	EDACoin.notifyAllObservers();
 	if (EDACoin.creationSuccessful()) {
 		cout << "successfull creation" << endl;
+
+		//EDACoin.createTx("Satoshi Nakamoto", "nodo1", 10);
+		//EDACoin.prueba();
 	}
-	EDACoin.createTx("Satoshi Nakamoto", "nodo1", 10);
-	EDACoin.prueba();
-	sleep_for(minutes(20));
+	getchar();
 	return 0;
 }
 

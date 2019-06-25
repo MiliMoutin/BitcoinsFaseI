@@ -2,7 +2,7 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 
-SimulationView::SimulationView(Allegro& alle):cajita(alle)
+SimulationView::SimulationView(Allegro& alle, int cant):cajita(alle)
 {
 	int w = C_DISPLAY_W;
 	int h = N_DISPLAY_H+C_DISPLAY_H;
@@ -19,6 +19,11 @@ SimulationView::SimulationView(Allegro& alle):cajita(alle)
 
 	al_clear_to_color(al_map_rgb(255, 255, 255)); //Hace clear del backbuffer del diplay al color RGB
 	al_flip_display();
+
+	for (int i = 0; i < cant; i++)
+	{
+		nodes.push_back(NodeView(alle));
+	}
 }
 
 SimulationView::~SimulationView()
@@ -31,50 +36,49 @@ SimulationView::update(void* model)
 {
 	Simulation* sim = (Simulation*)model;
 	cant_nodes = sim->get_total();
-	for (int i = 0; i < cant_nodes; i++)
-	{
-		for (int a = 0; a < cant_nodes; a++)
-		{
-			ady_matrix[i][a] = sim->get_adyM()[i][a];
-		}
+	
 
+	for (int i = 0; i < cant_nodes-1; i++)
+	{
+		sim->get_nodes()[i]->Subject::attach(nodes[i]);
 	}
+
 	al_clear_to_color(al_map_rgb(255, 255, 255));
-	drawSim(sim->get_nodes(), &(sim->get_cajita()));
+	drawSim(sim);//->get_nodes(), &(sim->get_cajita()));
 	return;
 }
 
 
 void
-SimulationView::drawSim(Node* node_array, Cajita* caja)
+SimulationView::drawSim(Simulation* sim)//(Node* node_array, Cajita* caja)
 {
 	int dif = 360 / cant_nodes;
 	double rad_dif = (dif * 2 * M_PI) / 360;
 
-	for (int i = 0; i < cant_nodes; i++)
+	for (int i = 0; i < cant_nodes-1; i++)
 	{
-		node_array[i].set_position(N_DISPLAY_W/2 + GRAPH_RADIUS*cos(rad_dif*(i)), N_DISPLAY_H/2 + GRAPH_RADIUS*sin(rad_dif*(i)));
+		sim->get_nodes()[i]->set_position(N_DISPLAY_W/2 + GRAPH_RADIUS*cos(rad_dif*(i)), N_DISPLAY_H/2 + GRAPH_RADIUS*sin(rad_dif*(i)));
 	}
-	drawConnections(node_array);
+	drawConnections(sim);
 
-	for (int i = 0; i < cant_nodes; i++)
+	for (int i = 0; i < cant_nodes-1; i++)
 	{
-		nodes[i].drawNode(&(node_array[i]));
+		nodes[i].drawNode(sim->get_nodes()[i]);
 	}
 	
-	cajita.drawCajita(caja);
+	cajita.drawCajita(&(sim->get_cajita()));
 }
 
 void
-SimulationView::drawConnections(Node* nodes)
+SimulationView::drawConnections(Simulation* sim)
 {
 	for (int i = 0; i < cant_nodes; i++)
 	{
 		for (int a = i; a < cant_nodes; a++)
 		{
-			if (ady_matrix[i][a])
+			if (sim->get_adyM()[i][a])
 			{
-				al_draw_line(nodes[i].get_position().px, nodes[i].get_position().py, nodes[a].get_position().px, nodes[a].get_position().py, al_map_rgb(255, 255, 255), 0);
+				al_draw_line(sim->get_nodes()[i]->get_position().px, sim->get_nodes()[i]->get_position().py, sim->get_nodes()[a]->get_position().px, sim->get_nodes()[a]->get_position().py, al_map_rgb(0, 0, 0), 0);
 			}
 		}
 	}

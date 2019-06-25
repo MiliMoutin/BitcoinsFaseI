@@ -56,7 +56,7 @@ bool Miner::mine() {
 	Node::crypp.hashSHA256(toHash);
 
 	//como ir a nivel bit para chequearlo???? es un unsigned int?
-
+	return true;
 }
 
 unsigned int Miner::newNonce() {
@@ -72,6 +72,7 @@ unsigned int Miner::newNonce() {
 		}
 		aux--;
 	}
+	return aux;
 }
 
 string Miner::strToHash(unsigned int& non) {

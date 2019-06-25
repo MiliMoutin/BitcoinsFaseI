@@ -22,7 +22,7 @@ public:
 	/*Siempre despues de inicializar hay que preguntar si la creacion fue exitosa*/
 	Simulation(unsigned int fulln, unsigned int spv, unsigned int miners);
 	bool creationSuccessful() { return this->correctParameters; }
-	Node* get_nodes() { return nodo; }
+	vector<Node*> get_nodes() { return n; }
 	Cajita get_cajita(){ return cajita; }
 	int get_total() { return tot; }
 	bool** get_adyM() { return adjacenceM; }
@@ -48,6 +48,8 @@ private:
 	void createNetwork();
 	void connectFulls();
 	void connectSPVs();
+
+	void vec2arr_nodes();
 
 	bool allVisited();
 	void connectGraph(Node* n, int index);

@@ -24,14 +24,14 @@ SimCtrl::dispatcher(void* model)
 
 		for (int i=0;i<sim->get_total();i++)
 		{
-			int x = pos.x - sim->get_nodes()[i].get_position().px;
-			int y = pos.y - sim->get_nodes()[i].get_position().py;
+			int x = pos.x - sim->get_nodes()[i]->get_position().px;
+			int y = pos.y - sim->get_nodes()[i]->get_position().py;
 			float d = sqrt(pow(x, 2) + pow(y, 2));
 			if (d <= RADIO)
 			{
-				if (sim->get_nodes()[i].getType() != "SPV")		//Si hice click en algun nodo que no sea SPV...  //y si clickeo un SPV?
+				if (sim->get_nodes()[i]->getType() != "SPV")		//Si hice click en algun nodo que no sea SPV...  //y si clickeo un SPV?
 				{
-					sim->get_nodes()[i].notifyAllObservers();		//... llama a los observers del nodo
+					sim->get_nodes()[i]->notifyAllObservers();		//... llama a los observers del nodo
 				}
 			}
 		}

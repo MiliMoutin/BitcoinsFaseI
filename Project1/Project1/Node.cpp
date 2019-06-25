@@ -92,4 +92,5 @@ bool Node::verifyTx(Transaction& t, string publicID) {
 		if(this->crypp.verifySignature())
 	}
 	*/
+	return true;
 }
