@@ -1,6 +1,6 @@
 #pragma once
 #include "Full.h"
-#include "/Users/User/source/repos/BitcoinsFaseI2/Project1/cryptopp820/cryptlib.h"
+#include "../cryptopp820/cryptlib.h"
 #include "nlohmann/json.hpp"
 #define INCREMENT 0x01
 

@@ -1,11 +1,11 @@
 #pragma once
 #include <iostream>
-#include "/Users/User/source/repos/BitcoinsFaseI2/Project1/cryptopp820/cryptlib.h"
-#include "/Users/User/source/repos/BitcoinsFaseI2/Project1/cryptopp820/ecp.h"
-#include "/Users/User/source/repos/BitcoinsFaseI2/Project1/cryptopp820/eccrypto.h"
-#include "/Users/User/source/repos/BitcoinsFaseI2/Project1/cryptopp820/hex.h"
-#include "/Users/User/source/repos/BitcoinsFaseI2/Project1/cryptopp820/oids.h"
-#include "/Users/User/source/repos/BitcoinsFaseI2/Project1/cryptopp820/osrng.h"
+#include "../cryptopp820/cryptlib.h"
+#include "../cryptopp820/ecp.h"
+#include "../cryptopp820/eccrypto.h"
+#include "../cryptopp820/hex.h"
+#include "../cryptopp820/oids.h"
+#include "../cryptopp820/osrng.h"
 
 using namespace CryptoPP;
 using namespace std;
