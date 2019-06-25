@@ -17,6 +17,7 @@ SimulationView::SimulationView(Allegro& alle, int cant):cajita(alle)
 
 	al_init_primitives_addon();
 
+	al_set_window_position(display, 0, 0);
 	al_clear_to_color(al_map_rgb(255, 255, 255)); //Hace clear del backbuffer del diplay al color RGB
 	al_flip_display();
 

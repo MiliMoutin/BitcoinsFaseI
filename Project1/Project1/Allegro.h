@@ -8,12 +8,12 @@
 #include <allegro5/allegro_audio.h>
 #include <allegro5/allegro_acodec.h>
 
-#define N_DISPLAY_W 700
-#define N_DISPLAY_H 700
+#define N_DISPLAY_W 600
+#define N_DISPLAY_H 600
 #define GRAPH_RADIUS ((N_DISPLAY_W/2)-30)
 
 #define C_DISPLAY_W N_DISPLAY_W
-#define C_DISPLAY_H 200
+#define C_DISPLAY_H 100
 
 #define DISPLAY_W N_DISPLAY_W
 #define DISPLAY_H (N_DISPLAY_H + C_DISPLAY_H)

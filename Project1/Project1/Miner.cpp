@@ -71,7 +71,7 @@ bool Miner::mine() {
 			//FALTA CHEQUEAR ESTO 
 		}
 	}
-
+	return true;	//Dimas agrego para poder compilar
 }
 
 unsigned int Miner::newNonce() {

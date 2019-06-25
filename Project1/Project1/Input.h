@@ -21,7 +21,7 @@ class Input {
 	nlohmann::json transformToJson();
 	vector<byte> getSignature() { return this->signature; }
 	string toSign();
-	string getPublicID() { this->publicKey; }
+	string getPublicID() { return this->publicKey; }
 	void setSignature(vector<byte> str) { this->signature = str; }
 
 private:
