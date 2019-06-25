@@ -26,4 +26,5 @@ protected:
 	unsigned int newNonce();
 	string strToHash(unsigned int& nounce);
 	string& MakeStr(MerkleNode* mn, string& str);
+	vector<byte> hashed;
 };

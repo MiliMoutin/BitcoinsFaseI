@@ -29,6 +29,7 @@ Transaction& Node::signTx(Transaction& t) {
 		string message = i.toSign();
 		vector<byte> vecby=crypp.getSignature(this->privateKey, message);
 		i.setSignature(vecby);
+		
 	}
 	return t;
 
@@ -54,10 +55,10 @@ void Node::makeTx(string pID, double EDACoins) {
 		vector<Output> outColector;
 		for (UTXO u : collector) {
 			if (u.getAmount() >= amountCollected) {
-				impColector.push_back(Input("blouesin", u.getUTXOId()));
+				impColector.push_back(Input("blouesin", u.getUTXOId(), this->publicId));
 				outColector.push_back(Output(pID, amountCollected));
 				/*Si la UXTO es más grande, entocnes me mando a mi mismo lo que sobra*/
-				impColector.push_back(Input("bloquesin", u.getUTXOId()));
+				impColector.push_back(Input("bloquesin", u.getUTXOId(), this->publicId));
 				outColector.push_back(Output(pID, amountCollected - u.getAmount()));
 			}
 			else {
@@ -84,12 +85,16 @@ bool Node::canDoTx(double amount) {
 	return found;
 }
 
-bool Node::verifyTx(Transaction& t, string publicID) {
-	/*
-	vector<Input>::iterator in;
-	vector<Output>::iterator out;
-	for (in = t.getInput().begin, out = t.getOutputs().begin(); in != t.getInput().end() && out != t.getOutputs().end(); in++, out++) {
-		if(this->crypp.verifySignature())
+bool Node::verifyTx(Transaction& t) {
+	for (Input& i: t.getInput()) {
+		ECDSA<ECP, SHA256>::PublicKey pk;
+		StringSource ss(i.getPublicID(), true /*pumpAll*/);
+		pk.Load(ss);
+		string toS = i.toSign();
+		vector<byte> signa = i.getSignature();
+		if (!crypp.verifySignature(pk, toS, signa)) {
+			return false;
+		}
 	}
-	*/
+	return true;
 }

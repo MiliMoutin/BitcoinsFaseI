@@ -1,14 +1,19 @@
 #include "Input.h"
+#include <iostream>
 
-Input::Input(string BlockID, string UTXOId, vector<byte> signature) { 
+using namespace std;
+
+Input::Input(string BlockID, string UTXOId, vector<byte> signature, string publicId="") { 
 	this->BlockID = BlockID; 
 	this->UTXOId = UTXOId; 
 	this->signature = signature; 
+	this->publicKey = publicId;
 }
 
-Input::Input(string BlockID, string UTXOId) {
+Input::Input(string BlockID, string UTXOId, string publicId) {
 	this->BlockID = BlockID;
 	this->UTXOId = UTXOId;
+	this->publicKey = publicId;
 }
 
 Input::Input(nlohmann::json j) {
@@ -16,7 +21,18 @@ Input::Input(nlohmann::json j) {
 	this->BlockID = i;
 	string k = j["UTXOID"];
 	this->UTXOId = k;
-	/*CAMBIAR TEMA DEL INPUT*/
+	vector<byte> sig;
+	string str = j["signature"];
+	std::stringstream aux;
+	for (int i = 0; i < str.size(); i+=2) {
+		byte b;
+		aux << str[i] + str[i + 1];
+		aux >> std::hex >> b;
+		sig.push_back(b);
+	}
+	this->signature = sig;
+	string pk = j["PublicKey"];
+	this->publicKey = pk;
 }
 
 string Input::toSign() {
@@ -29,7 +45,8 @@ nlohmann::json Input::transformToJson() {
 
 	j["BlockID"] = BlockID;
 	j["UTXOID"] = UTXOId;
-	j["signature"] = this->signature;
-
+	j["signature"]=crypp.hexPrint(this->signature);
+	j["PublicKey"] = this->publicKey;
 	return j;
+
 }
