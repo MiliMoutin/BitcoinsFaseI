@@ -11,7 +11,7 @@ class Full;
 
 class SPV : public Node {
 public:
-	SPV(string id) { this->id = id; }
+	SPV(string id) { this->id = id; Node::createPPKey(); }
 	string getType() { return string("SPV"); }
 	virtual string getID() { return this->id; }
 	virtual void attach(Node* n);

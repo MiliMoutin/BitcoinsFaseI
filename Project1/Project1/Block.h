@@ -13,7 +13,7 @@ public:
 	
 	Block(nlohmann::json jsonBlock);
 
-	Block(vector<Transaction> transactions,string id, MerkleRoot* mr = nullptr);
+	Block(vector<Transaction> transactions,string id="AhoraNo", MerkleRoot* mr = nullptr);
 
 	//devuelve un header con los datos del bloque
 	HeaderBlock getHeader() { 

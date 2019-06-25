@@ -1,9 +1,14 @@
 #include "Input.h"
 
-Input::Input(string BlockID, string UTXOId, string signature) { 
+Input::Input(string BlockID, string UTXOId, vector<byte> signature) { 
 	this->BlockID = BlockID; 
 	this->UTXOId = UTXOId; 
 	this->signature = signature; 
+}
+
+Input::Input(string BlockID, string UTXOId) {
+	this->BlockID = BlockID;
+	this->UTXOId = UTXOId;
 }
 
 Input::Input(nlohmann::json j) {
@@ -11,8 +16,11 @@ Input::Input(nlohmann::json j) {
 	this->BlockID = i;
 	string k = j["UTXOID"];
 	this->UTXOId = k;
-	string m = j["signature"];
-	this->signature = m;
+	/*CAMBIAR TEMA DEL INPUT*/
+}
+
+string Input::toSign() {
+	return this->getUTXOId();
 }
 
 nlohmann::json Input::transformToJson() {

@@ -10,6 +10,7 @@ public:
 		this->id = i;
 		this->root = new MerkleRoot(jh["MerkleRoot"]);
 	}
+	HeaderBlock(MerkleRoot* root) { this->root = root; }
 	nlohmann::json TransformToJson() {
 		nlohmann::json j;
 		j["BlockID"] = this->id;

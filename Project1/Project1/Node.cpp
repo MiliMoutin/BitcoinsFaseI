@@ -3,18 +3,38 @@
 #include "Input.h"
 #include "Output.h"
 
+using namespace CryptoPP;
+
+
+
 bool Node::operator==(Node* node) {
-	if (node->getPublicID() == this->publicID) {
+	if (node->getPublicID() == publicId) {
 		return true;
 	}
 }
 
 void Node::createPPKey() {
+	this->privateKey = crypp.generatePrivKey();
+	ECDSA<ECP, SHA256>::PublicKey pubk;
+	this->privateKey.MakePublicKey(pubk);
+	this->publicKey = pubk;
+	this->publicId = crypp.getPI(this->publicKey);
+}
 
+Transaction& Node::signTx(Transaction& t) {
+
+	for (Input& i: t.getInput()) {
+
+		AutoSeededRandomPool prng;
+		string message = i.toSign();
+		vector<byte> vecby=crypp.getSignature(this->privateKey, message);
+		i.setSignature(vecby);
+	}
+	return t;
 
 }
 
-void Node::makeTx(string publicId, double EDACoins) {
+void Node::makeTx(string pID, double EDACoins) {
 	if (canDoTx(EDACoins)) {
 		/*En collector voy a guardar las transacciones necesarias*/
 		list<UTXO> collector;
@@ -27,8 +47,6 @@ void Node::makeTx(string publicId, double EDACoins) {
 			collector.push_back(*ptr);
 		}
 
-		//ACA FIRMAMOS
-		string Signature = "";
 		/*Ahora creo la transacción*/
 		/*Primero creo lo vector de input y outputs*/
 		amountCollected = EDACoins;
@@ -36,15 +54,15 @@ void Node::makeTx(string publicId, double EDACoins) {
 		vector<Output> outColector;
 		for (UTXO u : collector) {
 			if (u.getAmount() >= amountCollected) {
-				impColector.push_back(Input("blouesin", u.getUTXOId(), Signature));
-				outColector.push_back(Output(publicID, amountCollected));
+				impColector.push_back(Input("blouesin", u.getUTXOId()));
+				outColector.push_back(Output(pID, amountCollected));
 				/*Si la UXTO es más grande, entocnes me mando a mi mismo lo que sobra*/
-				impColector.push_back(Input("bloquesin", u.getUTXOId(), Signature));
-				outColector.push_back(Output(this->publicID, amountCollected - u.getAmount()));
+				impColector.push_back(Input("bloquesin", u.getUTXOId()));
+				outColector.push_back(Output(pID, amountCollected - u.getAmount()));
 			}
 			else {
-				impColector.push_back(Input("bloquesin", u.getUTXOId(), Signature));
-				outColector.push_back(Output(publicID, u.getAmount()));
+				impColector.push_back(Input("bloquesin", u.getUTXOId()));
+				outColector.push_back(Output(publicId, u.getAmount()));
 				amountCollected - u.getAmount();
 			}
 		}
@@ -66,3 +84,12 @@ bool Node::canDoTx(double amount) {
 	return found;
 }
 
+bool Node::verifyTx(Transaction& t, string publicID) {
+	/*
+	vector<Input>::iterator in;
+	vector<Output>::iterator out;
+	for (in = t.getInput().begin, out = t.getOutputs().begin(); in != t.getInput().end() && out != t.getOutputs().end(); in++, out++) {
+		if(this->crypp.verifySignature())
+	}
+	*/
+}

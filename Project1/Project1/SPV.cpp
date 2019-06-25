@@ -106,7 +106,9 @@ bool SPV::validNotification(EDAMerkleBlock edamb, HeaderBlock hb) {
 void SPV::makeTx(string idReceiver, double amount) {
 		/*Comunico al tx a mis vecinos Full*/
 	if (Node::canDoTx(amount)) {
-		this->CommunicateTx(Node::to_send);
+	Node::makeTx(idReceiver, amount);
+	Node::signTx(Node::to_send);
+	this->CommunicateTx(Node::to_send);
 	}
 
 }
@@ -117,21 +119,6 @@ void SPV::CommunicateTx(Transaction t) {
 		f->receiveTx(t.tranformToJson(), this);
 	}
 }
-
-
-bool SPV::canDoTx(double amount) {
-	double amountCollected = 0;
-	list<UTXO>::iterator ptr;
-	bool found = false;
-	for (ptr = UTXOs.begin(); ptr != UTXOs.end() && !found; ptr++) {
-		amountCollected += ptr->getAmount();
-		if (amountCollected >= amount) {
-			found = true;
-		}
-	}
-	return found;
-}
-
 
 
 unsigned long SPV::getUTXOId(double amount, string idReceiver, unsigned long txid) {

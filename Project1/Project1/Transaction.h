@@ -22,6 +22,7 @@ public:
 	vector<Input> getInput() { return input; }
 	nlohmann::json tranformToJson();
 	bool operator==(Transaction t);
+	string toSign();
 
 private:
 	vector<Output> output;

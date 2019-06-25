@@ -17,7 +17,7 @@ class SPV;
 class Full :public Node {
 
 public:
-	Full() {}
+	Full() { Node::createPPKey(); }
 	Full(string id);
 	string getType() { return "Full"; }
 	virtual string getID() { return this->id; }

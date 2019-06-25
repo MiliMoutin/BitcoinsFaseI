@@ -10,6 +10,17 @@ Transaction::Transaction(vector<Input> input, vector<Output> output){
 	this->output = output;
 }
 
+string Transaction::toSign() {
+	string rta = " ";
+	for (Input i: input) {
+		rta += i.toSign();
+	}
+	for (Output o : output) {
+		rta += o.toSign();
+	}
+	return rta;
+}
+
 
 Transaction::Transaction(nlohmann::json j) {
 	int i = 0;

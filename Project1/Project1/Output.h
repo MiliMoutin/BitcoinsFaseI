@@ -16,6 +16,7 @@ public:
 	string getIdReceiver() { return idReceiver; }
 	double getAmount() { return amount; }
 	nlohmann::json transformToJson(); 
+	string toSign();
 private:
 	string idReceiver;
 	double amount;

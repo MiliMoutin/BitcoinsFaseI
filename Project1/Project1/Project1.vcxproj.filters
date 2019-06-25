@@ -76,6 +76,9 @@
     <ClCompile Include="MinerView.cpp">
       <Filter>.cpps</Filter>
     </ClCompile>
+    <ClCompile Include="Crypto.cpp">
+      <Filter>.cpps</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Allegro.h">
@@ -178,6 +181,9 @@
       <Filter>.h</Filter>
     </ClInclude>
     <ClInclude Include="MinerView.h">
+      <Filter>.h</Filter>
+    </ClInclude>
+    <ClInclude Include="Crypto.h">
       <Filter>.h</Filter>
     </ClInclude>
   </ItemGroup>

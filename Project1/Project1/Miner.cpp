@@ -15,8 +15,9 @@ void Miner::receiveTx(nlohmann::json tx, Node* n) {
 }
 
 void Miner::makeTx(string publicId, double EDACoins) {
-	Full::makeTx(publicID, EDACoins);
+	Full::makeTx(publicId, EDACoins);
 	if (Node::canDoTx(EDACoins)) {
+		Node::signTx(Node::to_send);
 		Full::communicateTx(this->to_send.tranformToJson());
 		this->toMine.push_back(this->to_send);
 	}
@@ -32,3 +33,49 @@ void Miner::sendBlock() {
 	}
 }
 
+void Miner::startMine() {
+	this->mined = 0;
+}
+
+void Miner::adjustMine() {
+	//Minó x veces-> y 0s
+	//1 vez->z=0s
+	if (mined == 0 && challenge <= 0) {
+		challenge--;
+	}
+	else if (mined != 0) {
+		int aux = (int)ceil(challenge / mined);
+		challenge = aux;
+	}
+}
+
+bool Miner::mine() {
+	SHA256 hash;
+	string toHash;
+
+	unsigned int nonce = newNonce();
+
+
+
+
+}
+
+string Miner::strToHash() {
+	
+
+}
+
+string& Miner::MakeStr(MerkleNode* mn, string& str) {
+	MerkleNode* l = mn->getLeft();
+	MerkleNode* r = mn->getRight();
+	string strl = "";
+	string strr = "";
+	if (l != nullptr) {
+		strl=MakeStr(l, str);
+	}
+	if (r != nullptr) {
+		strr=MakeStr(r, str);
+	}
+	string rta = mn->getBlockId() + strr + strl;
+	return rta;
+}

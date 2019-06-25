@@ -13,6 +13,7 @@ using namespace std;
 
 Full::Full(string id) {
 	this->id = id;
+	Node::createPPKey();
 }
 
 void Full::attach(Node* n) {
@@ -196,8 +197,9 @@ vector<Transaction> Full::createVectorForTree(vector<Transaction> initial, int* 
 }
 
 void Full::makeTx(string publicId, double EDACoins) {
-	Node::makeTx(publicID, EDACoins);
+	Node::makeTx(publicId, EDACoins);
 		if (canDoTx(EDACoins)) {
+			Node::signTx(Node::to_send);
 			communicateTx(to_send.tranformToJson());
 		}
 }

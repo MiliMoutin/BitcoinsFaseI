@@ -21,6 +21,10 @@ Output::Output(string idReceiver, unsigned long amount) {
 	this->amount = amount;
 }
 
+string Output::toSign() {
+	return to_string(this->amount) + this->idReceiver;
+}
+
 nlohmann::json Output::transformToJson(){	
 	nlohmann::json j; 
 	j["PublicKey"] = idReceiver; 

@@ -2,7 +2,13 @@
 #include <iostream>
 #include <list>
 #include <string>
-#include <iterator> 
+#include "Crypto.h"
+#include "/Users/User/source/repos/BitcoinsFaseI2/Project1/cryptopp820/cryptlib.h"
+#include "/Users/User/source/repos/BitcoinsFaseI2/Project1/cryptopp820/ecp.h"
+#include "/Users/User/source/repos/BitcoinsFaseI2/Project1/cryptopp820/eccrypto.h"
+#include "/Users/User/source/repos/BitcoinsFaseI2/Project1/cryptopp820/hex.h"
+#include "/Users/User/source/repos/BitcoinsFaseI2/Project1/cryptopp820/oids.h"
+#include "/Users/User/source/repos/BitcoinsFaseI2/Project1/cryptopp820/osrng.h"
 #include "Transaction.h"
 #include "nlohmann/json.hpp"
 #include "Subject.h"
@@ -25,8 +31,10 @@ public:
 	virtual void attach(Node* n) = 0;
 	virtual list<Node*> getNeighbours() = 0;
 	virtual void makeTx(string publicId, double EDACoins);
+	Transaction& signTx(Transaction& t);
+	bool verifyTx(Transaction& t, string publicID);
 	void visit() { visited = true; }
-	string getPublicID() { return this->publicID; }
+	string getPublicID() { return this->publicId; }
 	bool wasVisited() { return visited; }
 	void reset() { visited = false; }
 	void set_position(int x, int y) { position.px = x; position.py = y; return; }
@@ -39,8 +47,10 @@ protected:
 	list<UTXO> UTXOs;
 	list <Node*> neighbours;
 	Transaction to_send;
-	string publicID;
-	string privateID;
 	bool visited;
 	node_pos position;
+	string publicId;
+	CryptoPP::ECDSA<ECP, SHA256>::PrivateKey privateKey;
+	CryptoPP::ECDSA<ECP, SHA256>::PublicKey publicKey;
+	Crypto crypp;
 };
