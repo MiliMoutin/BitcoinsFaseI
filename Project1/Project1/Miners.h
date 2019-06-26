@@ -16,6 +16,7 @@ public:
 	void startMine();
 	void adjustMine(double start, double end);
 	bool mine();
+	virtual void injectBlock(nlohmann::json block, nlohmann::json nonce);
 	string Challenge();
 	void hasMined();
 

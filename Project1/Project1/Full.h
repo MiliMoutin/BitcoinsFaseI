@@ -26,9 +26,10 @@ public:
 	virtual void makeTx(string publicId, double EDACoins);
 	bool emptyBlockchain() { return blockchain.empty(); }
 	HeaderBlock askForHeader() { return this->blockchain.back().getHeader(); }
-	void injectBlock(nlohmann::json& b, nlohmann::json& nonce);
+	virtual void injectBlock(nlohmann::json& b, nlohmann::json& nonce);
 	void destroy() { destroyBlockchain(); }
 	bool isNeighbour(string id);
+	void TxOfInterest(Block b);
 	virtual void receiveTx(nlohmann::json tx, Node* n, ECDSA<ECP, SHA256>::PublicKey& pk);
 
 	list<Block> getBchain() { return blockchain; }
@@ -44,7 +45,7 @@ protected:
 	vector<MerkleRoot*> merkleroots;
 	vector<Transaction> receivedTx;
 	string NodeId() { return this->id; }
-
+	list <UTXO> UTXOs;
 	bool checkBlockValidity(Block B, unsigned int& nounce);
 	void destroyBlockchain();
 	void destroyTree(MerkleNode* nd);

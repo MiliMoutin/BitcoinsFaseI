@@ -57,8 +57,8 @@ void SPV::notify(nlohmann::json EDAmb, nlohmann::json head) {
 		for (Transaction t : md.getTransactions()) {
 			for (Output o : t.getOutputs()) {
 				if (o.getIdReceiver() == this->id) {
-				//FALTA VER COMO HACER EL ID
-					UTXO to_push(o.getAmount());
+					double amo = o.getAmount();
+					UTXO to_push(UTXO(amo, to_string(this->getUTXOId(o.getAmount, o.getIdReceiver(), t.getId()))));
 					this->UTXOs.push_back(to_push);
 				}
 			}
@@ -123,8 +123,4 @@ void SPV::CommunicateTx(Transaction t) {
 }
 
 
-unsigned long SPV::getUTXOId(double amount, string idReceiver, unsigned long txid) {
-	string base = "";
-	base += to_string(amount) + idReceiver + to_string(txid);
-	return generateIDString(base);
-}
+

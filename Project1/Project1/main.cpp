@@ -22,14 +22,7 @@ using namespace std::chrono;
 using namespace std;
 
 
-int main(void) {
-	Simulation EDACoin(2, 5, 2);
-	if (EDACoin.creationSuccessful()) {
-		EDACoin.keepMining();
-	}
-}
 
-/*
 int main(void) {
 	Allegro alle;
 	Simulation EDACoin(5,5,3);
@@ -57,6 +50,6 @@ int main(void) {
 	}while (ev.type != ALLEGRO_EVENT_DISPLAY_CLOSE);
 
 	return 0;
-}*/
+}
 
 
