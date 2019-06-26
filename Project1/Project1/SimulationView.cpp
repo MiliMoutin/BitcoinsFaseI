@@ -2,7 +2,7 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 
-SimulationView::SimulationView(Allegro& alle, int cant):cajita(alle)
+SimulationView::SimulationView(Allegro& alle, int cant):cajitav(alle)
 {
 	int w = C_DISPLAY_W;
 	int h = N_DISPLAY_H+C_DISPLAY_H;
@@ -39,10 +39,12 @@ SimulationView::update(void* model)
 	cant_nodes = sim->get_total();
 	
 
-	for (int i = 0; i < cant_nodes-1; i++)
+	for (int i = 0; i < cant_nodes; i++)
 	{
 		sim->get_nodes()[i]->Subject::attach(nodes[i]);
 	}
+
+	sim->get_cajita()->attach(cajitav);
 
 	al_clear_to_color(al_map_rgb(255, 255, 255));
 	drawSim(sim);//->get_nodes(), &(sim->get_cajita()));
@@ -56,18 +58,18 @@ SimulationView::drawSim(Simulation* sim)//(Node* node_array, Cajita* caja)
 	int dif = 360 / cant_nodes;
 	double rad_dif = (dif * 2 * M_PI) / 360;
 
-	for (int i = 0; i < cant_nodes-1; i++)
+	for (int i = 0; i < cant_nodes; i++)
 	{
 		sim->get_nodes()[i]->set_position(N_DISPLAY_W/2 + GRAPH_RADIUS*cos(rad_dif*(i)), N_DISPLAY_H/2 + GRAPH_RADIUS*sin(rad_dif*(i)));
 	}
 	drawConnections(sim);
 
-	for (int i = 0; i < cant_nodes-1; i++)
+	for (int i = 0; i < cant_nodes; i++)
 	{
 		nodes[i].drawNode(sim->get_nodes()[i]);
 	}
 	
-	cajita.drawCajita(&(sim->get_cajita()));
+	cajitav.drawCajita(sim->get_cajita());
 }
 
 void

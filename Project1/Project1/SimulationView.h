@@ -14,11 +14,12 @@ public:
 	ALLEGRO_DISPLAY* get_display() { return display; }
 
 	vector<NodeView> get_node_views() { return nodes; }
+	CajitaView get_caja_view() { return cajitav; }
 private:
 	void drawSim(Simulation* sim);//(Node* node_array, Cajita* caja);
 	void drawConnections(Simulation*sim);//Node* node_array);
 	ALLEGRO_DISPLAY* display;
-	CajitaView cajita;
+	CajitaView cajitav;
 	bool** ady_matrix;  //quien y como se crea?? El update
 	vector<NodeView> nodes;
 	int cant_nodes;

@@ -3,7 +3,8 @@
 #include <cstdlib> 
 
 
-Simulation::Simulation(unsigned int fulln, unsigned int spv, unsigned int miners):correctParameters(true) {
+Simulation::Simulation(unsigned int fulln, unsigned int spv, unsigned int miners):correctParameters(true)
+{
 	/*Me fijo si los parametros son correctos*/
 	if (fulln + spv + miners> MAXNODES || miners>fulln) {
 		this->correctParameters = false;
@@ -21,6 +22,8 @@ Simulation::Simulation(unsigned int fulln, unsigned int spv, unsigned int miners
 				adjacenceM[i][j] = false;
 			}
 		}
+		Cajita caj;
+		cajita = &caj;
 		createNetwork();
 		startCoinCirculation();
 		printMatrix();

@@ -32,6 +32,12 @@ AllegroCtrl::~AllegroCtrl()
 	al_destroy_event_queue(event_queue);
 }
 
+void
+AllegroCtrl::dispatcher(void* model)
+{
+	ALLEGRO_EVENT ev = getEvent();
+	Alle_dispatcher(model, ev);
+}
 
 ALLEGRO_EVENT
 AllegroCtrl::getEvent()

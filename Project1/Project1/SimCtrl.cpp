@@ -7,10 +7,9 @@ SimCtrl::SimCtrl(ALLEGRO_DISPLAY* display)
 
 
 void
-SimCtrl::dispatcher(void* model)
+SimCtrl::Alle_dispatcher(void* model, ALLEGRO_EVENT ev)
 {
 	Simulation* sim = (Simulation*)model;
-	ALLEGRO_EVENT ev = getEvent();
 	switch (ev.type)
 	{
 	case ALLEGRO_EVENT_DISPLAY_CLOSE:
@@ -53,56 +52,57 @@ SimCtrl::dispatcher(void* model)
 		}
 		else if (SEND(pos.x, pos.y))		//hice click en send
 		{
-			sim->createTx(sim->get_cajita().getFrom(), sim->get_cajita().getTo(), stod(sim->get_cajita().getAmount()));
-			sim->get_cajita().reset();
+			sim->createTx(sim->get_cajita()->getFrom(), sim->get_cajita()->getTo(), stod(sim->get_cajita()->getAmount()));
+			sim->get_cajita()->reset();
+			stat = no_state;
 		}
 
 		break;
 	}
-	case ALLEGRO_EVENT_KEY_UP:
+	case ALLEGRO_EVENT_KEY_CHAR:
 	{//escribo en la cajita
 		switch (stat)
 		{
 		case from:
 		{
-			string aux = sim->get_cajita().getFrom();		//creo string auxiliar con el from de la cajita
+			string aux = sim->get_cajita()->getFrom();		//creo string auxiliar con el from de la cajita
 			if (ev.keyboard.keycode == ALLEGRO_KEY_BACKSPACE)		//si aprete el backspace
 			{
 				aux.erase(aux.end());		//elimino una letra
 			}
 			else if (ev.keyboard.keycode <= ALLEGRO_KEY_9)		//si apreto una tecla (entre A-Z y 0-9)
 			{
-				aux.push_back(ev.keyboard.keycode);		//la meto en el string
+				aux.push_back(ev.keyboard.unichar);		//la meto en el string
 			}
-			sim->get_cajita().setFrom(aux);		//seteo la cajita con el string auxiliar
+			sim->get_cajita()->setFrom(aux);		//seteo la cajita con el string auxiliar
 			break;
 		}
 		case to:
 		{													//idem
-			string aux = sim->get_cajita().getTo();
+			string aux = sim->get_cajita()->getTo();
 			if (ev.keyboard.keycode == ALLEGRO_KEY_BACKSPACE)
 			{
 				aux.erase(aux.end());
 			}
 			else if (ev.keyboard.keycode <= ALLEGRO_KEY_9)
 			{
-				aux.push_back(ev.keyboard.keycode);
+				aux.push_back(ev.keyboard.unichar);
 			}
-			sim->get_cajita().setTo(aux);
+			sim->get_cajita()->setTo(aux);
 			break;
 		}
 		case amount:
 		{													//idem
-			string aux = sim->get_cajita().getAmount();
+			string aux = sim->get_cajita()->getAmount();
 			if (ev.keyboard.keycode == ALLEGRO_KEY_BACKSPACE)
 			{
 				aux.erase(aux.end());
 			}
 			else if ((ev.keyboard.keycode >= ALLEGRO_KEY_0)&&(ev.keyboard.keycode <= ALLEGRO_KEY_9))		//solo acepto numeros
 			{
-				aux.push_back(ev.keyboard.keycode);
+				aux.push_back(ev.keyboard.unichar);
 			}
-			sim->get_cajita().setAmount(aux);
+			sim->get_cajita()->setAmount(aux);
 			break;
 		}
 		case no_state:

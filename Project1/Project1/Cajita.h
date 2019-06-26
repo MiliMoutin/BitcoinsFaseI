@@ -6,6 +6,7 @@ using namespace std;
 class Cajita :public Subject
 {
 public:
+	Cajita() {}
 	void setFrom(string f) { from = f; notifyAllObservers(); }
 	void setTo(string t) { to = t; notifyAllObservers(); }
 	void setAmount(string am) { amount = am; notifyAllObservers(); }

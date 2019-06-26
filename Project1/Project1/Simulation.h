@@ -23,7 +23,7 @@ public:
 	Simulation(unsigned int fulln, unsigned int spv, unsigned int miners);
 	bool creationSuccessful() { return this->correctParameters; }
 	vector<Node*> get_nodes() { return n; }
-	Cajita get_cajita(){ return cajita; }
+	Cajita* get_cajita(){ return cajita; }
 	int get_total() { return tot; }
 	bool** get_adyM() { return adjacenceM; }
 	void createTx(string idEmission, string idReceiver, double amount);
@@ -34,7 +34,7 @@ public:
 
 private:
 	Node* nodo;
-	Cajita cajita;
+	Cajita* cajita;
 	bool correctParameters;
 	Miner* Satochi;
 

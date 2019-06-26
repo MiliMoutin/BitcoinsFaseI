@@ -11,7 +11,7 @@ public:
 	Subject() {};
 	//Subject(const Subject& orig);
 	virtual ~Subject();
-	void attach(Observer& o) { observers.push_back(&o); }
+	void attach(Observer& o) { observers.push_back(&o); return; }
 	void deAttach() { observers.pop_back(); }
 	list<Observer*> getObs() { return observers; }
 //protected:
