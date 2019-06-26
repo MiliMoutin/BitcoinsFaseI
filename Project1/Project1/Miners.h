@@ -2,7 +2,8 @@
 #include "Full.h"
 #include "../cryptopp820/cryptlib.h"
 #include "nlohmann/json.hpp"
-#define INCREMENT 0x01
+#define INCREMENT 0x00000001
+#define CHALLENGEMASK 0xF0
 
 class Miner : public Full {
 public:
@@ -16,7 +17,7 @@ public:
 	void adjustMine();
 	bool mine();
 	string Challenge();
-	void sendBlock();
+	void hasMined();
 
 protected:
 	int mined;
@@ -27,4 +28,6 @@ protected:
 	string strToHash(unsigned int& nounce);
 	string& MakeStr(MerkleNode* mn, string& str);
 	vector<byte> hashed;
+	Block lastMined;
+	unsigned int winnerNonce;
 };

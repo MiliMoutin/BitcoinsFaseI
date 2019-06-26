@@ -38,7 +38,7 @@ void Full::setFilter(string id) {
 	this->filters.push_back(id);
 }
 
-void Full::injectBlock(nlohmann::json jsonBlock) {
+void Full::injectBlock(nlohmann::json jsonBlock, nlohmann::json nonce) {
 	Block b(jsonBlock);
 	MerkleRoot* mr = createTree(b);
 	b.setRoot(mr);

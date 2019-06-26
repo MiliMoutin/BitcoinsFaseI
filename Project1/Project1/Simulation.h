@@ -7,6 +7,7 @@
 #include "Miners.h"
 #include <map>
 #include <vector>
+#include <time>
 #include <iostream>
 #include <queue>
 
@@ -14,6 +15,7 @@
 #define TOTALCONNECTIONS 2
 
 using namespace std;
+using namespace std::chrono;
 
 
 class Simulation :public Subject
@@ -26,11 +28,10 @@ public:
 	Cajita get_cajita(){ return cajita; }
 	int get_total() { return tot; }
 	bool** get_adyM() { return adjacenceM; }
+	void keepMining();
 	void createTx(string idEmission, string idReceiver, double amount);
-	void prueba();
 	void printMatrix();
 	void destroySim();
-
 
 private:
 	Node* nodo;
@@ -38,6 +39,8 @@ private:
 	bool correctParameters;
 	Miner* Satochi;
 
+	clock_t start;
+	bool started;
 	int fulln;
 	int spvn;
 	int minersn;
@@ -54,5 +57,6 @@ private:
 	queue<Node*> bfsList;
 	void startCoinCirculation();
 	vector<Miner*> miners;
-	
+
+	Miner* lastMined;
 };
