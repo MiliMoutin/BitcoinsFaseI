@@ -22,14 +22,6 @@ using namespace std::chrono;
 using namespace std;
 
 
-
-int main(void) {
-	Simulation EDACoin(5, 5, 3);
-	if (EDACoin.creationSuccessful()) {
-		EDACoin.keepMining();
-	}
-}
-/*
 int main(void) {
 	Allegro Simalle;
 
@@ -66,7 +58,7 @@ int main(void) {
 		}
 	}
 */
-/*	ALLEGRO_EVENT ev, bc_ev;
+	ALLEGRO_EVENT ev, bc_ev;
 	do
 	{
 		ev = ctr.getEvent();
@@ -76,9 +68,8 @@ int main(void) {
 			bc_ev = BCctr.getEvent();
 			BCctr.Alle_dispatcher(EDACoin.get_nodes()[0], bc_ev);
 		}*/
-	/*}while (ev.type != ALLEGRO_EVENT_DISPLAY_CLOSE);
+	}while (ev.type != ALLEGRO_EVENT_DISPLAY_CLOSE);
 
 	return 0;
-}*/
-
+}
 
