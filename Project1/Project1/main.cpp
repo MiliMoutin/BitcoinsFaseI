@@ -42,12 +42,21 @@ int main(void) {
 	EDACoin.notifyAllObservers();
 	
 	SimCtrl ctr(vi.get_display());
-	/*
+	list<Block> bl = ((Full*)(EDACoin.get_nodes()[0]))->getBchain();
+
+
+	
 	BlockchainView BCv(Simalle);
 	BlockchainCtrl BCctr(BCv.get_display());
 
-	EDACoin.get_nodes()[0]->Subject::attach(BCv);
-	*/
+	for (int i = 0; i < EDACoin.get_total(); i++)
+	{
+		if (EDACoin.get_nodes()[i]->getType() == "Full")
+		{
+			EDACoin.get_nodes()[i]->Subject::attach(BCv);
+		}
+	}
+
 	ALLEGRO_EVENT ev, bc_ev;
 	do
 	{
