@@ -58,7 +58,7 @@ void SPV::notify(nlohmann::json EDAmb, nlohmann::json head) {
 			for (Output o : t.getOutputs()) {
 				if (o.getIdReceiver() == this->id) {
 					double amo = o.getAmount();
-					UTXO to_push(UTXO(amo, to_string(this->getUTXOId(o.getAmount, o.getIdReceiver(), t.getId()))));
+					UTXO to_push(UTXO(amo, to_string(this->getUTXOId(o.getAmount(), o.getIdReceiver(), t.getId()))));
 					this->UTXOs.push_back(to_push);
 				}
 			}

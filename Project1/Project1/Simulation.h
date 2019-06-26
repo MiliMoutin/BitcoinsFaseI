@@ -28,7 +28,7 @@ public:
 	vector<Cajita*> get_cajita(){ return cajita; }
 	int get_total() { return tot; }
 	bool** get_adyM() { return adjacenceM; }
-	//void keepMining();
+	void keepMining();
 	void createTx(string idEmission, string idReceiver, double amount);
 	void printMatrix();
 	void destroySim();

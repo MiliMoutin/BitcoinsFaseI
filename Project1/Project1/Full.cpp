@@ -67,7 +67,7 @@ void Full::TxOfInterest(Block b) {
 		for (Output o : t.getOutputs()) {
 			if (o.getIdReceiver() == this->publicId) {
 				double amo = o.getAmount();
-				this->UTXOs.push_back(UTXO(amo, to_string(Node::getUTXOId(o.getAmount, o.getIdReceiver(), t.getId()))));
+				this->UTXOs.push_back(UTXO(amo, to_string(Node::getUTXOId(o.getAmount(), o.getIdReceiver(), t.getId()))));
 			}
 		}
 	}

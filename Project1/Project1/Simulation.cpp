@@ -214,7 +214,7 @@ bool Simulation::allVisited() {
 	}
 	return true;
 }
-/*
+
 void Simulation::keepMining() {
 	if (!start) {
 		start = clock();
@@ -234,6 +234,6 @@ void Simulation::keepMining() {
 			}
 		}
 }
-*/
+
 
 

@@ -127,7 +127,7 @@ SimCtrl::Alle_dispatcher(void* model, ALLEGRO_EVENT ev)
 		}
 		case no_state: case node:
 		{
-			//sim->keepMining();
+			sim->keepMining();
 			break;
 		}
 		}
