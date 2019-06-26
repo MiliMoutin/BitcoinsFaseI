@@ -1,25 +1,23 @@
-/*#include "BlockchainView.h"
+#include "BlockchainView.h"
 #include "Full.h"
 
 BlockchainView::BlockchainView(Allegro& alle)
 {
+		font = alle.font;
 
-	font = alle.font;
+		display = al_create_display(DISPLAY_W, DISPLAY_H); // Intenta crear display de fallar devuelve NULL
 
-	display = al_create_display(DISPLAY_W, DISPLAY_H); // Intenta crear display de fallar devuelve NULL
+		if (!display)
+		{
+			cout << "failed to create display!\n";
+			al_destroy_font(font);
+			return;
+		}
 
-	if (!display)
-	{
-		cout << "failed to create display!\n";
-		al_destroy_font(font);
-		return;
-	}
-
-	right = alle.right;
-	left = alle.left;
-	page = alle.page;
-	al_clear_to_color(al_map_rgb(255, 255, 255)); //Hace clear del backbuffer del diplay al color RGB 0,0,0 (negro)
-	al_flip_display();
+		right = alle.right;
+		left = alle.left;
+		page = alle.page;
+		al_clear_to_color(al_map_rgb(255, 255, 255)); //Hace clear del backbuffer del diplay al color RGB 0,0,0 (negro)
 }
 
 BlockchainView::~BlockchainView()
@@ -31,9 +29,18 @@ BlockchainView::~BlockchainView()
 void
 BlockchainView::update(void*model)
 {
+	Node* n = (Node*)model;
 	Full* b = (Full*)model;
-	al_clear_to_color(al_map_rgb(255, 255, 255));
-	drawBChain(b->getBchain());
+	if (n->getType() == "SPV")
+	{
+		return;
+	}
+	else
+	{
+		al_clear_to_color(al_map_rgb(255, 255, 255));
+		drawBChain(b->getBchain());
+		return;
+	}
 }
 
 void
@@ -96,13 +103,13 @@ BlockchainView::PrevPage(list<Block> blockchain, int page)
 	return;
 }
 */
-/*
+
 void
 BlockchainView::DrawBlock(Block& bloque, int x, int y, int w, int h)
 {
 	al_draw_rectangle(x, y, w, h, al_map_rgb(0, 0, 255), 1);
 
-	string id = to_string(bloque.getId());
+	string id = bloque.getId();
 	string cantx = to_string(bloque.getCantTxs());
 	string aux1("ID: " + id);
 	string aux2("Txs: " + cantx);
@@ -110,4 +117,3 @@ BlockchainView::DrawBlock(Block& bloque, int x, int y, int w, int h)
 	al_draw_text(font, al_map_rgb(0, 0, 0), x, y + TEXTSIZE, 0, aux2.c_str());
 	return;
 }
-*/

@@ -7,7 +7,7 @@
 using namespace std;
 
 
-Simulation::Simulation(unsigned int fulln, unsigned int spv, unsigned int miners):correctParameters(true) {
+Simulation::Simulation(unsigned int fulln, unsigned int spv, unsigned int miners):correctParameters(true),txsPresent(false) {
 	/*Me fijo si los parametros son correctos*/
 	if (fulln + spv + miners> MAXNODES || miners>fulln) {
 		this->correctParameters = false;
@@ -25,11 +25,13 @@ Simulation::Simulation(unsigned int fulln, unsigned int spv, unsigned int miners
 				adjacenceM[i][j] = false;
 			}
 		}
-		Cajita caj;
-		cajita = &caj;
+		Cajita* caj = new Cajita;
+		//caj.setFrom(string(""));
+		//caj.setTo(string(""));
+		//caj.setAmount(string(""));
+		cajita.push_back(caj);
 		createNetwork();
 		startCoinCirculation();
-		printMatrix();
 	}
 	//vec2arr_nodes();
 }
@@ -39,6 +41,7 @@ void Simulation::destroySim() {
 	for (int i = 0; i < tot; i++) {
 		delete n[i];
 	}
+	delete cajita[0];
 }
 
 void Simulation::createNetwork() {
@@ -81,6 +84,7 @@ void Simulation::createTx(string idEmission, string idReceiver, double amount) {
 			n->makeTx(idReceiver, amount);
 		}
 	}
+	this->txsPresent = true;
 }
 
 void Simulation::connectFulls() {
@@ -107,7 +111,6 @@ void Simulation::connectFulls() {
 				
 			}
 		}
-	printMatrix();
 }
 
 
@@ -171,24 +174,26 @@ void Simulation::startCoinCirculation() {
 
 	nlohmann::json genesis;
 	//deberiamos tener la signature de Satochi
-	/*
-	Input genesisInput("BlockID", "UTXODI", "firmaSatochi");
+	Input genesisInput("BlockID", to_string(generateIDString("0")),Satochi->getID());
 	Output genesisOutPut(Satochi->getID(), 50);
 	vector<Input> gi;
 	vector<Output> go;
 	gi.push_back(genesisInput);
 	go.push_back(genesisOutPut);
 	Transaction genesisTransaction(gi, go);
+	genesisTransaction=Satochi->signTx(genesisTransaction);
 	genesis=genesisTransaction.tranformToJson();
+	
+	ECDSA<ECP, SHA256>::PublicKey pk;
+	pk = Satochi->getPk();
 	for (int i = 0; i < fulln; i++) {
 		Full* f = (Full*)n[i];
-		f->receiveTx(genesis, this->Satochi);
+		f->receiveTx(genesis, this->Satochi, pk);
 	}
 	for (int i = 0; i < minersn + fulln; i++) {
 		Miner* m = (Miner*)n[i];
-		m->receiveTx(genesis, this->Satochi);
+		m->receiveTx(genesis, this->Satochi, pk);
 	}
-	*/
 }
 
 void Simulation::printMatrix() {
@@ -215,28 +220,17 @@ void Simulation::keepMining() {
 	}
 		clock_t end = clock();
 		clock_t elapse = end - start;
-		if (elapse > MTIMESEC) {
-			this->lastMined->hasMined();
-			start = false;
-		}
-		else {
-			for (Miner* m : this->miners) {
-				if (m->mine()) {
-					this->lastMined = m;
+		bool notMined();
+		for (int i = 0; i < this->miners.size(); i++) {
+			if (miners[i]->mine()) {
+				miners[i]->hasMined();
+				for (Miner* m : miners) {
+					m->adjustMine(start, end);
 				}
+				start = false;
+				this->txsPresent = false;
 			}
 		}
-}
-
-
-
-void Simulation::vec2arr_nodes()
-{
-	for (int i = 0; i < tot; i++)
-	{
-		nodo[i] = *(n[i]);
-	}
-	return;
 }
 
 

@@ -7,7 +7,7 @@
 #include "Miners.h"
 #include <map>
 #include <vector>
-#include <time>
+#include <time.h>
 #include <iostream>
 #include <queue>
 
@@ -25,7 +25,7 @@ public:
 	Simulation(unsigned int fulln, unsigned int spv, unsigned int miners);
 	bool creationSuccessful() { return this->correctParameters; }
 	vector<Node*> get_nodes() { return n; }
-	Cajita* get_cajita(){ return cajita; }
+	vector<Cajita*> get_cajita(){ return cajita; }
 	int get_total() { return tot; }
 	bool** get_adyM() { return adjacenceM; }
 	void keepMining();
@@ -34,8 +34,7 @@ public:
 	void destroySim();
 
 private:
-	Node* nodo;
-	Cajita* cajita;
+	vector<Cajita*> cajita;
 	bool correctParameters;
 	Miner* Satochi;
 
@@ -45,6 +44,7 @@ private:
 	int spvn;
 	int minersn;
 	int tot;
+	bool txsPresent;
 	bool ** adjacenceM;
 	vector<Node*> n;
 
@@ -52,7 +52,6 @@ private:
 	void connectFulls();
 	void connectSPVs();
 
-	void vec2arr_nodes();
 
 	bool allVisited();
 	void connectGraph(Node* n, int index);

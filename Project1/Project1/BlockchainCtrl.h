@@ -42,5 +42,5 @@ class BlockchainCtrl :public AllegroCtrl
 public:
 	BlockchainCtrl(ALLEGRO_DISPLAY* display);
 	~BlockchainCtrl();
-	void dispatcher(void*model);
+	void Alle_dispatcher(void*model, ALLEGRO_EVENT ev);
 };

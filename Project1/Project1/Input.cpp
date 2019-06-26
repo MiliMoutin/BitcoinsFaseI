@@ -1,5 +1,7 @@
 #include "Input.h"
 #include <iostream>
+#include <chrono>
+#include <thread>
 
 using namespace std;
 
@@ -7,6 +9,7 @@ Input::Input(string BlockID, string UTXOId, vector<byte> signature, string publi
 	this->BlockID = BlockID; 
 	this->UTXOId = UTXOId; 
 	this->signature = signature; 
+	this->crypp.hexPrint(signature);
 	this->publicKey = publicId;
 }
 
@@ -45,7 +48,17 @@ nlohmann::json Input::transformToJson() {
 
 	j["BlockID"] = BlockID;
 	j["UTXOID"] = UTXOId;
-	j["signature"]=crypp.hexPrint(this->signature);
+
+	std::stringstream aux;
+	string sign;
+
+	for (int i = 0; i < this->signature.size(); i += 2) {
+		byte b = signature[i];
+		aux << std::hex << b;
+		sign += aux.str();
+	}
+
+	j["signature"] = sign;
 	j["PublicKey"] = this->publicKey;
 	return j;
 

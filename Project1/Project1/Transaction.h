@@ -12,11 +12,12 @@ using namespace std;
 class Transaction {
 public:
 	Transaction(){}
-	Transaction(nlohmann::json j);
+	Transaction(nlohmann::json& j);
 	Transaction(string id) { this->id = id; }
+	void setInput(vector<Input> i) { this->input = i; }
 	Transaction(vector<Input> input, vector<Output> output);
 	void setId(string id) { this->id = id; }
-	string getId() { return this->id; }
+	string getId(); 
 	bool isIDPresent(string id);
 	vector<Output> getOutputs() { return output; }
 	vector<Input> getInput() { return input; }

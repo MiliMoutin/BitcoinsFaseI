@@ -23,6 +23,8 @@ public:
 	~BlockchainView();
 	void update(void* model);
 	ALLEGRO_DISPLAY* get_display() { return display; }
+	//bool is_it_drawn() { return is_drawn; }
+	//void set_draw(bool d) { is_drawn = d; }
 private:
 	void drawBChain(list<Block> b_chain);
 	void DrawPage(list<Block> blockchain);
@@ -33,6 +35,8 @@ private:
 	ALLEGRO_BITMAP* right;
 	ALLEGRO_BITMAP* left;
 	int page;
+
+	//bool is_drawn;
 	//list<BlockView*> b_chain;
 };
 

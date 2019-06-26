@@ -11,7 +11,7 @@ using namespace std::chrono;
 using namespace std;
 
 
-Full::Full(string id) {
+Full::Full(string id):receivedFirst(false) {
 	this->id = id;
 	Node::createPPKey();
 }
@@ -38,19 +38,63 @@ void Full::setFilter(string id) {
 	this->filters.push_back(id);
 }
 
-void Full::injectBlock(nlohmann::json jsonBlock, nlohmann::json nonce) {
+void Full::injectBlock(nlohmann::json& jsonBlock, nlohmann::json& nonce) {
 	Block b(jsonBlock);
 	MerkleRoot* mr = createTree(b);
 	b.setRoot(mr);
-	this->blockchain.push_back(b);
-	//si tengo filtro voy y busco si hay alguno trasacción de ellos
-	if (!this->filters.empty()) {
-		for (string id : filters) {
-			SearchForFilterTransactions(b, id);
+	//PASAR EL NONCE A UNSIGNED INT
+	unsigned int nonce_ = 0;
+	if (checkBlockValidity(b, nonce_)) {
+		this->blockchain.push_back(b);
+		//si tengo filtro voy y busco si hay alguno trasacción de ellos
+		if (!this->filters.empty()) {
+			for (string id : filters) {
+				SearchForFilterTransactions(b, id);
+			}
 		}
 	}
 
-	notifyAllObservers();			//esto iria aca???????????
+	notifyAllObservers();			
+}
+
+bool Full::checkBlockValidity(Block B, unsigned int& nounce) {
+	string strn = "";
+
+	//escribo los bits correspondientes al nonce
+	strn += to_string(nounce);
+
+	//escribo los bits correspondientes al Header
+	vector<Transaction> txs;
+	for (Transaction t : B.getTxs()) {
+		txs.push_back(t);
+	};
+
+	MerkleRoot* mr = Full::createTree(Block(txs));
+	MakeStr(mr->getLeft(), strn);
+	MakeStr(mr->getRight(), strn);
+	if (!blockchain.empty()) {
+		strn += blockchain.back().getId();
+	}
+
+	return (B.getId()== Node::crypp.hashSHA256(strn));
+}
+
+string Full::MakeStr(MerkleNode* mn, string& str) {
+	string rta = "";
+	if (mn != nullptr) {
+		MerkleNode* l = mn->getLeft();
+		MerkleNode* r = mn->getRight();
+		string strl = "";
+		string strr = "";
+		if (l != nullptr) {
+			strl = MakeStr(l, str);
+		}
+		if (r != nullptr) {
+			strr = MakeStr(r, str);
+		}
+		rta += mn->getBlockId() + strr + strl;
+	}
+	return rta;
 }
 
 MerkleRoot* Full::createTree(Block b) {
@@ -189,7 +233,7 @@ bool Full::searchPathRec(MerkleNode* mn, Path& path, string id, bool& found) {
 vector<Transaction> Full::createVectorForTree(vector<Transaction> initial, int* height) {
 	int txs = initial.size();
 	while (!isPot2(txs, height) || txs % 2 != 0) {
-		Transaction(generateIDString(initial.back().getId() + to_string(txs)));
+		Transaction(to_string(generateIDString(initial.back().getId() + to_string(txs))));
 		initial.push_back(initial.back());
 		txs++;
 	}
@@ -234,18 +278,20 @@ void Full::destroyTree(MerkleNode* nd) {
 	}
 }
 
-void Full::receiveTx(nlohmann::json tx, Node* who) {
+void Full::receiveTx(nlohmann::json tx, Node* who, ECDSA<ECP, SHA256>::PublicKey& pk) {
 		bool received = false;
 		Transaction t(tx);
 		//me fijo si la transaccion ya fue previamente recibida
-		if (!receivedTx.empty()) {
+		if (receivedTx.size()!=0) {
 			for (Transaction transac : receivedTx) {
 				if (t.getId() == transac.getId()) {
 					received = true;
 				}
 			}
 		}
-		if (!received) {
+		if (!received /*&& Node::verifyTx(t,pk)*/) {
+			
+			/*Me fijo si la firma esta bien*/
 			/*chequeo que la transacción que me llego tenga UTXO que no fueron utilizados antes*/
 			for (Input i : t.getInput()) {
 				if (!checkUTXOinBlockchain(i.getUTXOId())) {
@@ -260,7 +306,7 @@ void Full::receiveTx(nlohmann::json tx, Node* who) {
 			for (Node* n : neighbours) {
 				if (n->getType() == "Miner" || n->getType() == "Full" && n != who) {
 					Full* f = (Full*)n;
-					f->receiveTx(tx, this);
+					f->receiveTx(tx, this, pk);
 				}
 			}
 		}
@@ -285,7 +331,9 @@ void Full::communicateTx(nlohmann::json tx) {
 	for (Node* n : neighbours) {
 		if (n->getType() == "Miner" || n->getType() == "Full") {
 			Full* f = (Full*)n;
-			f->receiveTx(tx, this);
+			ECDSA<ECP, SHA256>::PublicKey pk;
+			pk = this->getPk();
+			f->receiveTx(tx, this, pk);
 		}
 
 	}

@@ -10,6 +10,17 @@ Transaction::Transaction(vector<Input> input, vector<Output> output){
 	this->output = output;
 }
 
+string Transaction::getId() {
+	string rta = "";
+	for (Input& i : this->input) {
+		for (byte b : i.getSignature()) {
+			rta += to_string(b);
+		}
+	}
+	return rta;
+	this->id = rta;
+}
+
 string Transaction::toSign() {
 	string rta = " ";
 	for (Input i: input) {
@@ -21,11 +32,9 @@ string Transaction::toSign() {
 	return rta;
 }
 
-
-Transaction::Transaction(nlohmann::json j) {
+Transaction::Transaction(nlohmann::json& j) {
 	int i = 0;
 	string d = j["TxID"];
-	cout << j << endl;
 	this->id = d;
 	for(int k=0; k<j["input"].size(); k++) {
 		Input i(j["input"][i]);
