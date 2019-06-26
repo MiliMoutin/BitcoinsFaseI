@@ -32,6 +32,5 @@ private:
 	bool validNotification(EDAMerkleBlock edamb, HeaderBlock h);
 	bool headerPresent(string headerId);
 	void CommunicateTx(Transaction tx);
-	bool canDoTx(double amount);
-	unsigned long getUTXOId(double amount, string idReceiver, unsigned long txid);
+	unsigned long getUTXOId(double amount, string idReceiver, string txid);
 };

@@ -9,6 +9,13 @@ void Miner::receiveTx(nlohmann::json tx, Node* n, ECDSA<ECP, SHA256>::PublicKey&
 	}
 }
 
+void Miner::injectBlock(nlohmann::json b, nlohmann::json nonce) {
+	Full::injectBlock(b, nonce);
+	//reseteo transacciones
+	vector<Transaction> t;
+	this->toMine = t;
+}
+
 void Miner::makeTx(string publicId, double EDACoins) {
 	Full::makeTx(publicId, EDACoins);
 	if (Node::canDoTx(EDACoins)) {
@@ -67,6 +74,7 @@ bool Miner::mine() {
 	this->toMine.push_back(this->createWinnerTransaction());
 	this->lastMined = Block(this->toMine, hashed);
 	this->winnerNonce = nonce;
+	notifyAllObservers();
 	return true;
 }
 

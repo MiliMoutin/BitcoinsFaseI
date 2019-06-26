@@ -157,6 +157,7 @@ void Simulation::connectGraph(Node* nodito, int index) {
 }
 
 void Simulation::connectSPVs() {
+	srand(time(NULL));
 	int j = 0;
 	int total = fulln + minersn;
 	//por cada nodo SPV elijo al azar nodos Fulls con los cuales conectarlo

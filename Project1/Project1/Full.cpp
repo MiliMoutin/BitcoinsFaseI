@@ -19,6 +19,9 @@ Full::Full(string id):receivedFirst(false) {
 void Full::attach(Node* n) {
 	this->neighbours.push_back(n);
 	notifyAllObservers();
+	if (n->getType() == "SPV") {
+		setFilter(n->getID());
+	}
 	return;
 }
 
@@ -52,10 +55,24 @@ void Full::injectBlock(nlohmann::json& jsonBlock, nlohmann::json& nonce) {
 				SearchForFilterTransactions(b, id);
 			}
 		}
+		this->TxOfInterest(b);
 	}
 
 	notifyAllObservers();			
 }
+
+void Full::TxOfInterest(Block b) {
+	vector<Transaction> txsInterest;
+	for (Transaction t : b.getTxs()) {
+		for (Output o : t.getOutputs()) {
+			if (o.getIdReceiver() == this->publicId) {
+				double amo = o.getAmount();
+				this->UTXOs.push_back(UTXO(amo, to_string(Node::getUTXOId(o.getAmount, o.getIdReceiver(), t.getId()))));
+			}
+		}
+	}
+}
+
 
 bool Full::checkBlockValidity(Block B, unsigned int& nounce) {
 	string strn = "";

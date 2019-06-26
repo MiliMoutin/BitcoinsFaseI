@@ -13,6 +13,10 @@ bool Node::operator==(Node* node) {
 	}
 }
 
+unsigned long Node::getUTXOId(double amount, string idReceiver, string txid) {
+	return generateIDString(to_string(amount) + idReceiver + txid+to_string(rand()));
+}
+
 void Node::createPPKey() {
 	this->privateKey = crypp.generatePrivKey();
 	ECDSA<ECP, SHA256>::PublicKey pubk;

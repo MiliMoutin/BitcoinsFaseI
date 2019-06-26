@@ -41,7 +41,10 @@ public:
 	void set_position(int x, int y) { position.px = x; position.py = y; return; }
 	node_pos get_position() { return position; }
 	bool operator==(Node* n);
+	unsigned long getUTXOId(double amount, string idReceiver, string txid);
+
 protected:
+
 	bool canDoTx(double amount);
 	void createPPKey();
 	list<UTXO> UTXOs;

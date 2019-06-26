@@ -23,9 +23,16 @@ using namespace std;
 
 
 int main(void) {
-	Allegro Simalle;
+	Simulation EDACoin(2, 5, 2);
+	if (EDACoin.creationSuccessful()) {
+		EDACoin.keepMining();
+	}
+}
 
-	Simulation EDACoin(5,5,3); //prueba con 5 full 5 spv y 3 miners (total 13+satochi = 14 )
+/*
+int main(void) {
+	Allegro alle;
+	Simulation EDACoin(5,5,3);
 	if (!EDACoin.creationSuccessful()) {
 		cout << "Simulation creation failed" << endl;
 	}
@@ -85,5 +92,6 @@ int main(void) {
 	}while (ev.type != ALLEGRO_EVENT_DISPLAY_CLOSE);
 
 	return 0;
-}
+}*/
+
 
