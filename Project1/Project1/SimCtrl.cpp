@@ -33,12 +33,17 @@ SimCtrl::Alle_dispatcher(void* model, ALLEGRO_EVENT ev)
 				if (sim->get_nodes()[i]->getType() != "SPV")		//Si hice click en algun nodo que no sea SPV...  //y si clickeo un SPV?
 				{
 					stat = node;
+					sim->set_next_pn(i);
 					sim->get_nodes()[i]->notifyAllObservers();		//... llama a los observers del nodo
 				}
 			}
+			else
+			{
+				sim->set_next_pn(-1);
+			}
 		}
 		//stat = no_state;		//no estoy clickeando en la cajita
-		if ((pos.y >= ((C_DISPLAY_H / 2) + N_DISPLAY_H)) && (pos.y <= ((C_DISPLAY_H / 2) + N_DISPLAY_H + TEXTSIZE)))
+		if ((pos.y >= ((C_DISPLAY_H / 2) + N_DISPLAY_H)) && (pos.y <= ((C_DISPLAY_H / 2) + N_DISPLAY_H + TEXTSIZE)))		//y>=650  
 		{
 			if (FROM(pos.x))
 			{
@@ -52,13 +57,12 @@ SimCtrl::Alle_dispatcher(void* model, ALLEGRO_EVENT ev)
 			{
 				stat = amount;		//hice click en amount
 			}
-			else if (SEND(pos.x, pos.y))		//hice click en send
-			{
-				sim->createTx(sim->get_cajita()[0]->getFrom(), sim->get_cajita()[0]->getTo(), stod(sim->get_cajita()[0]->getAmount()));
-				sim->get_cajita()[0]->reset();
-				stat = no_state;
-			}
-
+		}
+		else if (SEND(pos.x, pos.y))		//hice click en send
+		{
+			sim->createTx(sim->get_cajita()[0]->getFrom(), sim->get_cajita()[0]->getTo(), stod(sim->get_cajita()[0]->getAmount()));
+			sim->get_cajita()[0]->reset();
+			stat = no_state;
 		}
 		else if (stat != node)
 		{
@@ -123,7 +127,7 @@ SimCtrl::Alle_dispatcher(void* model, ALLEGRO_EVENT ev)
 		}
 		case no_state: case node:
 		{
-			sim->keepMining();
+			//sim->keepMining();
 			break;
 		}
 		}

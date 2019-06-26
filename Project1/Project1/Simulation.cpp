@@ -33,6 +33,7 @@ Simulation::Simulation(unsigned int fulln, unsigned int spv, unsigned int miners
 		createNetwork();
 		startCoinCirculation();
 		printMatrix();
+		pressed_node[0] = pressed_node[1]= -1;
 	}
 	//vec2arr_nodes();
 }
@@ -211,7 +212,7 @@ bool Simulation::allVisited() {
 	}
 	return true;
 }
-
+/*
 void Simulation::keepMining() {
 	if (!start) {
 		start = clock();
@@ -231,6 +232,6 @@ void Simulation::keepMining() {
 			}
 		}
 }
-
+*/
 
 
