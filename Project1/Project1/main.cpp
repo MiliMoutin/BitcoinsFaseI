@@ -42,6 +42,7 @@ int main(void) {
 	EDACoin.notifyAllObservers();
 	
 	SimCtrl ctr(vi.get_display());
+	/*
 	list<Block> bl = ((Full*)(EDACoin.get_nodes()[0]))->getBchain();
 
 
@@ -56,7 +57,7 @@ int main(void) {
 			EDACoin.get_nodes()[i]->Subject::attach(BCv);
 		}
 	}
-
+*/
 	ALLEGRO_EVENT ev, bc_ev;
 	do
 	{
