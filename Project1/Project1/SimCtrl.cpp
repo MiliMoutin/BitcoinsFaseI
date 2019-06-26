@@ -123,13 +123,7 @@ SimCtrl::Alle_dispatcher(void* model, ALLEGRO_EVENT ev)
 		}
 		case no_state: case node:
 		{
-			for (Node* n : sim->get_nodes())
-			{
-				if (n->getType() == "Miner")
-				{
-					((Miner*)n);
-				}
-			}
+			sim->keepMining();
 			break;
 		}
 		}
