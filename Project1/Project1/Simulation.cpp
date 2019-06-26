@@ -15,7 +15,7 @@ Simulation::Simulation(unsigned int fulln, unsigned int spv, unsigned int miners
 	else {
 		this->fulln = fulln;
 		this->spvn = spv;
-		this->minersn = miners;
+		this->minersn = miners+1;
 		this->tot = fulln + spvn + minersn+1;
 		//creo la matriz de adyacencia
 		adjacenceM = new bool*[tot];
@@ -58,14 +58,15 @@ void Simulation::createNetwork() {
 		this->miners.push_back(node);
 	}
 
+	Miner* node = new Miner("Satoshi Nakamoto");
+	this->Satochi = node;
+	this->miners.push_back(node);
+	n.push_back(node);
+
 	for (int i = 0; i < spvn; i++) {
 		SPV* node = new SPV(id + to_string(i + fulln + minersn));
 		n.push_back(node);
 	}
-
-	Miner* node = new Miner("Satoshi Nakamoto");
-	this->Satochi = node;
-	n.push_back(node);
 
 	//conecto los nodos Full
 	connectFulls();
