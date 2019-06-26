@@ -23,15 +23,6 @@ void Miner::makeTx(string publicId, double EDACoins) {
 	}
 }
 
-void Miner::sendBlock() {
-	Block b(toMine, "Bloque1");
-	b.setRoot(Full::createTree(b));
-	nlohmann::json jsonblock = b.TransformToJson();
-	for (Node* n : neighbours) {
-		Full* f = (Full*)n;
-		f->injectBlock(jsonblock);
-	}
-}
 
 void Miner::startMine() {
 	this->mined = 0;
@@ -67,16 +58,23 @@ bool Miner::mine() {
 	//me fijo si se cumple el challenge, es decir lo primeros bits son 0.
 	unsigned int chall = challenge;
 	for(int hash=0; hash<hashedByt.size() && chall!=0; hash++){
+		byte x = hashedByt[hash];
 		for (int bit= 0; bit < 7 && chall!=0; bit++) {
-			//FALTA CHEQUEAR ESTO 
+			//me fijo si el primero bit está en cero
+			x = hashedByt[hash] & CHALLENGEMASK;
+			if (x == CHALLENGEMASK) {
+				return false;
+			}
+			x=x << 1;
 		}
 	}
-	return true;	//Dimas agrego para poder compilar
+	//si llego hasta aca es porque los primeros bits del challenge son cero
+	return true;
 }
 
 unsigned int Miner::newNonce() {
-	unsigned int nonce = 0x00;
-	unsigned int increment = 0x01;
+	unsigned int nonce = 0x00000000;
+	unsigned int increment = INCREMENT;
 	int aux = 32;
 
 	//pongo un nonce random
@@ -113,7 +111,7 @@ string Miner::strToHash(unsigned int& non) {
 
 string Miner::Challenge() {
 
-	unsigned long chal = 0x00;
+	unsigned long chal = 0x00000000;
 	int aux = challenge;
 	unsigned long increment = INCREMENT;
 	while (aux != 0) {

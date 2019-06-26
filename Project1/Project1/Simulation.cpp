@@ -1,10 +1,13 @@
 #include "Simulation.h"
 #include <ctime>    
 #include <cstdlib> 
+#include <cmath>
+#define	MTIMESEC	300
+#define ADJUSTT		60
+using namespace std;
 
 
-Simulation::Simulation(unsigned int fulln, unsigned int spv, unsigned int miners):correctParameters(true)
-{
+Simulation::Simulation(unsigned int fulln, unsigned int spv, unsigned int miners):correctParameters(true) {
 	/*Me fijo si los parametros son correctos*/
 	if (fulln + spv + miners> MAXNODES || miners>fulln) {
 		this->correctParameters = false;
@@ -34,9 +37,6 @@ Simulation::Simulation(unsigned int fulln, unsigned int spv, unsigned int miners
 	//vec2arr_nodes();
 }
 
-void Simulation::prueba() {
-	this->miners[0]->sendBlock();
-}
 
 void Simulation::destroySim() {
 	for (int i = 0; i < tot; i++) {
@@ -210,6 +210,26 @@ bool Simulation::allVisited() {
 		}
 	}
 	return true;
+}
+
+void Simulation::keepMining() {
+	if (!start) {
+		start = clock();
+		started = true;
+	}
+		clock_t end = clock();
+		clock_t elapse = end - start;
+		if (elapse > MTIMESEC) {
+			this->lastMined->hasMined();
+			start = false;
+		}
+		else {
+			for (Miner* m : this->miners) {
+				if (m->mine()) {
+					this->lastMined = m;
+				}
+			}
+		}
 }
 
 

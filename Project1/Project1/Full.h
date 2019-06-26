@@ -26,7 +26,7 @@ public:
 	virtual void makeTx(string publicId, double EDACoins);
 	bool emptyBlockchain() { return blockchain.empty(); }
 	HeaderBlock askForHeader() { return this->blockchain.back().getHeader(); }
-	void injectBlock(nlohmann::json b);
+	void injectBlock(nlohmann::json b, nlohmann::json nonce);
 	void destroy() { destroyBlockchain(); }
 	bool isNeighbour(string id);
 	virtual void receiveTx(nlohmann::json tx, Node* n);
