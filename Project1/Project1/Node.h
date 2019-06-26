@@ -40,7 +40,6 @@ public:
 	void set_position(int x, int y) { position.px = x; position.py = y; return; }
 	node_pos get_position() { return position; }
 	bool operator==(Node* n);
-
 protected:
 	bool canDoTx(double amount);
 	void createPPKey();
@@ -48,9 +47,10 @@ protected:
 	list <Node*> neighbours;
 	Transaction to_send;
 	bool visited;
-	node_pos position;
 	string publicId;
 	CryptoPP::ECDSA<ECP, SHA256>::PrivateKey privateKey;
 	CryptoPP::ECDSA<ECP, SHA256>::PublicKey publicKey;
 	Crypto crypp;
+
+	node_pos position;
 };

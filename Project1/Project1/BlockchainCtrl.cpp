@@ -11,10 +11,9 @@ BlockchainCtrl::~BlockchainCtrl()
 
 
 void
-BlockchainCtrl::dispatcher(void* model)
+BlockchainCtrl::Alle_dispatcher(void* model, ALLEGRO_EVENT ev)
 {
 	Full* f = (Full*)model;
-	ALLEGRO_EVENT ev = getEvent();
 	switch (ev.type)
 	{
 	case ALLEGRO_EVENT_DISPLAY_CLOSE:

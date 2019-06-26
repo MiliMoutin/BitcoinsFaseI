@@ -39,12 +39,6 @@ SimulationView::update(void* model)
 	cant_nodes = sim->get_total();
 	
 
-	for (int i = 0; i < cant_nodes; i++)
-	{
-		sim->get_nodes()[i]->Subject::attach(nodes[i]);
-	}
-
-	sim->get_cajita()->attach(cajitav);
 
 	al_clear_to_color(al_map_rgb(255, 255, 255));
 	drawSim(sim);//->get_nodes(), &(sim->get_cajita()));
@@ -69,7 +63,7 @@ SimulationView::drawSim(Simulation* sim)//(Node* node_array, Cajita* caja)
 		nodes[i].drawNode(sim->get_nodes()[i]);
 	}
 	
-	cajitav.drawCajita(sim->get_cajita());
+	cajitav.drawCajita(sim->get_cajita()[0]);
 }
 
 void

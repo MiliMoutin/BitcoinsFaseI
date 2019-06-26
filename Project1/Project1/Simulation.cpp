@@ -22,8 +22,11 @@ Simulation::Simulation(unsigned int fulln, unsigned int spv, unsigned int miners
 				adjacenceM[i][j] = false;
 			}
 		}
-		Cajita caj;
-		cajita = &caj;
+		Cajita* caj = new Cajita;
+		//caj.setFrom(string(""));
+		//caj.setTo(string(""));
+		//caj.setAmount(string(""));
+		cajita.push_back(caj);
 		createNetwork();
 		startCoinCirculation();
 		printMatrix();
@@ -39,6 +42,7 @@ void Simulation::destroySim() {
 	for (int i = 0; i < tot; i++) {
 		delete n[i];
 	}
+	delete cajita[0];
 }
 
 void Simulation::createNetwork() {
@@ -206,17 +210,6 @@ bool Simulation::allVisited() {
 		}
 	}
 	return true;
-}
-
-
-
-void Simulation::vec2arr_nodes()
-{
-	for (int i = 0; i < tot; i++)
-	{
-		nodo[i] = *(n[i]);
-	}
-	return;
 }
 
 

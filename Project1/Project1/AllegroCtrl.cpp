@@ -36,6 +36,7 @@ void
 AllegroCtrl::dispatcher(void* model)
 {
 	ALLEGRO_EVENT ev = getEvent();
+
 	Alle_dispatcher(model, ev);
 }
 
