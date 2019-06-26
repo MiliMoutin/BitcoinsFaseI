@@ -33,7 +33,7 @@ SimCtrl::Alle_dispatcher(void* model, ALLEGRO_EVENT ev)
 				if (sim->get_nodes()[i]->getType() != "SPV")		//Si hice click en algun nodo que no sea SPV...  //y si clickeo un SPV?
 				{
 					stat = node;
-					sim->set_next_pn(i);
+					//sim->set_next_pn(i);
 					sim->get_nodes()[i]->notifyAllObservers();		//... llama a los observers del nodo
 				}
 			}

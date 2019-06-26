@@ -2,7 +2,8 @@
 
 BlockchainCtrl::BlockchainCtrl(ALLEGRO_DISPLAY* display)
 {
-	al_register_event_source(event_queue, al_get_display_event_source(display)); //REGISTRAMOS EL DISPLAY
+	//al_register_event_source(event_queue, al_get_display_event_source(display)); //REGISTRAMOS EL DISPLAY
+	al_register_event_source(event_queue, al_get_mouse_event_source());
 }
 
 BlockchainCtrl::~BlockchainCtrl()
@@ -16,10 +17,10 @@ BlockchainCtrl::Alle_dispatcher(void* model, ALLEGRO_EVENT ev)
 	Full* f = (Full*)model;
 	switch (ev.type)
 	{
-	case ALLEGRO_EVENT_DISPLAY_CLOSE:
+	/*case ALLEGRO_EVENT_DISPLAY_CLOSE:
 	{
 		return;
-	}
+	}*/
 	case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
 	{
 		pos.x = ev.mouse.x;

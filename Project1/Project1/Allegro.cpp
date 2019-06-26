@@ -26,12 +26,18 @@ Allegro::Allegro()
 		return;
 	}
 	
+	if (!al_install_audio())
+	{
+		cout << "failed to initialize the audio!\n";
+		init_ok = false;
+		return;
+	}
 	al_init_acodec_addon();
 
-	cash_sound=al_load_sample("ChaChing.mp3");
+	cash_sound=al_load_sample("ChaChing.wav");
 	if (!cash_sound)
 	{
-		cout << "failed to load mp3\n";
+		cout << "failed to load wav\n";
 	}
 	al_init_font_addon();
 	al_init_ttf_addon();

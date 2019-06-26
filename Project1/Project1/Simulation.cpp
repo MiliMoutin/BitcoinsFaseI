@@ -58,7 +58,7 @@ void Simulation::createNetwork() {
 		this->miners.push_back(node);
 	}
 
-	Miner* node = new Miner("Satoshi Nakamoto");
+	Miner* node = new Miner("SatoshiNakamoto");
 	this->Satochi = node;
 	this->miners.push_back(node);
 	n.push_back(node);

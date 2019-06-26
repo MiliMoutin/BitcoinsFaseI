@@ -50,6 +50,7 @@ int main(void) {
 	BlockchainView BCv(Simalle);					//segundo display, muestra la blockchain
 	BlockchainCtrl BCctr(BCv.get_display());		// controller de lo que pasa adentro del display de la blockchain	
 	EDACoin.getSatochi()->Subject::attach(BCv);
+	//EDACoin.getSatochi()->notifyAllObservers();
 	/*
 	for (int i = 0; i < EDACoin.get_total(); i++)
 	{
@@ -62,6 +63,7 @@ int main(void) {
 	ALLEGRO_EVENT ev, bc_ev;
 	do
 	{
+		al_set_target_backbuffer(vi.get_display());
 		ev = ctr.getEvent();
 		ctr.Alle_dispatcher(&EDACoin, ev);
 		/*if (EDACoin.get_next_pn() != -1)
@@ -76,8 +78,9 @@ int main(void) {
 			EDACoin.get_nodes()[next]->Subject::attach(BCv);
 			EDACoin.get_nodes()[next]->notifyAllObservers();
 		}*/
-			bc_ev = BCctr.getEvent();
-			BCctr.Alle_dispatcher(EDACoin.get_nodes()[next], bc_ev);
+		//al_set_target_backbuffer(BCv.get_display());
+		//bc_ev = BCctr.getEvent();
+		//BCctr.Alle_dispatcher(EDACoin.getSatochi(), bc_ev);
 		
 	}while (ev.type != ALLEGRO_EVENT_DISPLAY_CLOSE);
 
