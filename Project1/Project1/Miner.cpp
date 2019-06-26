@@ -68,8 +68,7 @@ bool Miner::mine() {
 			x=x << 1;
 		}
 	}
-	//si llego hasta aca es porque los primeros bits del challenge son cero
-	return true;
+
 }
 
 unsigned int Miner::newNonce() {
