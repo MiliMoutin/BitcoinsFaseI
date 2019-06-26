@@ -1,15 +1,16 @@
 #pragma once
 #include "MerkleNode.h"
+#define ID "id"
+#define LAST "last"
+#define NODES "nodes"
 
 class MerkleRoot{
 public:
 	MerkleRoot(){}
 	MerkleRoot(nlohmann::json jsonTree);
-	MerkleRoot(string id) { this->id = id;  left= nullptr; right = nullptr; }
+	MerkleRoot(string id) { this->id = id;  this->left= nullptr; this->right = nullptr; }
 	void setId(string id) { this->id = id; }
-	void setFirstChildren(MerkleNode* l, MerkleNode* r) {
-			this->left = l; this->right = r;
-	}
+	void setFirstChildren(MerkleNode* l, MerkleNode* r) { this->left = l; this->right = r;}
 	MerkleNode* getLeft() { return this->left; }
 	MerkleNode* getRight() { return this->right; }
 	string getID() { return this->id; }

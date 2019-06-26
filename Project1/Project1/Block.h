@@ -11,7 +11,7 @@ class Block :public Subject{
 public:
 	Block(){}
 	
-	Block(nlohmann::json jsonBlock);
+	Block(nlohmann::json& jsonBlock);
 
 	Block(vector<Transaction> transactions,string id="AhoraNo", MerkleRoot* mr = nullptr);
 

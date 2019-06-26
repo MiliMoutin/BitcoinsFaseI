@@ -51,6 +51,7 @@ private:
 	int spvn;
 	int minersn;
 	int tot;
+	bool txsPresent;
 	bool ** adjacenceM;
 	vector<Node*> n;
 

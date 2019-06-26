@@ -103,8 +103,10 @@
       <ConformanceMode>true</ConformanceMode>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
+    <Link />
     <Link>
-      <AdditionalDependencies>C:\Users\Agustín M\source\repos\BitcoinsFaseI\Project1\cryptopp820\Win32\Output\Debug\cryptlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>cryptlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -117,7 +119,7 @@
     </ClCompile>
     <Link />
     <Link>
-      <AdditionalDependencies>C:\Users\Agustín M\source\repos\BitcoinsFaseI\Project1\cryptopp820\Win32\Output\Debug\cryptlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>C:\Users\User\source\repos\BitcoinsFaseI2\Project1\cryptopp820\Win32\Output\Debug\cryptlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -199,6 +201,7 @@
     <ClCompile Include="Full.cpp" />
     <ClCompile Include="MerkleNod.cpp" />
     <ClCompile Include="MerkleRoot.cpp" />
+    <ClCompile Include="MerklNode.cpp" />
     <ClCompile Include="Miner.cpp" />
     <ClCompile Include="MinerView.cpp" />
     <ClCompile Include="Node.cpp" />

@@ -40,6 +40,8 @@ string Crypto::hexPrint(vector<byte> &dataToPrint)
 	encoder.Attach(new CryptoPP::StringSink(output));
 	encoder.Put(dataToPrint.data(), dataToPrint.size());
 	encoder.MessageEnd();
+	cout << output;
+	cout << endl;
 	return output;
 
 }

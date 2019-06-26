@@ -26,11 +26,12 @@ Transaction Block::getTransaction(string id) {
 	}
 }
 
-Block::Block(nlohmann::json jsonBlock) {
+Block::Block(nlohmann::json& jsonBlock) {
 	string i= jsonBlock[IDB];
 	this->id = i;
-	for (nlohmann::json jt : jsonBlock[TXB]) {
-		this->transactions.push_back(Transaction(jt));
+	for (int j = 0; j < jsonBlock[TXB].size(); j++) {
+		nlohmann::json txj = jsonBlock[TXB][j];
+		this->transactions.push_back(Transaction(txj));
 	}
 	this->root = new MerkleRoot(jsonBlock[MRB]);
 }

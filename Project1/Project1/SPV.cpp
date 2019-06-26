@@ -116,7 +116,9 @@ void SPV::makeTx(string idReceiver, double amount) {
 void SPV::CommunicateTx(Transaction t) {
 	for (Node* n : this->neighbours) {
 		Full* f = (Full*)n;
-		f->receiveTx(t.tranformToJson(), this);
+		ECDSA<ECP, SHA256>::PublicKey pk;
+		pk = this->getPk();
+		f->receiveTx(t.tranformToJson(), this,pk);
 	}
 }
 

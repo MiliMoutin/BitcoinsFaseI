@@ -17,7 +17,7 @@ class SPV;
 class Full :public Node {
 
 public:
-	Full() { Node::createPPKey(); }
+	Full():receivedFirst(false){ Node::createPPKey(); }
 	Full(string id);
 	string getType() { return "Full"; }
 	virtual string getID() { return this->id; }
@@ -26,10 +26,10 @@ public:
 	virtual void makeTx(string publicId, double EDACoins);
 	bool emptyBlockchain() { return blockchain.empty(); }
 	HeaderBlock askForHeader() { return this->blockchain.back().getHeader(); }
-	void injectBlock(nlohmann::json b, nlohmann::json nonce);
+	void injectBlock(nlohmann::json& b, nlohmann::json& nonce);
 	void destroy() { destroyBlockchain(); }
 	bool isNeighbour(string id);
-	virtual void receiveTx(nlohmann::json tx, Node* n);
+	virtual void receiveTx(nlohmann::json tx, Node* n, ECDSA<ECP, SHA256>::PublicKey& pk);
 
 	list<Block> getBchain() { return blockchain; }
 	list<Node*> getNeighbours() { return neighbours; }
@@ -37,12 +37,15 @@ public:
 
 protected:
 	//si llega un bloque y aparece alguno de los filters el node avisa
+	bool receivedFirst;
 	vector<string> filters;
 	list<Block> blockchain;
 	string id;
 	vector<MerkleRoot*> merkleroots;
 	vector<Transaction> receivedTx;
+	string NodeId() { return this->id; }
 
+	bool checkBlockValidity(Block B, unsigned int& nounce);
 	void destroyBlockchain();
 	void destroyTree(MerkleNode* nd);
 
@@ -69,7 +72,7 @@ protected:
 	void communicateTx(nlohmann::json tx);
 
 	bool checkUTXOinBlockchain(string id);
-
+	string MakeStr(MerkleNode* mn, string& str);
 
 
 };

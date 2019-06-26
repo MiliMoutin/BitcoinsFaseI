@@ -3,12 +3,12 @@
 #include <list>
 #include <string>
 #include "Crypto.h"
-#include "../cryptopp820/cryptlib.h"
-#include "../cryptopp820/ecp.h"
-#include "../cryptopp820/eccrypto.h"
-#include "../cryptopp820/hex.h"
-#include "../cryptopp820/oids.h"
-#include "../cryptopp820/osrng.h"
+#include "/Users/User/source/repos/BitcoinsFaseI2/Project1/cryptopp820/cryptlib.h"
+#include "/Users/User/source/repos/BitcoinsFaseI2/Project1/cryptopp820/ecp.h"
+#include "/Users/User/source/repos/BitcoinsFaseI2/Project1/cryptopp820/eccrypto.h"
+#include "/Users/User/source/repos/BitcoinsFaseI2/Project1/cryptopp820/hex.h"
+#include "/Users/User/source/repos/BitcoinsFaseI2/Project1/cryptopp820/oids.h"
+#include "/Users/User/source/repos/BitcoinsFaseI2/Project1/cryptopp820/osrng.h"
 #include "Transaction.h"
 #include "nlohmann/json.hpp"
 #include "Subject.h"
@@ -32,8 +32,9 @@ public:
 	virtual list<Node*> getNeighbours() = 0;
 	virtual void makeTx(string publicId, double EDACoins);
 	Transaction& signTx(Transaction& t);
-	bool verifyTx(Transaction& t);
+	bool verifyTx(Transaction& t, ECDSA<ECP, SHA256>::PublicKey& pk);
 	void visit() { visited = true; }
+	ECDSA<ECP, SHA256>::PublicKey getPk();
 	string getPublicID() { return this->publicId; }
 	bool wasVisited() { return visited; }
 	void reset() { visited = false; }
@@ -51,6 +52,7 @@ protected:
 	CryptoPP::ECDSA<ECP, SHA256>::PrivateKey privateKey;
 	CryptoPP::ECDSA<ECP, SHA256>::PublicKey publicKey;
 	Crypto crypp;
+	bool received;
 
 	node_pos position;
 };

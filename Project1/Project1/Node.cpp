@@ -18,19 +18,21 @@ void Node::createPPKey() {
 	ECDSA<ECP, SHA256>::PublicKey pubk;
 	this->privateKey.MakePublicKey(pubk);
 	this->publicKey = pubk;
-	this->publicId = crypp.getPI(this->publicKey);
 }
 
 Transaction& Node::signTx(Transaction& t) {
-
+	
+	vector<Input> signedImp;
 	for (Input& i: t.getInput()) {
 
 		AutoSeededRandomPool prng;
 		string message = i.toSign();
 		vector<byte> vecby=crypp.getSignature(this->privateKey, message);
 		i.setSignature(vecby);
-		
+		signedImp.push_back(i);
+
 	}
+	t.setInput(signedImp);
 	return t;
 
 }
@@ -68,6 +70,7 @@ void Node::makeTx(string pID, double EDACoins) {
 			}
 		}
 		this->to_send = Transaction(impColector, outColector);
+		notifyAllObservers();
 	}
 }
 
@@ -85,11 +88,12 @@ bool Node::canDoTx(double amount) {
 	return found;
 }
 
-bool Node::verifyTx(Transaction& t) {
+ECDSA<ECP, SHA256>::PublicKey Node::getPk() {
+	return this->publicKey;
+}
+
+bool Node::verifyTx(Transaction& t,ECDSA<ECP, SHA256>::PublicKey& pk) {
 	for (Input& i: t.getInput()) {
-		ECDSA<ECP, SHA256>::PublicKey pk;
-		StringSource ss(i.getPublicID(), true /*pumpAll*/);
-		pk.Load(ss);
 		string toS = i.toSign();
 		vector<byte> signa = i.getSignature();
 		if (!crypp.verifySignature(pk, toS, signa)) {
