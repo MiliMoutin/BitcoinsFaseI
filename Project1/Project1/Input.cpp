@@ -49,16 +49,16 @@ nlohmann::json Input::transformToJson() {
 	j["BlockID"] = BlockID;
 	j["UTXOID"] = UTXOId;
 
-	std::stringstream aux;
+	/*std::stringstream aux;
 	string sign;
 
 	for (int i = 0; i < this->signature.size(); i += 2) {
 		byte b = signature[i];
 		aux << std::hex << b;
 		sign += aux.str();
-	}
-
-	j["signature"] = sign;
+	}*/
+	string hexaPrint = crypp.hexPrint(this->signature);
+	j["signature"] = crypp.hexPrint(this->signature);
 	j["PublicKey"] = this->publicKey;
 	return j;
 

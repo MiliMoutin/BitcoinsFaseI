@@ -1,13 +1,10 @@
 #include "MerkleRoot.h"
-#define ID "id"
-#define LAST "last"
-#define NODES "nodes"
 
 
 MerkleRoot::MerkleRoot(nlohmann::json jsonTree) {
 	string i = jsonTree[ID];
 	this->id = i;
-	if (!jsonTree[LAST]) {
+	if (jsonTree[LAST]==false) {
 		left = BuiltTreefromJson(jsonTree[NODES][0]);
 		right = BuiltTreefromJson(jsonTree[NODES][1]);
 	}
@@ -17,8 +14,9 @@ MerkleRoot::MerkleRoot(nlohmann::json jsonTree) {
 }
 
 MerkleNode* MerkleRoot::BuiltTreefromJson(nlohmann::json tree) {
-	if (tree[LAST]) {
-		return new MerkleNode(tree[ID]);
+	if (tree[LAST] == true) {
+		string id = tree[ID];
+		return new MerkleNode(id);
 	}
 	else {
 		MerkleNode* n = new MerkleNode(tree[ID]);

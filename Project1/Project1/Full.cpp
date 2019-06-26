@@ -42,8 +42,8 @@ void Full::injectBlock(nlohmann::json& jsonBlock, nlohmann::json& nonce) {
 	Block b(jsonBlock);
 	MerkleRoot* mr = createTree(b);
 	b.setRoot(mr);
-	//PASAR EL NONCE A UNSIGNED INT
-	unsigned int nonce_ = 0;
+	string nonceStr = nonce["nonce"];
+	unsigned int nonce_ = strtoul(nonceStr.c_str(), NULL, 10);
 	if (checkBlockValidity(b, nonce_)) {
 		this->blockchain.push_back(b);
 		//si tengo filtro voy y busco si hay alguno trasacción de ellos
@@ -115,7 +115,7 @@ MerkleRoot* Full::createTree(Block b) {
 
 	//genero el id del MerkleRoot
 	string id_to_make = left->getBlockId() + right->getBlockId();
-	MerkleRoot* m = new MerkleRoot(generateIDString(id_to_make));
+	MerkleRoot* m = new MerkleRoot(to_string(generateIDString(id_to_make)));
 
 	m->setFirstChildren(left, right);
 
@@ -265,6 +265,7 @@ void Full::destroyBlockchain() {
 		destroyTree(b->getLeft());
 		destroyTree(b->getRight());
 	}
+	notifyAllObservers();
 }
 
 void Full::destroyTree(MerkleNode* nd) {
@@ -279,17 +280,17 @@ void Full::destroyTree(MerkleNode* nd) {
 }
 
 void Full::receiveTx(nlohmann::json tx, Node* who, ECDSA<ECP, SHA256>::PublicKey& pk) {
-		bool received = false;
+	Node::received = false;
 		Transaction t(tx);
 		//me fijo si la transaccion ya fue previamente recibida
 		if (receivedTx.size()!=0) {
 			for (Transaction transac : receivedTx) {
 				if (t.getId() == transac.getId()) {
-					received = true;
+					Node::received = true;
 				}
 			}
 		}
-		if (!received /*&& Node::verifyTx(t,pk)*/) {
+		if (!Node::received /*&& Node::verifyTx(t,pk)*/) {
 			
 			/*Me fijo si la firma esta bien*/
 			/*chequeo que la transacción que me llego tenga UTXO que no fueron utilizados antes*/
@@ -310,6 +311,7 @@ void Full::receiveTx(nlohmann::json tx, Node* who, ECDSA<ECP, SHA256>::PublicKey
 				}
 			}
 		}
+		notifyAllObservers();
 }
 
 bool Full::checkUTXOinBlockchain(string id) {

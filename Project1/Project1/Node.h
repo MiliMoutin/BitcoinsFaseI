@@ -52,6 +52,7 @@ protected:
 	CryptoPP::ECDSA<ECP, SHA256>::PrivateKey privateKey;
 	CryptoPP::ECDSA<ECP, SHA256>::PublicKey publicKey;
 	Crypto crypp;
+	bool received;
 
 	node_pos position;
 };

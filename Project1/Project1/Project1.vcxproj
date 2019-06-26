@@ -201,6 +201,7 @@
     <ClCompile Include="Full.cpp" />
     <ClCompile Include="MerkleNod.cpp" />
     <ClCompile Include="MerkleRoot.cpp" />
+    <ClCompile Include="MerklNode.cpp" />
     <ClCompile Include="Miner.cpp" />
     <ClCompile Include="MinerView.cpp" />
     <ClCompile Include="Node.cpp" />

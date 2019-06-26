@@ -3,15 +3,9 @@
 
 void Miner::receiveTx(nlohmann::json tx, Node* n, ECDSA<ECP, SHA256>::PublicKey& pk) {
 	Full::receiveTx(tx, n, pk);
-	bool received = false;
 	Transaction txx(tx);
-	for (Transaction t : Full::receivedTx) {
-		if (t == txx) {
-			received = true;
-		}
-	}
-	if (!received) {
-		this->toMine.push_back(Transaction(tx));
+	if (Node::received == false) {
+		this->toMine.push_back(txx);
 	}
 }
 
@@ -138,7 +132,7 @@ void Miner::hasMined() {
 		if (n->getType() == "Full" || n->getType() == "Miner") {
 			Full* f = (Full*)n;
 			nlohmann::json JsonNonce;
-			JsonNonce["Block"] = to_string(this->winnerNonce);
+			JsonNonce["nonce"] = to_string(this->winnerNonce);
 			nlohmann::json block_ = this->lastMined.TransformToJson();
 			f->injectBlock(block_, JsonNonce);
 		}

@@ -79,6 +79,9 @@
     <ClCompile Include="Crypto.cpp">
       <Filter>.cpps</Filter>
     </ClCompile>
+    <ClCompile Include="MerklNode.cpp">
+      <Filter>.cpps</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Allegro.h">

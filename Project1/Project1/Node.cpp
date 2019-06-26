@@ -70,6 +70,7 @@ void Node::makeTx(string pID, double EDACoins) {
 			}
 		}
 		this->to_send = Transaction(impColector, outColector);
+		notifyAllObservers();
 	}
 }
 
