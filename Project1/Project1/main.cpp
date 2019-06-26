@@ -22,9 +22,9 @@ using namespace std::chrono;
 using namespace std;
 
 
-int main(void) {
-	Allegro Simalle;
 
+int main(void) {
+	Allegro alle;
 	Simulation EDACoin(5,5,3);
 	if (!EDACoin.creationSuccessful()) {
 		cout << "Simulation creation failed" << endl;
@@ -42,34 +42,14 @@ int main(void) {
 	EDACoin.notifyAllObservers();
 	
 	SimCtrl ctr(vi.get_display());
-	/*
-	list<Block> bl = ((Full*)(EDACoin.get_nodes()[0]))->getBchain();
-
-
-	
-	BlockchainView BCv(Simalle);
-	BlockchainCtrl BCctr(BCv.get_display());
-
-	for (int i = 0; i < EDACoin.get_total(); i++)
-	{
-		if (EDACoin.get_nodes()[i]->getType() == "Full")
-		{
-			EDACoin.get_nodes()[i]->Subject::attach(BCv);
-		}
-	}
-*/
-	ALLEGRO_EVENT ev, bc_ev;
+	ALLEGRO_EVENT ev;
 	do
 	{
 		ev = ctr.getEvent();
 		ctr.Alle_dispatcher(&EDACoin, ev);
-		/*if (ctr.stat == node)
-		{
-			bc_ev = BCctr.getEvent();
-			BCctr.Alle_dispatcher(EDACoin.get_nodes()[0], bc_ev);
-		}*/
 	}while (ev.type != ALLEGRO_EVENT_DISPLAY_CLOSE);
 
 	return 0;
-}
+}*/
+
 
