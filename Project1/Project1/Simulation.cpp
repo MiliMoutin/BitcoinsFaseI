@@ -7,7 +7,7 @@
 using namespace std;
 
 
-Simulation::Simulation(unsigned int fulln, unsigned int spv, unsigned int miners):correctParameters(true), started(false) {
+Simulation::Simulation(unsigned int fulln, unsigned int spv, unsigned int miners):correctParameters(true) {
 	/*Me fijo si los parametros son correctos*/
 	if (fulln + spv + miners> MAXNODES || miners>fulln) {
 		this->correctParameters = false;
@@ -25,10 +25,13 @@ Simulation::Simulation(unsigned int fulln, unsigned int spv, unsigned int miners
 				adjacenceM[i][j] = false;
 			}
 		}
+		Cajita caj;
+		cajita = &caj;
 		createNetwork();
 		startCoinCirculation();
 		printMatrix();
 	}
+	//vec2arr_nodes();
 }
 
 
@@ -168,6 +171,7 @@ void Simulation::startCoinCirculation() {
 
 	nlohmann::json genesis;
 	//deberiamos tener la signature de Satochi
+	/*
 	Input genesisInput("BlockID", "UTXODI", "firmaSatochi");
 	Output genesisOutPut(Satochi->getID(), 50);
 	vector<Input> gi;
@@ -184,7 +188,7 @@ void Simulation::startCoinCirculation() {
 		Miner* m = (Miner*)n[i];
 		m->receiveTx(genesis, this->Satochi);
 	}
-	
+	*/
 }
 
 void Simulation::printMatrix() {
@@ -226,7 +230,14 @@ void Simulation::keepMining() {
 
 
 
-
+void Simulation::vec2arr_nodes()
+{
+	for (int i = 0; i < tot; i++)
+	{
+		nodo[i] = *(n[i]);
+	}
+	return;
+}
 
 
 

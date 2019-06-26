@@ -85,6 +85,7 @@ unsigned int Miner::newNonce() {
 		}
 		aux--;
 	}
+	return aux;
 }
 
 string Miner::strToHash(unsigned int& non) {

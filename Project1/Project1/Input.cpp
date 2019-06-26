@@ -3,7 +3,7 @@
 
 using namespace std;
 
-Input::Input(string BlockID, string UTXOId, vector<byte> signature, string publicId="") { 
+Input::Input(string BlockID, string UTXOId, vector<byte> signature, string publicId) { 
 	this->BlockID = BlockID; 
 	this->UTXOId = UTXOId; 
 	this->signature = signature; 

@@ -6,6 +6,7 @@
 #include "Allegro.h"
 #include "Simulation.h"
 #include "SimulationView.h"
+#include "SimCtrl.h"
 #include <string>
 #include <exception>
 #include <fstream>
@@ -20,13 +21,23 @@ using namespace std;
 
 
 int main(void) {
+	Allegro alle;
 	Simulation EDACoin(5,5,3);
-	if (EDACoin.creationSuccessful()) {
-		cout << "successfull creation" << endl;
+	if (!EDACoin.creationSuccessful()) {
+		cout << "Simulation creation failed" << endl;
 	}
-	EDACoin.createTx("Satoshi Nakamoto", "nodo1", 10);
-	EDACoin.prueba();
-	sleep_for(minutes(20));
+	SimulationView vi(alle, EDACoin.get_total());
+	EDACoin.attach(vi);
+	EDACoin.notifyAllObservers();
+	
+	SimCtrl ctr(vi.get_display());
+	ALLEGRO_EVENT ev;
+	do
+	{
+		ev = ctr.getEvent();
+		ctr.Alle_dispatcher(&EDACoin, ev);
+	}while (ev.type != ALLEGRO_EVENT_DISPLAY_CLOSE);
+
 	return 0;
 }
 

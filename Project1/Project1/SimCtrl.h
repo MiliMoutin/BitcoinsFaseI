@@ -18,6 +18,6 @@ class SimCtrl :public AllegroCtrl
 public:
 	SimCtrl(ALLEGRO_DISPLAY* display);
 	~SimCtrl(){}
-	void dispatcher(void*model);
+	void Alle_dispatcher(void*model, ALLEGRO_EVENT ev);
 	state stat;		//estado de la cajita
 };
